@@ -1,0 +1,36 @@
+page-search {
+  .custom-icon{
+    .item > ion-icon{ min-width: 15px;}
+  }
+  .card-ios{ width: 100%; margin: 0;}
+  .card-header-ios{ background: color($colors,background); padding: $space;}
+  
+  .searchbar-ios .searchbar-input{ font-size: 18px; height: 32px;}
+  .hot{margin-top: 14px;
+    .button-ios{ height: 2.4em;}
+  }
+  .tool {
+    position: relative;
+    text-align: center;
+    height: 12rem;
+    background: color($colors,primary);
+    .card-title {
+      position: absolute;
+      top: 25%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 62%;
+      width: 100%;
+      color: #fff;
+    }
+  }
+
+  
+}

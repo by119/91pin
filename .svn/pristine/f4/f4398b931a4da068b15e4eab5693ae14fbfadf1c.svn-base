@@ -1,0 +1,163 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the DetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+@IonicPage({
+  name: 'pro-detail'
+})
+@Component({
+  selector: 'page-pro-detail',
+  templateUrl: 'pro-detail.html',
+})
+export class ProDetailPage {
+  @ViewChild(Slides) slides: Slides;
+  goods_id = null;
+  title: string = '全脂牛奶';
+  current: number = 1; //当前所在轮播图
+  slideLen: number = 1;  //轮播图数量
+  stock: number = 1000; //库存
+  openCoupon: boolean = true; //优惠券列表开关 默认隐藏
+  openNum: boolean = false; //数量选择开关 默认显示
+  chooseNum: number = 1;//已选数量
+  bigNum = 1;//最大购买数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+  grey2: boolean = false; // 加数量的按钮是否置灰
+  pet: string = "0"; // 默认选中商品描述
+  commodity: boolean = true;
+  commodityStr: string = '<h2>我是标题</h2><h3>我是中标题</h3><h4>我是小标题</h4>';//商品参数
+  goodsCont = {};
+  propertyData = {};
+  newLen = 0;
+  parameteCont = [];
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log(this.navParams, 'nav');
+    this.goods_id = this.navParams.get('goods_id');
+
+    this.detail();
+    this.property();
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    if (currentIndex < this.slideLen) {
+      this.current = currentIndex + 1;
+    }
+  }
+  // 分享商品
+  share() {
+    console.log('分享商品');
+  }
+  // 控制优惠券显隐
+  switchCoupon() {
+    this.openCoupon = !this.openCoupon;
+  }
+  // 控制数量显隐
+  switchNum() {
+    this.openNum = !this.openNum;
+  }
+
+  inputKeyUp($event) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+    $event.target.value = Math.floor($event.target.value);
+    $event.target.value = $event.target.value <= 0 ? 1 : $event.target.value;
+    this.chooseNum = $event.target.value <= this.bigNum ? $event.target.value : this.bigNum;
+    this.grey = this.chooseNum <= 1 ? true : false;
+    this.grey2 = this.chooseNum >= this.bigNum ? true : false;
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+      this.grey2 = false;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+  }
+  // 添加数量
+  add() {
+    if (this.chooseNum < this.bigNum) {
+      this.chooseNum++;
+      this.grey = false;
+    }
+    if (this.chooseNum >= this.bigNum) {
+      this.grey2 = true;
+    }
+  }
+  save() {
+    this.cp.getData('goods/save', {
+      list: "3506,4207,5369,4762,4747,4015,4686,4966,4897,4428,4319", goodsId: "4696"
+      // silent: true
+    }).then(
+      (t: any) => {
+        // 加入浏览记录
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  // 获取商品详情
+  detail() {
+    this.cp.getData('goods/detail', {
+      id: this.goods_id
+      // silent: true
+    }).then(
+      (t: any) => {
+        this.goodsCont = t.data;
+        this.newLen = t.data.recommend.length;
+        this.slideLen = t.data.goods_img.length;
+        let spe = t.data.goods_properties.spe, arr = [];
+        for (const list in spe) {
+          for (const key in spe[list]) {
+
+            console.log(spe, spe[list][key], list, key);
+            arr.push(spe[list][key]);
+          }
+        }
+        this.parameteCont = arr;
+        // console.log(this.parameteCont,'this.parameteCont');    
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  property() {
+    // id: "4897", attr_id: [], num: 1, warehouse_id: "1", area_id: "1"
+    this.cp.getData('goods/property', {
+      id: this.goods_id,
+      attr_id: [], //--------------------
+      num: this.chooseNum,
+      warehouse_id: "1",
+      area_id: "1"
+      // silent: true
+    }).then(
+      (t: any) => {
+        this.propertyData = t.data;
+        this.bigNum = t.data.stock
+        // console.log(t, this.propertyData, 'tttttt');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+}

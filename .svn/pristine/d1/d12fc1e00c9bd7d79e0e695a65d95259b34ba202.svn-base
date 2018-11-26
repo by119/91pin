@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { IonicPageModule } from 'ionic-angular';
+import { AfterProgressPage } from './after-progress';
+
+@NgModule({
+  declarations: [
+    AfterProgressPage,
+  ],
+  imports: [
+    IonicPageModule.forChild(AfterProgressPage),
+  ],
+})
+export class AfterProgressPageModule {}

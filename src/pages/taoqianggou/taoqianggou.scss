@@ -1,0 +1,155 @@
+page-taoqianggou {
+
+  $boxHeight: 4.5rem;
+  $bgColor: #2D3845;
+
+
+  [relative], .relative {
+    position: relative;
+  }
+
+  [absolute], .absolute {
+    position: absolute;
+  }
+
+  p {
+    margin: 0;
+  }
+
+    .changci:before {
+      content: '';
+      display: block;
+      width: 25%;
+      height: 100%;
+      background-color: color($colors, primary);;
+      position: absolute;
+      top: 0;
+      left: 25%;
+    }
+    .changci:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 99%;
+      left: 37.5%;
+      margin-left: -1rem;
+      border: 1rem solid transparent;
+      border-top: 0.5rem solid color($colors, primary);;
+    }
+    .changci.beforeGoods:before {
+      left: 0;
+    }
+    .changci.beforeGoods:after {
+      left: 12.5%;
+    }
+
+    .changci {
+      display: flex;
+      height: $boxHeight;
+      color: color($colors, white);
+      background-color: $bgColor;
+
+      .box {
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .content {
+          height: $boxHeight*0.7;
+          line-height: $boxHeight*0.35;
+          top: $boxHeight*0.15;
+          position: relative;
+          font-size: 1.2rem;
+
+          span {
+            display: inline-block;
+            width: 100%;
+          }
+
+          span:first-child {
+            font-size: 1.6rem;
+            font-weight: bold;
+          }
+
+          span:last-child {
+            color: color($colors, gray);;
+          }
+
+        }
+      }
+      .current_box {
+        span:last-child {
+          color: color($colors, white) !important;
+          font-weight: bold;
+        }
+      }
+
+      .title_box {
+        width: 25%;
+        height: 100%;
+        overflow: visible;
+
+        span:first-child {
+          font-size: 1.45rem !important;
+        }
+
+        span {
+          color: color($colors, white) !important;
+        }
+      }
+
+      ion-scroll {
+        width: 75%;
+        height: 100%;
+        z-index: 2;
+
+        .box_container {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          height: $boxHeight;
+          width: 100%;
+
+          .box {
+            width: 33.333333333333333333%;
+            height: 100%;
+          }
+        }
+      }
+
+    }
+
+    .timer {
+      justify-content: space-between;
+      line-height: 3rem;
+      height: 3rem;
+      background-color: #ddd;
+      font-size: 1.5rem;
+      padding: 0 0.8rem;
+      white-space: nowrap;
+      .icon {
+        font-size: 2rem;
+      }
+      .left {
+        color: color($colors, primary);
+      }
+      .right {
+        color: color($colors, gray);
+        .block {
+          display: inline-block;
+          vertical-align: super;
+          transform: translateY(19%);
+          height: 1.8rem;
+          line-height: 1.8rem;
+          padding: 0 0.2rem;
+          margin: 0 0.2rem;
+          border-radius: 0.2rem;
+          background-color: color($colors, black);
+          color: color($colors, white);
+        }
+      }
+    }
+}

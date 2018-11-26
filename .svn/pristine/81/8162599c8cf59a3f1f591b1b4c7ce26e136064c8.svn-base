@@ -1,0 +1,117 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the OrderDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'order-detail'
+})
+@Component({
+  selector: 'page-order-detail',
+  templateUrl: 'order-detail.html',
+})
+export class OrderDetailPage {
+  objectId = null;
+  listArr = [];
+  flowOk: boolean = !1;
+  address = '';
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams,
+    private alertCtrl: AlertController) {
+  }
+  ionViewWillEnter() {
+    this.flowOk && this.checkOrder();
+  }
+
+  ionViewDidLoad() {
+    this.objectId = this.navParams.get('objectId');
+    this.detail();
+  }
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  detail() {
+    this.cp.getData('user/order/detail', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        this.listArr = t.data;
+        this.address = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 取消订单
+  cancel() {
+    this.cp.getData('user/order/cancel', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        if (t.code == 0) {
+          this.alertTips('取消成功');
+        } else {
+          this.alertTips(t.data);
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  confirmCancel() {
+    let alert = this.alertCtrl.create({
+      title: '提示',
+      message: '确认取消订单？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.cancel();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  alertTips(tip) {
+    let alert = this.alertCtrl.create({
+      title: '提示',
+      subTitle: tip,
+      buttons: ['确定']
+    });
+    alert.present();
+  }
+  
+  checkOrder() {
+    if (this.address!='') {//这里判断有没有地址
+      this.goToAddr();
+    }
+  }
+  
+  chooseAddr(addr) {
+    //这里赋值地址
+    this.address = addr;
+  }
+  goToAddr() {
+    this.cp.goto({
+      view: 'address',
+      callBack: this.chooseAddr.bind(this)
+    });
+  }
+}
+

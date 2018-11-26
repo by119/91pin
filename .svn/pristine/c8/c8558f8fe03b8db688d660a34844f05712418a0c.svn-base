@@ -1,0 +1,122 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the FirmOrderPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'firm-order'
+})
+@Component({
+  selector: 'page-firm-order',
+  templateUrl: 'firm-order.html',
+})
+export class FirmOrderPage {
+  flow_type = 0;
+  bs_id = 0;
+  team_id = 0;
+  t_id = "0";
+  flowData = {};
+  userInfo = {};
+  cartGoods = [];
+  goodsList = [];
+  addressId = null;//收货地址id
+  shippingId = 0;//快递id
+  ru_id = 0;//商家id
+  flowOk: boolean = !1;
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+  ionViewWillEnter() {
+    this.flowOk && this.checkOrder();
+  }
+  ionViewDidLoad() {
+    this.flow_type = this.navParams.get('flow_type') ? this.navParams.get('flow_type') : 0;
+    this.bs_id = this.navParams.get('objectId') ? this.navParams.get('objectId') : 0;
+    this.team_id = this.navParams.get('team_id') ? this.navParams.get('team_id') : 0;
+    this.t_id = this.navParams.get('t_id') ? this.navParams.get('t_id') : "0";
+    this.flow();
+  }
+
+
+  // 修改配送方式
+  changeShip(r, i) { //r: 商铺id  i: 快递id
+    // console.log('r-', r, 'i-', i);
+    this.shippingId = i;
+    this.ru_id = r;
+    this.shipping();
+  }
+  flow() {
+    this.cp.getData('flow', {
+      flow_type: this.flow_type,
+      bs_id: this.bs_id,
+      team_id: this.team_id,
+      t_id: this.t_id,
+      silent: true
+    }).then(
+      (t: any) => {
+        this.flowData = t.data;
+        this.userInfo = t.data.default_address;
+        this.addressId = t.data.default_address.address_id;
+        this.cartGoods = t.data.cart_goods_list;
+        this.goodsList = t.data.cart_goods_list.list;
+        this.ru_id = t.data.cart_goods_list.list[0].shop_info[0].ru_id;//默认商家id
+
+        let listObj = t.data.cart_goods_list.list;
+        if (t.data.cart_goods_list.list != '') {
+          for (const key in listObj) {
+            if (listObj[key].shop_info[0]) {
+              this.changeShip(listObj[key].shop_info[0].ru_id, listObj[key].shop_info[0].shipping_id)
+            }
+          }
+        }
+        this.flowOk = true;
+        this.checkOrder();
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  shipping() {
+    this.cp.getData('flow/shipping', {
+      address: this.addressId,
+      id: this.shippingId,
+      ru_id: this.ru_id,
+      flow_type: this.flow_type,
+      uc_id: 0,
+      silent: true
+    }).then(
+      (t: any) => {
+        // console.log(t, 'shipping');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  checkOrder() {
+    if (!this.userInfo) {//这里判断有没有地址
+      this.goToAddr();
+    }
+  }
+
+  chooseAddr(addr) {
+    //这里赋值地址
+    console.log(addr);
+  }
+  goToAddr() {
+    this.cp.goto({
+      view: 'address',
+      callBack: this.chooseAddr.bind(this)
+    });
+  }
+}

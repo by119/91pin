@@ -1,0 +1,48 @@
+page-address{
+    .content{
+        color: #555;
+    }
+    .grid{
+        padding: 0;
+    }
+    ._icon-row{
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        background: #fff;
+        padding-right: 0.8rem;
+    }
+    .item-ios.item-block .item-inner {
+        border: none;
+    }
+    .add_name{
+        color: #000;
+        // color: color($colors,'primary');
+    }
+    // 控制复选框大小
+    ion-checkbox{
+        $checkbox-ios-icon-size:10px;
+    }
+    
+    ._address {
+        line-height: 27px;
+        height: 27px;
+        font-size: 14px;
+        border-sizing:border-box;
+    }
+    ion-item{
+        height: 40px;
+    }
+    .add_address{
+        border-bottom: 1px solid #ccc;
+        padding:0 0.8rem 0 1.6rem;
+        height: 48px;
+        line-height: 48px;
+    
+    }
+    .add_icon{
+        text-align: right;
+        height: 40px;
+        line-height: 40px;
+    }
+}

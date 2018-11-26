@@ -1,0 +1,7 @@
+<ion-card class="channels">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of columns" (click)="cp.goto(item.link)"> <img src="{{item.pic}}"> {{item.remark_arr?.title}} </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>

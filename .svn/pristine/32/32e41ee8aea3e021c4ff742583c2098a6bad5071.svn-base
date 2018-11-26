@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>我的拼团</ion-title>
+  </ion-navbar>
+      <ion-segment [(ngModel)]="tabs" (ionChange)="changeSeg()" mode="md" class="bgwhite">
+        <ion-segment-button value="0">正在拼团</ion-segment-button>
+        <ion-segment-button value="1">成功团</ion-segment-button>
+        <ion-segment-button value="2">失败团</ion-segment-button>
+      </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="items[tabs]&&items[tabs].length>0;else elseBlank">
+      <div class="collage-list" *ngFor="let item of items[tabs];let i = index;">
+        <ion-icon style="color: #2EAF37;" *ngIf="num==1" class="iconfont icon-team-success state-img"></ion-icon>
+        <ion-icon style="color: #BEBEBE;" *ngIf="num==2" class="iconfont icon-team-failed state-img"></ion-icon>
+        <div (click)="goTo({objectId:item?.order_id,view:'order-detail'})" class="clearfix" style="width: 100%">
+          <img src="{{item?.goods_thumb}}" alt="">
+          <div class="collage-info">
+            <p>{{item?.goods_name}}</p>
+            <p>
+              <ion-note>已有{{item?.limit_num}}人成团</ion-note>
+            </p>
+            <p class="collage-price">{{item?.team_price}}</p>
+          </div>
+        </div>
+        <div class="clearfix" style="border-top: 1px solid #F2F2F2;padding: .5rem;">
+          <div class="progress" *ngIf="item.type!='2'&&item.pay_status=='2'" (click)="goTo({view:'collage-progress',team_id:item.team_id})">拼团进度</div>
+          <div class="progress" *ngIf="item.type!='2'&&item.pay_status!='2'" (click)="goTo({objectId:item.order_id,view:'order-detail'})">去支付</div>
+          <div class="view-order" (click)="goTo({objectId:item.order_id,view:'order-detail'})">查看订单</div>
+        </div>
+      </div>
+    </div>
+  <ng-template #elseBlank>
+      <div class="no_records" *ngIf="!items.length">
+        <p></p>
+        <p> 未找到相关记录 </p>
+      </div>
+    </ng-template>
+    <ion-infinite-scroll (ionInfinite)="doInfinite()">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

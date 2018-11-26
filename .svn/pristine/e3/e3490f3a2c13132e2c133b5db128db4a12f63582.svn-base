@@ -1,0 +1,84 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the CollagePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collage'
+})
+@Component({
+  selector: 'page-collage',
+  templateUrl: 'collage.html',
+})
+export class CollagePage {
+  @ViewChild(Content) content: Content;
+  pet: string = "0";
+  listArr: any = [];
+  num = 0; //当前所在tab列 热门：0   新品：1  优选：2
+  size = 10;//一次请求数据条数
+  page = 1; //当前请求的页数
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.teamUserOrder(0);
+  }
+  goTo(url) {
+    this.cp.goto(url)
+  }
+
+  // 我的拼团
+  teamUserOrder(type) {
+    // 正在拼团：0   成功团：1   失败团：2
+    this.content.scrollToTop();
+    this.page = 1;
+    this.num = type;
+    this.cp.getData('team/teamUserOrder', {
+      page: this.page,
+      size: this.size,
+      type: this.num
+    }).then(
+      (t: any) => {
+        this.listArr = t.data;
+        console.log(this.listArr,'listArr');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  getMore() {
+    this.cp.getData('team/teamUserOrder', {
+      page: this.page,
+      size: this.size,
+      type: this.num,
+      silent: true
+    }).then(
+      (t: any) => {
+        let arr = this.listArr;
+        this.listArr = arr.concat(t.data);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.getMore();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
+  }
+}

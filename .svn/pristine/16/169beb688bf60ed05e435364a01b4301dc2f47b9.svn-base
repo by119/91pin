@@ -1,0 +1,10 @@
+page-channel {
+  ion-segment{
+    .segment-button{
+    }
+    .icon{
+      margin-left:5px;
+    }
+  }
+
+}

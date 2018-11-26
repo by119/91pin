@@ -1,0 +1,206 @@
+<!--
+  Generated template for the DetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{goodsCont?.goods_info?.goods_name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="position: relative;">
+    <ion-slides (ionSlideDidChange)="slideChanged()" pager>
+      <ion-slide *ngFor="let item of goodsCont?.goods_img;">
+        <img src="{{item}}" alt="">
+      </ion-slide>
+    </ion-slides>
+    <div class="slide-i">{{current}}/{{slideLen}}</div>
+  </div>
+  <div class="detail-info">
+    <p style="padding-right: 2rem;position: relative;">
+      <ion-icon *ngIf="goodsCont.shop_name==undefined" class="iconfont icon-self" style="color: #FE5261;margin-right: .3rem"></ion-icon>
+      <!-- {{goodsCont.shop_name!=undefined?'':'自营'}} -->
+      {{goodsCont?.goods_info?.goods_name}}
+      <ion-icon class="iconfont icon-share share-btn" (click)="share()"></ion-icon>
+    </p>
+    <p>
+      <span class="current-price">{{goods_price}}</span>
+      <span class="cost-price">{{market_price}}</span>
+    </p>
+    <p class="repertory">
+      <span>销量：{{goodsCont?.goods_info?.sales}}</span>
+      <span style="float: right;">库存：{{stock}}</span>
+    </p>
+  </div>
+  <!-- 优惠券 -->
+  <!-- <div class="detail-coupon" *ngIf="openCoupon; else elseCoupon" (click)="switchCoupon()">
+    <span>领券</span>
+    <ion-icon class="iconfont icon-coupon coupon-icon"></ion-icon>
+    <span>领取优惠券</span>
+    <ion-icon name="ios-arrow-down" class="switch-coupon"></ion-icon>
+  </div>
+  <ng-template #elseCoupon>
+    <div class="detail-coupon" (click)="switchCoupon()">
+      <span>领券</span>
+      <ion-icon class="iconfont icon-coupon coupon-icon"></ion-icon>
+      <span>领取优惠券</span>
+      <ion-icon name="ios-arrow-up" class="switch-coupon"></ion-icon>
+    </div>
+    <div class="coupon-list">
+      <div class="list-l">
+        <div class="list-l-t">
+          <div class="list-price clearfix">
+            <span style="font-size: 1rem;">￥</span>
+            <span>100</span>
+          </div>
+          <div class="list-ask">
+            <p style="color: #73D3D6">购满2000元赠全场优惠券</p>
+            <p>购满2000元赠全场优惠券</p>
+          </div>
+        </div>
+        <div class="list-l-b">
+          <p>2017-02-29 至 2021-04-20</p>
+        </div>
+      </div>
+      <div class="list-r">
+        立即
+        <br>领取
+      </div>
+    </div>
+  </ng-template> -->
+  <div class="detail-num" *ngIf="openNum;else elseNum" (click)="switchNum()">
+    <span>已选 {{attr_str}} {{chooseNum}}个</span>
+    <ion-icon name="ios-arrow-down" class="switch-num"></ion-icon>
+  </div>
+  <ng-template #elseNum>
+    <div class="detail-num" style="border-bottom: 1px solid #ccc" (click)="switchNum()">
+      <span>已选 {{attr_str}} {{chooseNum}}个</span>
+      <ion-icon name="ios-arrow-up" class="switch-num"></ion-icon>
+    </div>
+    <!-- 选择商品参数 -->
+    <div class="goods-param" *ngFor="let item of goodsParam; let i = index">
+      <h4 class="param-title">{{item.name}}</h4>
+      <ul class="param-list-box clearfix">
+        <li class="param-list" *ngFor="let list of item.values; let j = index" [ngClass]="{'chose':i==chooseAttr[i]&&j==chooseAttrIndex[i]}"
+          (click)="choseStyle(i,list.id,j,list.label)">{{list.label}}</li>
+      </ul>
+    </div>
+    <div class="ctrl-num clearfix">
+      <span style="float: left;color: #cbcbcb;font-size: 1.4rem;margin: 0 .5rem;">数量</span>
+      <div class="ation">
+        <span class="reduce" [ngClass]="{'grey':grey}" (click)="reduce()">-</span>
+        <!-- <input type="text" value="{{chooseNum}}" id="count"> -->
+        <input type="number" [(ngModel)]="chooseNum" id="count" min="1" (keyup)="inputKeyUp($event)">
+
+        <span class="add" [ngClass]="{'grey':grey2}" (click)="add()">+</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="seller">
+    <div class="clearfix">
+      <img src="{{goodsCont?.detail?.sellershopinfo?.logo_thumb}}" alt="">
+      <div style="width: 80%;float: left;">
+        <p class="seller-name">{{goodsCont?.shop_name}}</p>
+        <p class="seller-follow">已经有{{goodsCont?.coll_num}}人关注</p>
+      </div>
+    </div>
+    <!-- <div class="seller-score">
+        <div>商品
+          <span style="color: #FE5261">5分</span>
+          <span class="score-num" style="background-color: #FE5261;">100</span>
+        </div>
+        <div>服务
+          <span style="color: #10AA52">5分</span>
+          <span class="score-num" style="background-color: #10AA52;">100</span>
+        </div>
+        <div>时效
+          <span style="color: #F745CE">5分</span>
+          <span class="score-num" style="background-color: #F745CE;">100</span>
+        </div>
+      </div> -->
+  </div>
+  <div class="guess-like" *ngIf="newLen>0">
+    <p class="like-title">猜你喜欢</p>
+    <div class="like-out">
+      <div class="like-box clearfix" [ngStyle]="{'width':newLen? 6.5*newLen + 'rem':'100%'}">
+        <div class="like-list" *ngFor="let item of goodsCont?.recommend" (click)="goTo({goods_id:item.goods_id,view:'pro-detail'})">
+          <img src="{{item.goods_thumb}}" alt="">
+          <p class="list-title">{{item.goods_name}}</p>
+          <p class="list-price">￥{{item.shop_price}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-item class="nav-title">
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0">
+          商品描述
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          规格参数
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-item>
+
+  <div class="parameter" [ngSwitch]="pet">
+    <div *ngSwitchCase="0">
+      <div class="collage-intro" *ngIf="goodsCont?.detail;else elseBlank" [innerHTML]="goodsCont.goods_info.goods_desc">
+      </div>
+      <ng-template #elseBlank>
+        <div class="blank">
+          <ion-icon class="iconfont icon-blank"></ion-icon>
+          <p>亲，此处没有内容～！</p>
+        </div>
+      </ng-template>
+    </div>
+    <div *ngSwitchCase="1">
+      <div *ngIf="goodsCont?.goods_properties?.spe;else elseNull2">
+        <div *ngFor="let item of parameteCont" class="para-cont">
+          <span class="para para-name">{{item.name}}</span>
+          <span class="para para-val">{{item.value}}</span>
+        </div>
+      </div>
+      <ng-template #elseNull2>
+        <div class="blank">
+          <ion-icon class="iconfont icon-blank"></ion-icon>
+          <p>亲，此处没有内容～！</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="foot" *ngIf="stock>0">
+      <div class="collect" (click)="switchCollect()">
+        <div *ngIf="isCollect===true;else elseCollect">
+          <ion-icon name="ios-heart"></ion-icon>
+        </div>
+        <ng-template #elseCollect>
+          <ion-icon name="ios-heart-outline"></ion-icon>
+        </ng-template>
+        <span style="font-size: 1.1rem;">收藏</span>
+      </div>
+      <div class="car" (click)="gotoRoot()">
+        <ion-icon name="" class="iconfont icon-car"></ion-icon>
+        <span style="font-size: 1.1rem;">购物车</span>
+        <span class="flow-num">{{flowNum}}</span>
+      </div>
+      <div class="single-buy" (click)="addCart(1)">
+        <span>加入购物车</span>
+      </div>
+      <div class="group-buy" (click)="showBuy()">
+        <span>立即购买</span>
+      </div>
+    </div>
+    <button ion-button class="foot-stock" color="light" *ngIf="stock<=0">库存不足</button>
+  </ion-toolbar>
+</ion-footer>

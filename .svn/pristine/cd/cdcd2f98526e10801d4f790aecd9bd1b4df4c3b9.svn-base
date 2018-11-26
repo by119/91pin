@@ -1,0 +1,105 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+        "spec": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:hzjianshi/cordova-plugin-sharesdk.git",
+          "sshUrl": "git+ssh://git@github.com/hzjianshi/cordova-plugin-sharesdk.git",
+          "httpsUrl": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+          "gitUrl": "git://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+          "shortcut": "github:hzjianshi/cordova-plugin-sharesdk",
+          "directUrl": "https://raw.githubusercontent.com/hzjianshi/cordova-plugin-sharesdk/master/package.json"
+        }
+      },
+      "E:\\cordova\\maoxuan\\maoxuan"
+    ]
+  ],
+  "_from": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+  "_id": "cordova-plugin-sharesdk@0.1.0",
+  "_inCache": true,
+  "_location": "/cordova-plugin-sharesdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+    "spec": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:hzjianshi/cordova-plugin-sharesdk.git",
+      "sshUrl": "git+ssh://git@github.com/hzjianshi/cordova-plugin-sharesdk.git",
+      "httpsUrl": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+      "gitUrl": "git://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+      "shortcut": "github:hzjianshi/cordova-plugin-sharesdk",
+      "directUrl": "https://raw.githubusercontent.com/hzjianshi/cordova-plugin-sharesdk/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git#456896e2ac89ceb8d08cc1b482ee6759e77c9e42",
+  "_shasum": "decdcad5e9f1da70eb603701bece821b389eb550",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+  "_where": "E:\\cordova\\maoxuan\\maoxuan",
+  "author": {
+    "name": "behring.zhao"
+  },
+  "bugs": {
+    "url": "https://github.com/hzjianshi/cordova-plugin-sharesdk/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-sharesdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "dependencies": {},
+  "description": "封装sharesdk,使hybird app能快速集成分享功能",
+  "devDependencies": {},
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=4.1.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=4.0.0"
+    }
+  ],
+  "gitHead": "456896e2ac89ceb8d08cc1b482ee6759e77c9e42",
+  "homepage": "https://github.com/hzjianshi/cordova-plugin-sharesdk#readme",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "share",
+    "sharesdk",
+    "ionic",
+    "react"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-sharesdk",
+  "optionalDependencies": {},
+  "readme": "# Cordova Plugin ShareSDK\r\n\r\n把qq空间也实现了下\r\n\r\n### 什么是Cordova Plugin ShareSDK\r\n\r\nCordova Plugin ShareSDK封装了[ShareSDK](http://sharesdk.mob.com/)的android和ios平台的分享功能。在hybird app开发中可以方便的完成分享功能。如:ionic2等。目前支持：微信，朋友圈，微博，QQ好友，QQ空间，新浪微博的分享。\r\n\r\n\r\n### 为什么使用Cordova Plugin ShareSDK \r\n\r\n[ShareSDK](http://sharesdk.mob.com/)几乎完成了所有社交平台的分享功能的封装，但是都是基于原生app、web等。小型创业公司基于成本等其他因素，逐步开始使用hybird混合应用开发，基于html完成app开发，然后用cordova打包构建出各平台app。为了能在hybird app中快速集成分享功能，您需要使用此插件，简单的几行代码就可完成分享功能。\r\n\r\n\r\n\r\n### 如何使用Cordova Plugin ShareSDK\r\n\r\n#### cordova项目\r\n\r\n1. 进入cordova项目目录。\r\n\r\n```powershell\r\ncd ~/yourpath/cordovaproject\r\n```\r\n\r\n2. 安装cordova-plugin-sharesdk。\r\n\r\n```powershell\r\ncordova plugin add cordova-plugin-sharesdk --variable SHARESDK_ANDROID_APP_KEY=xxxx --variable SHARESDK_IOS_APP_KEY=xxxx --variable WECHAT_APP_ID=xxxx --variable WECHAT_APP_SECRET=xxxx --variable WEIBO_APP_ID=xxxx --variable WEIBO_APP_SECRET=xxxx --variable WEIBO_REDIRECT_URL=http://xxxx --variable QQ_IOS_APP_ID=xxxx --variable QQ_IOS_APP_HEX_ID=xxxx --variable QQ_IOS_APP_KEY=xxxx --variable QQ_ANDROID_APP_ID=xxxx --variable QQ_ANDROID_APP_KEY=xxxx\r\n```\r\n\r\n3. 重新构建cordova项目。\r\n\r\n```powershell\r\ncordova build\r\n```\r\n\r\n4. 通过下面js代码完成分享。\r\n\r\n```javascript\r\n/** 分享纯文本 */\r\nfunction shareText(platformType) {\r\n    var text='这是一条测试文本~~~~';\r\n    var shareInfo = {text:text};\r\n    sharesdk.share(platformType, ShareSDK.ShareType.Text, shareInfo,\r\n                   function(success){},\r\n                   function(fail){});\r\n}\r\n\r\n/** 分享图片，多张使用数组 */\r\nfunction shareImages(platformType) {\r\n    var images = ['https://github.com/zhaolin0801/cordova-sharesdk-demo/blob/master/www/img/Wechat-QRcode.jpeg?raw=true','https://github.com/zhaolin0801/cordova-sharesdk-demo/blob/master/www/img/Wechat-QRcode.jpeg?raw=true'];\r\n    var shareInfo = {images:images}; // 单张 用 {image:image}  //多张android里面看了下 其实没实现 要用的自己实现下\r\n    sharesdk.share(platformType, ShareSDK.ShareType.Image, shareInfo,\r\n                   function(success){},\r\n                   function(fail){});\r\n}\r\n\r\n/** 分享网页 (注：QQ空间的APP不支持分享网页) */\r\nfunction shareWebPage(platformType) {\r\n    var icon = 'https://github.com/zhaolin0801/cordova-sharesdk-demo/blob/master/www/img/Wechat-QRcode.jpeg?raw=true';\r\n    var title = '这是网页的标题';\r\n    var text = '这是网页的内容，android未签名只能分享单张图片到朋友圈';\r\n    var url = 'http://carhot.cn/articles/1';\r\n    var shareInfo = {icon:icon, title:title, text:text, url:url};\r\n    sharesdk.share(platformType, ShareSDK.ShareType.WebPage, shareInfo,\r\n                   function(success){},\r\n                   function(fail){});\r\n}\r\n\r\nfunction shareTextToWechatSession() {\r\n    shareText(ShareSDK.PlatformType.WechatSession);\r\n}\r\n\r\nfunction shareImagesToWechatSession() {\r\n    shareImages(ShareSDK.PlatformType.WechatSession);\r\n}\r\n\r\nfunction shareWebPageToWechatSession() {\r\n    shareWebPage(ShareSDK.PlatformType.WechatSession);\r\n}\r\n\r\n\r\nfunction shareTextToWechatTimeline() {\r\n    shareText(ShareSDK.PlatformType.WechatTimeline);\r\n}\r\n\r\nfunction shareImagesToWechatTimeline() {\r\n    shareImages(ShareSDK.PlatformType.WechatTimeline);\r\n}\r\n\r\nfunction shareWebPageToWechatTimeline() {\r\n    shareWebPage(ShareSDK.PlatformType.WechatTimeline);\r\n}\r\n```\r\n\r\n5.下面代码判断是否安装响应的客户端\r\n\r\n```javascript\r\n/** 是否安装微博客户端 **/\r\nfunction checkWeiboClient() {\r\n    sharesdk.isInstallClient.promise(ShareSDK.ClientType.SinaWeibo).then(function(isInstall){\r\n        if(isInstall) {\r\n            alert(\"新浪微博客户端已安装\");\r\n        }else {\r\n            alert(\"未安装新浪微博客户端\");\r\n        }\r\n    });\r\n}\r\n\r\n/** 是否安装QQ客户端 **/\r\nfunction checkQQClient() {\r\n    sharesdk.isInstallClient.promise(ShareSDK.ClientType.QQ).then(function(isInstall){\r\n        if(isInstall) {\r\n            alert(\"QQ客户端已安装\");\r\n        }else {\r\n            alert(\"未安装QQ客户端\");\r\n        }\r\n    });\r\n}\r\n\r\n/** 是否安装微信客户端 **/\r\nfunction checkWechatClient() {\r\n    sharesdk.isInstallClient.promise(ShareSDK.ClientType.Wechat).then(function(isInstall){\r\n        if(isInstall) {\r\n            alert(\"微信客户端已安装\");\r\n        }else {\r\n            alert(\"未安装微信客户端\");\r\n        }\r\n    });\r\n}\r\n```\r\n\r\n\r\n\r\n#### ionic2项目\r\n\r\n1. 进入ionic2项目目录。\r\n\r\n```powershell\r\ncd ~/yourpath/ionicproject\r\n```\r\n\r\n2. 安装cordova-plugin-sharesdk。\r\n\r\n```powershell\r\nionic plugin add cordova-plugin-sharesdk --variable SHARESDK_ANDROID_APP_KEY=xxxx --variable SHARESDK_IOS_APP_KEY=xxxx --variable WECHAT_APP_ID=xxxx --variable WECHAT_APP_SECRET=xxxx --variable WEIBO_APP_ID=xxxx --variable WEIBO_APP_SECRET=xxxx --variable WEIBO_REDIRECT_URL=http://xxxx --variable QQ_IOS_APP_ID=xxxx --variable QQ_IOS_APP_HEX_ID=QQxxxx --variable QQ_IOS_APP_KEY=xxxx --variable QQ_ANDROID_APP_ID=xxxx --variable QQ_ANDROID_APP_KEY=xxxx\r\n```\r\n\r\n3. 重新构建cordova项目。\r\n\r\n```powershell\r\ncordova build\r\n```\r\n\r\n> anroid中的微信分享需要审核通过，并且打包release版本。\r\n>\r\n> ```\r\n> cordova build android --release\r\n> ```\r\n>\r\n> andorid打包的app签名一定要和微信开放平台注册的app签名一致！否则无法分享成功。微信开放平台填写的签名必须是**小写字母无分号**格式。\r\n>\r\n> 查看手机上安装的app签名apk[下载地址](http://file3.data.weipan.cn.wscdns.com/28171732/1a592358248a8c3cf185a2f1598abd2ebbece95c?ip=1484656202,117.36.140.26&ssig=54WbKKSkVd&Expires=1484656802&KID=sae,l30zoo1wmz&fn=gen_signature.apk&skiprd=2&se_ip_debug=117.36.140.26&corp=2&from=1221134)\r\n\r\n\r\n\r\n4. 配置cordova-plugin-sharesdk全局变量。在ionic项目的declarations.d.ts文件添加下面2行代码。\r\n\r\n```typescript\r\ndeclare var sharesdk: any;\r\ndeclare var ShareSDK: any;\r\n```\r\n\r\n5. 通过**Cordova项目**第4步中的代码进行分享。\r\n\r\n> 因为插件中的变量是cordova注入的，在网页运行会报错，变量为定义。需要做判断处理。\r\n>\r\n> ```typescript\r\n> if(\"undefined\" != typeof ShareSDK){....}\r\n> or\r\n> if(\"undefined\" != typeof sharesdk){....}\r\n> ```\r\n\r\n\r\n\r\n### 关于安装插件参数说明\r\n\r\n在第2步添加[cordova-plugin-sharesdk](https://github.com/zhaolin0801/cordova-plugin-sharesdk.git) 插件的时候需要输入对应分享平台的Key和Secret作为参数。参数对应如下表：\r\n\r\n| 参数                       | 说明                                       |\r\n| ------------------------ | ---------------------------------------- |\r\n| SHARESDK_IOS_APP_KEY     | [ShareSDK注册(iOS)](http://www.mob.com/)   |\r\n| SHARESDK_ANDROID_APP_KEY | [ShareSDK注册(Android)](http://www.mob.com/) |\r\n| WECHAT_APP_ID            | [微信开放平台注册](https://open.weixin.qq.com/)  |\r\n| WECHAT_APP_SECRET        | [微信开放平台注册](https://open.weixin.qq.com/)  |\r\n| WEIBO_APP_ID             | [新浪微博开放平台注册](http://open.weibo.com/)     |\r\n| WEIBO_APP_SECRET         | [新浪微博开放平台注册](http://open.weibo.com/)     |\r\n| WEIBO_REDIRECT_URL       | 微博回调地址：我的应用/应用信息/高级信息/OAUTH2.0授权设置里配置    |\r\n| QQ_IOS_APP_ID            | [腾讯开放平台注册](http://open.qq.com/)          |\r\n| QQ_IOS_APP_HEX_ID        | 由QQ_IOS_APP_ID生成。 其格式为：”QQ” ＋ AppId的16进制（如果appId转换的16进制数不够8位则在前面补0，如转换的是：5FB8B52，则最终填入为：QQ05FB8B52 注意：转换后的字母要大写） 转换16进制的方法：echo ‘ibase=10;obase=16;801312852′\\|bc，其中801312852为QQ的AppID。**传入参数不需要加QQ，只需要传入8位数字** |\r\n| QQ_IOS_APP_KEY           | [腾讯开放平台注册](http://open.qq.com/)          |\r\n| QQ_ANDROID_APP_ID        | [腾讯开放平台注册](http://open.qq.com/)          |\r\n| QQ_ANDROID_APP_KEY       | [腾讯开放平台注册](http://open.qq.com/)          |\r\n\r\n\r\n\r\n### 关于cordova-plugin-cordova中全局变量说明\r\n\r\n安装完cordova-plugin-sharesdk后，window下有2个全局变量，sharesdk和ShareSDK。\r\n\r\nsharesdk：只提供一个share方法，shareInfo是一个object类型。包含要分享的数据。可用key参考下文。\r\n\r\n```javascript\r\nsharesdk.share(platformType, shareType, shareInfo,\r\n                   function(){/**分享成功回调**/},\r\n                   function(msg){/**分享失败或者取消分享回调**/});\r\n```\r\n\r\n> 分享失败或取消分享返回msg，msg是**json对象**。通过msg.state判断是取消分享还是分享失败。如果是分享失败。msg.error获取失败信息。\r\n\r\n\r\n\r\nShareSDK：提供ClientType，PlatformType，ShareType，ResponseState常量。如下表：\r\n\r\n\r\n\r\n| 客户端类型(用于判断是否安装了相应的客户端)        | 说明      |\r\n| ----------------------------- | ------- |\r\n| ShareSDK.ClientType.SinaWeibo | 新浪微博客户端 |\r\n| ShareSDK.ClientType.Wechat    | 微信客户端   |\r\n| ShareSDK.ClientType.QQ        | QQ客户端   |\r\n| ShareSDK.ClientType.QZone        | QQ空间客户端   |\r\n\r\n\r\n\r\n| 平台类型（分享到指定平台）                        | 说明    |\r\n| ------------------------------------ | ----- |\r\n| ShareSDK.PlatformType.QQFriend       | QQ好友  |\r\n| ShareSDK.PlatformType.QZone    | QQ空间  |\r\n| ShareSDK.PlatformType.Copy           | 拷贝    |\r\n| ShareSDK.PlatformType.WechatSession  | 微信好友  |\r\n| ShareSDK.PlatformType.WechatTimeline | 微信朋友圈 |\r\n| ShareSDK.PlatformType.SinaWeibo      | 新浪微博  |\r\n\r\n\r\n\r\n| 分享内容类型                     | 说明   |\r\n| -------------------------- | ---- |\r\n| ShareSDK.ShareType.Text    | 文本类型 |\r\n| ShareSDK.ShareType.Image   | 图片类型 |\r\n| ShareSDK.ShareType.WebPage | 网页类型 |\r\n\r\n\r\n\r\n| 分享响应状态                         | 说明   |\r\n| ------------------------------ | ---- |\r\n| ShareSDK.ResponseState.Begin   | 开始分享 |\r\n| ShareSDK.ResponseState.Success | 分享成功 |\r\n| ShareSDK.ResponseState.Fail    | 分享失败 |\r\n| ShareSDK.ResponseState.Cancel  | 取消分享 |\r\n\r\n### Demo地址\r\n\r\nhttps://github.com/zhaolin0801/cordova-sharesdk-demo\r\n\r\n\r\n\r\n### 问题\r\n\r\n1. Android微信分享需要使用审核通过后的签名文件打包才能分享。\r\n2. 目前仅支持android和ios平台的微信好友、微信朋友前、微博、QQ好友分享以及拷贝链接功能。分享类型包括：纯文本，单张图片，网页。\r\n\r\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git"
+  },
+  "version": "0.1.0"
+}

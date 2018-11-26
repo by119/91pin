@@ -1,0 +1,327 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+@IonicPage({
+  name: 'cart',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-cart',
+  templateUrl: 'cart.html',
+})
+export class CartPage {
+  bestGoods = [];
+  cartList = [];
+  total = [];
+  teamId = 0; //拼团队伍id
+  tId = 0;//goodinfoid
+  flowType = null; //
+  temp = {}; //跳转页面所带参数
+  cartId = null;
+  cartIdList = [];
+  cartIdStr = '';
+  goodsIdList = [];
+  goodsIdStr = '';
+  allState = false; //商品是否全部选中
+  shopList = []; //店铺选中状态
+  editState = false; //商品可否编辑状态
+  chooseNum = [];//已选数量
+  // goodNum = [];//库存数量
+  // astrictNum = 1; //限购数量
+  bigNum = [];//最大购买数量
+  // shopGoodsId = [];
+  shopGoodsIdStr = ''; //选择的商店下的商品id
+  totalPrice = '￥0';
+  totalNum = 0;
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewWillEnter() {
+    this.cart();
+  }
+  ionViewDidLoad() {
+  }
+
+  goTo(url) {
+    this.cp.goto(url)
+  }
+  // 编辑
+  showEdit() {
+    this.editState = !this.editState;
+  }
+  // 减少数量
+  reduce(i, j, id) {
+    if (this.chooseNum[i][j] > 1) {
+      this.chooseNum[i][j]--;
+      this.update(id, this.chooseNum[i][j]);
+    }
+  }
+  // 添加数量
+  add(i, j, id) {
+    if (this.chooseNum[i][j] < this.bigNum[i][j]) {
+      this.chooseNum[i][j]++;
+      this.update(id, this.chooseNum[i][j]);
+    }
+  }
+
+  inputKeyUp(num, i, j) {
+    // num = num.replace(/[^\d]/g, '');
+    num = Math.floor(num);
+    num = num <= 0 ? 1 : num;
+    this.chooseNum[i][j] = num <= this.bigNum[i][j] ? num : this.bigNum[i][j];
+  }
+  inputBlur(num, i, j, id) {
+    this.update(id, this.chooseNum[i][j]);
+  }
+  // 购物车
+  cart() {
+    this.cp.getData('cart', {}).then(
+      (t: any) => {
+        this.bestGoods = t.data.best_goods;
+        this.cartList = t.data.cart_list;
+        this.total = t.data.total;
+        let cart_list = t.data.cart_list, cartArr = [], idList = [], goodsIdList = [], bigNumList = [], chooseNumList = [], shopList = [];
+        for (let i in cart_list) {
+          let o = {};
+          o[i] = cart_list[i];
+          for (const key in o) {
+            let list = o[key];
+            let id = [], goodsId = [], bigNum = [], num = [], newGoods = [];
+            let newList = list.new_list[0].act_goods_list;
+            for (const li in newList) {
+              newGoods.push(newList[li]);
+              id.push(null);
+              goodsId.push(null);
+              bigNum.push(100);//----------------
+              num.push(newList[li].goods_number);
+            }
+            list.new_list = newGoods;
+            cartArr.push(list);
+            idList.push(id);
+            goodsIdList.push(goodsId);
+            bigNumList.push(bigNum);
+            chooseNumList.push(num);
+            shopList.push(0);
+          }
+        }
+        this.cartIdList = idList;
+        this.goodsIdList = goodsIdList;
+        this.bigNum = bigNumList;
+        this.chooseNum = chooseNumList;
+        this.shopList = shopList;
+        this.cartList = cartArr;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 全选
+  chooseAll() {
+    this.allState = !this.allState;
+    for (var i = 0; i < this.cartIdList.length; i++) {
+      this.shopList[i] = this.allState;
+      for (let j = 0; j < this.cartIdList[i].length; j++) {
+        this.cartIdList[i][j] = this.allState == true ? this.cartList[i].new_list[j].rec_id : null;
+        this.goodsIdList[i][j] = this.allState == true ? this.cartList[i].new_list[j].goods_id : null;
+      }
+    }
+  }
+  // 选择商店
+  chooseShop(i) {
+    let shopGoodsId = [];
+    this.shopList[i] = !this.shopList[i];
+    for (let j = 0; j < this.cartIdList[i].length; j++) {
+      this.cartIdList[i][j] = this.shopList[i] == true ? this.cartList[i].new_list[j].rec_id : null;
+      this.goodsIdList[i][j] = this.shopList[i] == true ? this.cartList[i].new_list[j].goods_id : null;
+      shopGoodsId[shopGoodsId.length] = this.cartList[i].new_list[j].rec_id;
+    }
+    this.shopGoodsIdStr = shopGoodsId.join(',');
+    this.all();
+    this.reckonCatNum({
+      cart_id: this.shopGoodsIdStr,
+      status: this.shopList[i] ? 1 : 0
+    });
+  }
+  // 选择商品
+  chooseGoods(i, j, cartid, goodsId) {
+    this.cartIdList[i][j] = this.cartIdList[i][j] != null ? null : cartid;
+    this.goodsIdList[i][j] = this.goodsIdList[i][j] != null ? null : goodsId;
+    this.all();
+    this.reckonCatNum({
+      cart_id: JSON.stringify(cartid),
+      status: ''
+    });
+  }
+  all() {
+    let count = 0, allCount = 0;
+    for (var i = 0; i < this.cartIdList.length; i++) {
+      let shopCount = 0;
+      allCount += this.cartIdList[i].length;
+      for (let j = 0; j < this.cartIdList[i].length; j++) {
+        if (this.cartIdList[i][j] != null) {
+          count++;
+          shopCount++;
+        }
+      }
+      this.shopList[i] = shopCount >= this.cartIdList[i].length ? true : false;
+    }
+    this.allState = count >= allCount ? true : false;
+  }
+  // 个人地址信息-提交订单
+  addressList() {
+    this.cartIdFn();
+    if (this.cartIdStr == '') {
+      this.cp.toast('请先选择商品！');
+      return false;
+    }
+    this.cp.getData('user/address/list', {
+      silent: true
+    }).then(
+      (t: any) => {
+        if (t.data !== '') {
+          //去确认订单页面
+          // ?objectId=0&flow_type=" + a + "&team_id=" + r + "&t_id=" + o
+          this.temp = {
+            view: 'firm-order',
+            cartId: this.cartIdStr,
+            objectId: 0,
+            flow_type: this.flowType,
+            team_id: this.teamId,
+            t_id: this.tId
+          };
+          this.goTo(this.temp);//跳转至订单详情页面
+        } else {
+          // 去添加地址页面
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 更新商品
+  update(id, amount) {
+    this.cp.getData('cart/update', {
+      id: id,
+      amount: amount,
+      silent: true
+    }).then(
+      (t: any) => {
+        // console.log(t, 'tttt');
+        this.changeNum({
+          id: id,
+          number: amount
+        });
+      }, err => {
+        console.log(2);
+      }
+    )
+  }
+
+  // 删除商品确认框
+  confirmDelete(i, j, id, goodsId) {
+    let that = this;
+    this.cp.prompt(
+      '提示', '确认删除选中商品？', '取消', function () {
+        console.log('取消');
+      }, '确定', function () {
+        that.delete(i, j, id, goodsId);
+        // let count = 0;
+        // for (var i = that.cartIdList.length - 1; i >= 0; i--) {
+        //   for (var j = that.cartIdList[i].length - 1; j >= 0; j--) {
+        //     if (that.cartIdList[i][j] != null) {
+        //       count++;
+        //       that.delete(i,j,that.cartIdList[i][j]);
+        //     }
+        //   }
+        // }
+        // if (count <= 0) {
+        //   that.cp.toast('请先选择要删除的商品!');
+        // }
+      });
+  }
+  // 删除商品
+  delete(i, j, id, goodsId) {
+    // console.log('删除商品', this.cartIdList, this.chooseNum);
+    this.cp.getData('cart/delete', {
+      id: id,
+      silent: true
+    }).then(
+      (t: any) => {
+        this.cartList[i].new_list.splice(j, 1);
+        this.cartIdList[i].splice(j, 1);
+        this.chooseNum[i].splice(j, 1);
+        this.bigNum[i].splice(j, 1);
+        if (this.cartList[i].new_list.length <= 0) {
+          this.shopList.splice(i, 1);
+          this.cartList.splice(i, 1);
+          this.cartIdList.splice(i, 1);
+          this.chooseNum.splice(i, 1);
+          this.bigNum.splice(i, 1);
+        }
+        this.cp.toast('删除成功!');
+      }, err => {
+        this.cp.toast('删除失败，请重试');
+      }
+    )
+  }
+  // 点击选择时统计购物车合计价格和商品数量
+  reckonCatNum(temp) {
+    this.cartIdFn();
+    temp.H5API = true;
+    temp.silent = true;
+    temp.id = this.cartIdStr + ',';
+    this.cp.getData('?m=cart&a=cart_label_count', temp).then(
+      (t: any) => {
+        this.totalNum = t.cart_number;
+        this.totalPrice = t.content;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  changeNum(temp) {
+    temp.H5API = true;
+    temp.silent = true;
+    temp.act_id = NaN; //-----------------
+    temp.arr = this.cartIdStr + ',';
+    temp.none = 0; //------------------
+    this.cp.getData('?m=cart&a=cart_goods_number', temp).then(
+      (t: any) => {
+        this.totalNum = t.num;
+        this.totalPrice = t.content;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  cartIdFn() {
+    let cartIdStr = [];
+    for (var i = 0; i < this.cartIdList.length; i++) {
+      for (let j = 0; j < this.cartIdList[i].length; j++) {
+        if (this.cartIdList[i][j] != null) {
+          cartIdStr.push(this.cartIdList[i][j]);
+        }
+      }
+    }
+    this.cartIdStr = cartIdStr.join(',');
+    console.log(this.cartIdStr, 'str');
+  }
+  goodsIdFn() {
+    let goodsIdStr = [];
+    for (var i = 0; i < this.goodsIdList.length; i++) {
+      for (let j = 0; j < this.goodsIdList[i].length; j++) {
+        if (this.goodsIdList[i][j] != null) {
+          goodsIdStr.push(this.goodsIdList[i][j]);
+        }
+      }
+    }
+    this.goodsIdStr = goodsIdStr.join(',');
+  }
+}

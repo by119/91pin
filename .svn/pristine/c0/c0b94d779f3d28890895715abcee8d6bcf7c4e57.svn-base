@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的地址</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="content">
+  <ion-list flex-column>
+    <!--style="{{item.default?'order:-1':''}}"-->
+    <div *ngFor='let item of infoList' class="item item-block item-ios">
+      <!--<ion-checkbox color="pink" readonly item-start [(ngModel)]="item.default" (click)="choice(item)"></ion-checkbox>-->
+      <div class="item-inner">
+        <div class="input-wrapper">
+        <ion-label>
+          <h3 class="address" (click)="choice(item)">{{item.address}}</h3>
+          <h5 (click)="choice(item)">
+            <span class="add_name">{{item.consignee}}</span>{{item.mobile}}
+            <ion-note *ngIf="item.default" color="orange">[默认地址]</ion-note>
+          </h5>
+          <ion-row no-padding class="address-btns" >
+            <ion-col flex flex-start no-padding>
+              <ion-checkbox color="pink" readonly [(ngModel)]="item.default" (click)="choiceDefault(item)"></ion-checkbox>设为默认
+            </ion-col>
+            <ion-col no-padding flex flex-end>
+              <button ion-button small (click)="edit(item)">编辑</button>
+              <button ion-button small (click)="del(item)">删除</button>
+            </ion-col>
+          </ion-row>
+        </ion-label>
+
+     <!--   <button class="item-button" clear ion-button item-end icon-only>
+          <ion-icon name="ios-create-outline"></ion-icon>
+        </button>-->
+        </div>
+      </div>
+    </div>
+    <ion-row class="add_address" (click)="cp.goto({view:'info-address'})">
+      <ion-col col-6>新增收货地址</ion-col>
+      <ion-col col-6 class="add_icon">
+        <ion-icon ios="ios-add-circle-outline" md="md-add-circle"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+    <!--<ion-item>
+      <ion-label>新增收货地址</ion-label>
+      <ion-icon item-end ios="ios-add-circle-outline" md="md-add-circle"></ion-icon>
+    </ion-item-->>
+    <!--
+  <ion-grid class="grid" *ngIf="!1">
+    <ion-row class="_icon-row" *ngFor='let item of infoList'>
+      <ion-col col-2 (click)="addressChange(item)">
+        <ion-item>
+          <ion-checkbox color="pink" [(ngModel)]="item.default"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-8 class="col-info" (click)="addressChange(item)">
+        <ion-row class="_address">{{item.address}}</ion-row>
+        <ion-row class="_address">
+          <span class="add_name">{{item.consignee}}</span>{{item.mobile}}
+          {{item.default==1}}
+        </ion-row>
+      </ion-col>
+      <ion-col text-right col-2 (click)="cp.goto({view:'info-address',item:item})">
+        <ion-icon ios="ios-brush-outline" md="ios-brush-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="add_address" (click)="cp.goto({view:'info-address'})">
+      <ion-col col-6>新增收货地址</ion-col>
+      <ion-col col-6 class="add_icon">
+        <ion-icon ios="ios-add-circle-outline" md="md-add-circle"></ion-icon>
+      </ion-col>
+    </ion-row>>
+    <ion-row class="add_address" (click)="cp.goto({view:'info-address'})">
+      <ion-col col-6>新增收货地址</ion-col>
+      <ion-col col-6 class="add_icon">
+        <ion-icon ios="ios-add-circle-outline" md="md-add-circle"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>-->
+</ion-content>

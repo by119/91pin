@@ -1,0 +1,149 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {CommonProvider} from "../../providers/common/common";
+
+
+@IonicPage({
+  name: 'pintuan',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-pintuan',
+  templateUrl: 'pintuan.html',
+})
+export class PintuanPage {
+  title = "拼团";
+
+  tc_id: any = '0';
+  ads_left:any = [];
+  ads_right:any = [];
+  banner:any = [];
+  banner_bottom:any = [];
+  team_categories_child:any = [];
+
+  goodList:any[] = [];
+
+  categories: any[] = [];
+  ru_id:any = false;
+  size = 40;//一次请求数据条数
+  page = 1; //当前请求的页数
+
+  constructor(public navCtrl: NavController,
+              public cp: CommonProvider,
+              public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.ru_id = this.navParams.get('ru_id') || 0;    
+    if(this.ru_id)
+      this.title = "该商家拼团";
+      
+    this.getTeam();
+    this.getTeamList();
+    this.getCategoriesIndex();
+  }
+
+  toggleType(tc_id){
+    if(this.tc_id==tc_id)
+      return;
+    this.tc_id = tc_id;
+    this.getTeamList();
+    this.getCategoriesIndex();
+  }
+
+  /*获取分类商品*/
+  getTeamList(){
+    let tc_id = this.tc_id;
+    let temp:any = { tc_id, page: 1, size: this.size };
+    console.log(temp,'getList');
+    if (this.ru_id) {
+      temp.ru_id = this.ru_id;
+    }
+    this.cp.getData('team/teamList',temp).then((res:any)=>{
+      if(res.code == 0){
+        this.goodList = res.data;
+      }
+    })
+  }
+  /*获取分类商品*/
+  getMore(){
+    let tc_id = this.tc_id;
+    let temp:any = { tc_id, page: this.page, size: this.size };
+    if (this.ru_id) {
+      temp.ru_id = this.ru_id;
+    }
+    console.log(temp,'getList22');
+    this.cp.getData('team/teamList',temp).then((res:any)=>{
+      if(res.code == 0){
+        let arr = this.goodList;
+        this.goodList = arr.concat(res.data);
+      }
+    })
+  }
+
+  /*获取分类导航数据*/
+  getCategoriesIndex(){
+    let tc_id = this.tc_id;
+    if(tc_id == 0)
+      this.getTeam();
+    else
+      this.cp.getData('team/categoriesIndex',{tc_id:tc_id}).then((res:any)=>{
+        console.log('getCategories',res);
+        if(res.code==0){
+          let {
+            ads_left=[],
+            ads_right=[],
+            banner=[],
+            banner_bottom=[],
+            team_categories_child=[]
+          } = res.data;
+          this.ads_left=ads_left;
+          this.ads_right=ads_right;
+          this.banner=banner;
+          this.banner_bottom=banner_bottom;
+          this.team_categories_child=team_categories_child;
+
+          console.log(this.ads_left);
+          console.log(this.ads_right);
+        // this.team_categories_child = [];
+        }
+      })
+  }
+
+  /*前往频道列表*/
+  goToChannel(tc_id:any){
+    this.cp.goto({tc_id:tc_id},'channel');
+  }
+
+  /*获取分类列表*/
+  getTeam(){
+    this.cp.getData('team').then((res:any)=>{
+      // console.log('getTeam',res);
+      if(res.code==0){
+        let {
+          ad_best_left:ads_left=[],
+          ad_best_right:ads_right=[],
+          team_categories:categories=[],
+          team_categories_child=[],
+          banner=[],
+          banner_bottom=[]
+        } = res.data;
+        this.categories = categories;
+        this.ads_left = ads_left;
+        this.ads_right = ads_right;
+        this.banner = banner;
+        this.banner_bottom = banner_bottom;
+        this.team_categories_child=team_categories_child;
+      }
+    })
+  }
+  
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.getMore();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
+  }
+
+}

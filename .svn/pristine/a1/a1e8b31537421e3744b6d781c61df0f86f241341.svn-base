@@ -1,0 +1,40 @@
+<!--
+  Generated template for the AssessDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>发表评价</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="assess-list clearfix">
+    <img src="{{assess.goods_thumb}}" alt="">
+    <div class="list-info">
+      <h4 class="list-title">{{assess.goods_name}}</h4>
+      <!-- <div class="group-num">{{assess.goods_attr}}</div> -->
+      <div class="list-buy">
+        <div class="list-price">￥{{assess.goods_price}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="assess-star">
+    评分：
+    <ion-icon (click)="star(1)" class="iconfont icon-star" [ngClass]="{'blank-star':star1}"></ion-icon>
+    <ion-icon (click)="star(2)" class="iconfont icon-star" [ngClass]="{'blank-star':star2}"></ion-icon>
+    <ion-icon (click)="star(3)" class="iconfont icon-star" [ngClass]="{'blank-star':star3}"></ion-icon>
+    <ion-icon (click)="star(4)" class="iconfont icon-star" [ngClass]="{'blank-star':star4}"></ion-icon>
+    <ion-icon (click)="star(5)" class="iconfont icon-star" [ngClass]="{'blank-star':star5}"></ion-icon>
+  </div>
+  <div class="assess-text">
+    <ion-textarea [(ngModel)]="content" placeholder="填写评论内容 (140字)"></ion-textarea>
+  </div>
+  <div class="sub-btn" (click)="add()">提交评论</div>
+
+</ion-content>

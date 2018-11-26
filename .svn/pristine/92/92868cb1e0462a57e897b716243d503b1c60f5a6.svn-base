@@ -1,0 +1,80 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+
+/**
+ * Generated class for the FootprintPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'footprint'
+})
+@Component({
+  selector: 'page-footprint',
+  templateUrl: 'footprint.html',
+})
+export class FootprintPage {
+  listArr = [];
+  size = 10; //一次请求数据条数
+  page = 1; //当前请求的页数
+  list = "4768,4319,4329,4828,4698,4015"; //--------------------
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.cp.getCache('list').then((t: any) => {
+      this.list = t ? t : [];
+      this.list = this.list.toString();
+      this.history();
+    });
+  }
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  history() {
+    this.cp.getData('goods/history', {
+      size: this.size,
+      page: 1,
+      list: this.list
+    }).then(
+      (t: any) => {
+        this.listArr = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  getMore() {
+    this.cp.getData('goods/history', {
+      page: this.page,
+      size: this.size,
+      list: this.list,
+      silent: true
+    }).then(
+      (t: any) => {
+        let arr = this.listArr;
+        this.listArr = arr.concat(t.data);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 上拉刷新
+  doInfinite(infiniteScroll) {
+    // this.page++;
+    // this.getMore();
+    // setTimeout(() => {
+    //   infiniteScroll.complete();
+    // }, 500);
+  }
+}

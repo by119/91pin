@@ -1,0 +1,7 @@
+{
+  "name": "maoxuan",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

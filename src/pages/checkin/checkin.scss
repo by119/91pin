@@ -1,0 +1,55 @@
+page-checkin {
+  .content-ios{ background-color: #ff2b66;}
+  .scroll-content > img{ width: 100%;}
+  .scroll-content > p{ width: 97%; margin: 0 auto;}
+  //fbc211
+  //9db6ef
+  .item-ios{
+    background-color: transparent; margin-bottom: 0;
+    .label-ios{ margin-right: 0; color: white; font-size: 14px;}
+    .toggle-ios{ height: 20px; width: 39px; padding-left: 8px;}
+    .toggle-ios .toggle-inner{ width: 16px; height: 16px;}
+  }
+  .list-ios{
+    margin-bottom: 0; margin-top: -12px;
+    & > .item-block:first-child{ border:none;}
+  }
+  .grid{ padding: 0 1.5%;}
+  .col{
+    background-color: #fff; border-radius: 5px; flex-basis: 28%; margin: 0 1.5%; margin-bottom: 1.1rem;text-align: center; padding: 0; border-bottom: 1px solid #9db6ef;
+    &.last{ flex-basis: 61%}
+    > div{ margin-top: .5rem;}
+    .day{ color: color($colors,secondary); font-weight: bold;}
+    .icon{
+      img{ height: 3.2rem;}
+    }
+    .name{ color: gray; margin-top: 0; font-size: 1.3rem;}
+    .intro{ background-color: color($colors,secondary); color: white; height: 3rem; line-height: 3rem; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
+    .tl,.br{ width: 1.4rem; height: 1.6rem; background: url('../assets/imgs/checkin/corner.png') no-repeat; background-size: cover; position: absolute; display: block;}
+    .tl{ top: 3px; left: 3px; background-position: 0 -1.6rem;}
+    .br{ bottom: 3px; right: 3px; background-position: 0 -3.2rem;}
+    
+    &.gray{
+      .tl{ background-position: 0 0;}
+      .intro{ background-color: darkgray;}
+      .day{ color: darkgray}
+      img{ filter: grayscale(100%);}
+    }
+  }
+  .rules{
+    margin: 20px 3% 0; font-size: 1.2rem; color: white; position: relative;
+    hr{ background-color: white; margin: 10px 0;}
+    .title{ background-color: #ff2b66; width: 100px; position: absolute; left: 50%; top: -10px; margin-left: -50px; text-align: center;}
+    ol{ padding-left: 15px; margin-top: 20px;}
+  }
+  
+  .alert{
+    width: 80%; text-align: center; position: relative;
+    .day{ position: absolute; top: 38%; left: 30%; width: 40%; background-color: black; color: white; height: 2.4rem; line-height: 2.4rem; border-radius: 2.4rem;}
+    img{ width: 100%; vertical-align: bottom;}
+    .orange{ color: color($colors, orange); font-size: 1.8rem; margin-bottom: 10px;}
+    .gray{ color: gray; margin-bottom: 10px;}
+    .body{background: white;  border-bottom-left-radius: 10px;  border-bottom-right-radius: 10px; padding: 10px;}
+    .button{ width: 70%; margin-left: 15%;}
+  }
+}

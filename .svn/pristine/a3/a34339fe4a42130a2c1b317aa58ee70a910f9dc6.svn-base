@@ -1,0 +1,44 @@
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {CommonProvider} from "../../providers/common/common";
+
+@IonicPage({
+  name: 'address'
+})
+@Component({
+  selector: 'page-address',
+  templateUrl: 'address.html',
+})
+export class AddressPage {
+  infoList: any = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cp: CommonProvider) {
+  }
+
+  ionViewDidLoad() {
+    this.getAddressList();
+  }
+
+  getAddressList(){
+    this.cp.getData('user/address/list').then((res:any)=>{
+      console.log(res);
+    })
+  }
+
+  addressChange(item) {
+    if (this.navParams.data.region) {
+      this.navParams.data.regionSelected && this.navParams.data.regionSelected(item);
+      // console.log( this.navParams.data.regionSelected);
+      // console.log(this.navParams.data.regionSelected(item));
+      this.cp.goback();
+    }
+      this.infoList.forEach((ele, index) => {
+        ele.is = false;
+      });
+      item.is = true;
+
+
+
+  }
+
+}

@@ -1,0 +1,151 @@
+page-article
+{
+	ion-content .a,ion-content .q,ion-footer .list{margin: 0}
+
+  .filter ion-col[width-33]
+  {
+    max-width: 40.5%;
+    -webkit-flex: 0 0 40.5%;
+    -ms-flex: 0 0 40.5%;
+    flex: 0 0 40.5%;
+    background-color: #fe2454;
+    color: #fff
+  }
+
+  .show .filter
+  {
+    top: 0
+  }
+
+  ion-content
+  {
+    font-size: 1.6rem
+  }
+
+  ion-content.content
+  {
+    background: #fff
+  }
+
+  ion-content img
+  {
+    max-width: 100%;
+    display: block;
+  }
+
+  ion-content strong
+  {
+    color: #fe2454
+  }
+
+  ion-content table.qa
+  {
+    border-right: 1px solid #efefef;
+    border-bottom: 1px solid #efefef
+  }
+
+  ion-content table.qa td
+  {
+    background: #fff;
+    border-left: 1px solid #efefef;
+    border-top: 1px solid #efefef;
+    position: relative
+  }
+
+  ion-content table.qa p
+  {
+    text-align: center
+  }
+
+  ion-content table.qa p img
+  {
+    width: 50%;
+    max-width: 92px;
+    display: inline-block
+  }
+
+  ion-content table.qa a
+  {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0
+  }
+
+  ion-content .q
+  {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    padding: 1rem 3rem 1rem 0
+  }
+
+  ion-content .q::after
+  {
+    position: absolute;
+    top: calc(50% - 4.95px);
+    right: 10px;
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid rgba(0,0,0,.3);
+    border-right: 1px solid rgba(0,0,0,.3);
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    content: " ";
+    transition: .5s
+  }
+
+  ion-content .q.show::after
+  {
+    top: calc(50%);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg)
+  }
+
+  ion-content .a
+  {
+    display: none;
+    padding: 1rem;
+    background: #efefef
+  }
+
+  ion-content .a.show
+  {
+    display: block
+  }
+
+
+  ion-footer ion-label
+  {
+    white-space: normal
+  }
+
+  ion-footer ion-avatar
+  {
+    background-color: #459d38;
+    border-radius: 50%
+  }
+
+  ion-footer ion-avatar img
+  {
+    height: auto!important;
+    width: 32px!important;
+    border-radius: 0!important;
+    margin-left: 4px;
+    margin-top: 4px
+  }
+
+  ion-content .agreement
+  {
+    font-size: 1.4rem;
+    padding-left: 8px;
+    .item-cover{width: 40%;
+  }
+    }
+
+  ion-content .item .checkbox
+  {
+    margin-right: 8px!important
+  }
+}

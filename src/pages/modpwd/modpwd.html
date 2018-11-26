@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>密码修改</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="bgwhite">
+  <form [formGroup]="pageForm">
+    <div class="input-container">
+      <ion-list>
+        <ion-item>
+          <ion-input type="password" formControlName="org_pwd" placeholder="原密码"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" formControlName="pwd" placeholder="新密码"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" formControlName="confirm_pwd" placeholder="确认密码"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.confirm_pwd.touched && pageForm.hasError('mismatchedPasswords') && pageForm.controls.pwd.valid">
+            <ion-note color="primary">两次输入密码不一致</ion-note>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="btn-container">
+      <p>
+        <button ion-button block round [disabled]="!pageForm.valid" (click)="sub()">提交</button>
+      </p>
+    </div>
+  </form>
+</ion-content>

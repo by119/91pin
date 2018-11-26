@@ -1,0 +1,28 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+@IonicPage({
+  name: 'nine',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-nine',
+  templateUrl: 'nine.html',
+})
+export class NinePage {
+
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad NinePage');
+  }
+  getItems(ev: any) {
+    const val = ev.target.value;
+    if (val && val.trim() != '') {
+      console.log(val);
+    }
+  }
+
+}

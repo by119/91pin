@@ -1,0 +1,103 @@
+<!--
+  Generated template for the AfterDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>申请退换货</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="list-content clearfix" style="border-bottom: 1px solid #F7F7F7;">
+    <img class="list-img" src="http://www.maoxuankj.com/images/201808/thumb_img/0_thumb_G_1534452217838.jpg" alt="">
+    <div class="list-detail">
+      <p style="color: #333;font-size: 1.2rem;text-overflow: unset;margin: 0 0 .5rem 0;">item.goods_name</p>
+      <ion-note>item.goods_attr</ion-note>
+      <p class="list-price" style="margin: 1rem 0 0 0;">
+        <span style="font-size:1.6rem;">item.goods_price_formated</span>
+        <span style="float: right;color: #333;">*item.goods_number</span>
+      </p>
+    </div>
+  </div>
+  <h4 class="tip">
+    <span>* 温馨提示：</span>本次售后服务将由卖家
+    <span>七号铺子</span>为您提供</h4>
+  <div class="tip clearfix">
+    服务类型
+    <span>*</span>
+    <div class="after-type">退款</div>
+  </div>
+  <div class="tip clearfix">
+    退款原因
+    <span>*</span>
+    <div class="select-cause">
+      <select name="parent_id" datatype="*" nullmsg="请选择退换货原因！">
+        <option value="0">请选择</option>
+        <option value="17">七天无理由</option>
+        <option value="18">拍错了</option>
+      </select>
+    </div>
+  </div>
+  <div class="tip clearfix">
+    退款问题描述
+    <span>*</span>
+    <ion-textarea [(ngModel)]="content" placeholder="请填写问题描述"></ion-textarea>
+  </div>
+
+  <div class="tip clearfix">
+    申请凭据
+    <div class="proof">
+      有检测报告
+      <!-- <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon> -->
+      <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+    </div>
+  </div>
+  <div class="tip clearfix">
+    图片信息
+    <!--图片-->
+
+    <div class="photos" padding flex wrap flex-start>
+      <!--循环显示图片-->
+      <div class="photo" relative *ngFor="let photo of photos;">
+        <a class="close" (click)="deleteImg(photo)"></a>
+        <div class="img-container" absolute top left>
+          <img center absolute [src]="photo" [alt]="photo">
+        </div>
+      </div>
+      <!--添加图片-->
+      <div class="photo upload" relative *ngIf="photos.length<6" (click)="addImg()">
+        <div class="photo-body" flex absolute top left>
+          <ion-icon name="ios-add"></ion-icon>
+        </div>
+        <!--
+          <span>添加照片</span>-->
+        <form action="" #form>
+          <input type="file" name="file" accept="image/*" (change)="uploadImg($event)">
+        </form>
+      </div>
+    </div>
+    <p>
+      为了帮助我们更好的解决问题，请您上传图片
+      <br> 注：最多可上传5张图片，支持jpg,png格式文件
+    </p>
+  </div>
+
+  <div class="tip clearfix">
+    留言
+    <ion-textarea [(ngModel)]="content" placeholder="请填写留言"></ion-textarea>
+  </div>
+  <div class="tip clearfix">
+    服务说明
+    <p>1.附件赠品，退换货时请一并退回。</p>
+    <p>2.关于物流损，请您在收到货时务必仔细检查，如发现商品外包装或商品本身外观存在异常，需当场向派送人员指出，并拒收整个包裹；如您在收到货后发现外观异常，请在收货24小时内提交退换货申请，如超时未申请，将无法受理。</p>
+    <p>3.关于商品实物与网站描述不符；商创保证所出商品均为正品行货，并与时下市场上同样直流商品一致，但因厂家会在没有任何提前通知的情况下更改产品包装，产地或者一些附件，所以我们无法确保您收到的货物与商城图片、产地、附件说明完全一致。</p>
+    <p>4、如果您在使用时对商品质量表示置疑，您可出具相关书面鉴定，我们会按照国家法律规定予以处理。</p>
+  </div>
+  <div class="sub-btn">提交申请</div>
+</ion-content>

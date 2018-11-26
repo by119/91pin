@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>设置</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="custom-icon">
+    <button ion-item (click)="cp.goto({view:'general-settings'})">
+      <ion-icon name="general" item-start></ion-icon>
+      通用设置
+    </button>
+    <button ion-item (click)="cp.goto({view:'account'})">
+      <ion-icon name="zhanghu" item-start></ion-icon>
+      账户设置
+    </button>
+    <button ion-item (click)="cp.goto({view:'modpwd'})" class="nobb">
+      <ion-icon name="xiugai" item-start></ion-icon>
+      修改密码
+    </button>
+    <ion-item-divider>  MaoxuanKJ.com</ion-item-divider>
+    <a ion-item [href]="ratingUrl" target="_blank" (click)="rating()">
+      <ion-icon name="pingfen" item-start></ion-icon>
+      评分支持
+      <ion-note item-end>方便您去推广App咯~</ion-note>
+    </a>
+    <button ion-item (click)="cp.goto({view:'article',id:6})">
+      <ion-icon name="lianxi" item-start></ion-icon>
+      联系我们
+    </button>
+    <button ion-item (click)="cp.goto({view:'article',id:11})">
+      <ion-icon name="women" item-start></ion-icon>
+      关于我们
+      <ion-note item-end>{{versionNumber}}</ion-note>
+    </button>
+    <button ion-item (click)="logout()" class="nobb">
+      <ion-icon name="tuichu" item-start></ion-icon>
+      退出登录
+    </button>
+  </ion-list>
+  <div class="about" flex-column margin-top2>
+    <ion-note>Copyright@2018</ion-note>
+    <ion-note>猫选 maoxuankj.com 版权所有</ion-note>
+  </div>
+</ion-content>

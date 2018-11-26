@@ -1,0 +1,153 @@
+.ion-ios-sysmsg {
+  background: url("../assets/icons/sysmsg.png") no-repeat center;
+  background-size: contain;
+  max-width: 32px;
+  width: 2.6rem;
+  height: 100%;
+}
+
+page-center {
+
+  /*修改 start*/
+  .myhead{
+    height:15rem;
+    background: url('../assets/imgs/card-saopaolo.png') center no-repeat;
+    background-size: 100% auto;
+  }
+  ion-badge {
+    padding: 3px 6px;
+    &[right] {
+      right: 6px;
+    }
+  }
+  .my-order-item {
+    .label-ios {
+      margin: 3px 0;
+    }
+  }
+  /*修改 over*/
+
+  .card-ios {
+    width: 100%;
+    margin: 0;
+  }
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  ion-card-content {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+  ion-avatar {
+    width: 5rem;
+    height: 5rem;
+    float: left;
+  }
+  .avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  .myhead ion-label {
+    float: left;
+  }
+  .myhead ion-label h2 {
+    line-height: 2rem;
+    text-align: left;
+    margin-left: .8rem;
+  }
+  .my-sign {
+    position: absolute;
+    top: 25%;
+    right: -1rem;
+    border: 1px solid #fff;
+    padding: .5rem 1rem;
+    line-height: 1rem;
+    border-radius: 1.5rem 0 0 1.5rem;
+    background: linear-gradient(left, #FF3742, #FF8156)
+  }
+
+  .my-sign span {
+    margin: 0 .5rem;
+  }
+
+  .my-order-box {
+    width: 100%;
+    display: flex;
+    border: none !important;
+  }
+  .my-order-box .item-ios {
+    padding: 0.3rem 0;
+    text-align: center;
+  }
+  .my-order-item {
+    padding: 1rem 0 !important;
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .item-ios [item-right], .item-ios [item-end] {
+    margin: 4px;
+  }
+  .danger {
+    position: absolute;
+    background: #ec5151;
+    box-sizing: border-box;
+    border-radius: .9rem;
+    right: .3rem;
+    top: .2rem;
+    color: #fff;
+    font-size: 1.3rem;
+    min-width: 1.5rem;
+    line-height: 1.5rem;
+  }
+  .mylist {
+    margin: 2% !important;
+    width: 96%;
+    border-radius: .5rem;
+    padding-left: .1rem;
+    border-bottom: none !important;
+    overflow: hidden;
+    ion-icon {
+      font-size: 2.6rem;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .iconfont {
+      font-size: 2.2rem;
+    }
+    .item-block:first-child,
+    .item-block:last-child {
+      border: 0;
+    }
+  }
+  .item-ios.item-block .item-inner {
+    padding-right: .1rem;
+    border-bottom: none;
+  }
+  .item-ios {
+    border-bottom: 1px solid #F7F7F7;
+  }
+  .list-ios {
+    margin: 0;
+  }
+  .label-ios {
+    //margin: 0;
+  }
+
+  .item-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

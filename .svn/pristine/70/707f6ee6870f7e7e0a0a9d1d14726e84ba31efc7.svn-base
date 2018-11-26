@@ -1,0 +1,404 @@
+webpackJsonp([0],{
+
+/***/ 280:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TaoqianggouPageModule", function() { return TaoqianggouPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__taoqianggou__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__ = __webpack_require__(288);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+var TaoqianggouPageModule = /** @class */ (function () {
+    function TaoqianggouPageModule() {
+    }
+    TaoqianggouPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__taoqianggou__["a" /* TaoqianggouPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__taoqianggou__["a" /* TaoqianggouPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__pipes_pipes_module__["a" /* PipesModule */]
+            ],
+        })
+    ], TaoqianggouPageModule);
+    return TaoqianggouPageModule;
+}());
+
+//# sourceMappingURL=taoqianggou.module.js.map
+
+/***/ }),
+
+/***/ 287:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TaoqianggouPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_common__ = __webpack_require__(196);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var TaoqianggouPage = /** @class */ (function () {
+    function TaoqianggouPage(navCtrl, navParams, cp) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.cp = cp;
+        this.current = 1;
+        this.DSE = true;
+        /*计时器*/
+        this.times = ['00:00', '08:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00', '19:00', '21:00', '22:00', '23:00'];
+        this.now = 1;
+        this.time = { hour: '00', minute: '00', second: '00' };
+        /*数据*/
+        this.data = [];
+        this.page = [];
+        this.infiniteScrollState = [];
+        this.items = { data: [], page: 1, infiniteScrollSate: !0 }; //热卖榜单的数据
+    }
+    TaoqianggouPage.prototype.ionViewDidEnter = function () {
+        this.box = this.box.nativeElement;
+        this.timeInit();
+        this.touchInit();
+    };
+    TaoqianggouPage.prototype.ionViewWillLeave = function () {
+        clearInterval(this.timer);
+    };
+    TaoqianggouPage.prototype.dataInit = function () {
+        var _this = this;
+        this.times.forEach(function (items, i) {
+            _this.data.push([]);
+            _this.page.push(1);
+            _this.infiniteScrollState.push(!0);
+        });
+        this.doInfinite();
+    };
+    TaoqianggouPage.prototype.doInfinite = function () {
+        var _this = this;
+        if (true)
+            return;
+        var _a = this.date, y = _a.year, m = _a.month, d = _a.date, isHot = this.current < 0;
+        /*如果当前页有剩余数据*/
+        if (!(isHot ? this.items.infiniteScrollSate : this.infiniteScrollState[this.current]))
+            return; //没有剩余
+        this.cp.getData('products/getlist', {
+            start_time_type: isHot ? 1 : 0,
+            start_time: y + '-' + m + '-' + d + ' ' + this.times[isHot ? this.now : this.current] + ':00',
+            p: isHot ? this.items.page++ : this.page[this.current]++,
+            type: 6
+        }).then(function (t) {
+            if (isHot) {
+                _this.items.data = _this.items.data.concat(t.data);
+                Math.ceil(t.total / t.per_page) <= _this.items.page && (_this.items.infiniteScrollSate = !1, _this.infiniteScroll.enable(_this.items.infiniteScrollSate));
+                if (_this.cp.settings.share_mode && _this.cp.temp.showSlides)
+                    _this.pro.slideImgs = _this.items.data;
+            }
+            else {
+                _this.data[_this.current] = _this.data[_this.current].concat(t.data);
+                Math.ceil(t.total / t.per_page) <= _this.page[_this.current] && (_this.infiniteScrollState[_this.current] = !1, _this.infiniteScroll.enable(_this.infiniteScrollState[_this.current]));
+                if (_this.cp.settings.share_mode && _this.cp.temp.showSlides)
+                    _this.pro.slideImgs = _this.data[_this.current];
+            }
+            _this.infiniteScroll.complete();
+        });
+    };
+    TaoqianggouPage.prototype.timeInit = function () {
+        /*获取当前时间*/
+        var datenow = new Date();
+        /*初始化当前场次*/
+        var hour = datenow.getHours(), minute = datenow.getMinutes();
+        for (var i = 0; i < this.times.length; i++) {
+            var now = this.times[i];
+            var next = this.times[i + 1] ||
+                +this.times[0].slice(0, 2) + 24 + this.times[0].slice(2);
+            if (hour * 60 + minute >= now.slice(0, 2) * 60 + +now.slice(3) &&
+                hour * 60 + minute < next.slice(0, 2) * 60 + +next.slice(3)) {
+                this.current = this.now = i;
+                break;
+            }
+        }
+        /*保存当前*/
+        this.date = {
+            year: datenow.getFullYear(),
+            month: datenow.getMonth() + 1,
+            date: datenow.getDate(),
+        };
+        /*请求数据*/
+        this.dataInit();
+        /*启动定时器*/
+        this.changeTime();
+        this.timer = setInterval(this.changeTime.bind(this), 1000);
+    };
+    TaoqianggouPage.prototype.changeTime = function () {
+        /*获取当前时间*/
+        var dateNow = new Date(), isLast = this.now == this.times.length - 1;
+        /*获取下一场的时间*/
+        var next = !isLast ? this.times[this.now + 1] : this.times[0];
+        var date = this.date;
+        var nextDate = new Date(date.year + ':' + date.month);
+        var tomorrow = new Date(date.year, date.month - 1, date.date + 1);
+        nextDate.setDate(!isLast ? date.date : date.date + 1);
+        nextDate.setHours(next.slice(0, 2));
+        nextDate.setMinutes(next.slice(3));
+        /*判断是否到了下一场*/
+        var time = nextDate - dateNow;
+        if (time < 1000) {
+            this.now++;
+            this.date = {
+                year: dateNow.getFullYear(),
+                month: dateNow.getMonth() + 1,
+                date: dateNow.getDate(),
+            };
+            this.timeEnd();
+        }
+        /*修改剩余时间*/
+        var s = Math.floor((tomorrow - dateNow) / 1000);
+        var hour = Math.floor(s / 3600);
+        var minute = Math.floor(s / 60) - hour * 60;
+        var second = s - hour * 3600 - minute * 60;
+        this.time.hour = hour;
+        this.time.minute = minute;
+        this.time.second = second;
+    };
+    TaoqianggouPage.prototype.timeEnd = function () {
+        this.toggleCurrent(''); //回到进行中的场次
+    };
+    TaoqianggouPage.prototype.touchInit = function () {
+        var _this = this;
+        var bw; //屏幕宽度4分之一
+        var Switch = true;
+        var scrolling = false;
+        var Init = function () { return bw = _this.boxWidth = document.body.clientWidth / 4; };
+        var scrollEnd = function () {
+            scrolling = false;
+            _this.toggleCurrent(Math.round(_this.boxParent.scrollLeft / _this.boxWidth) + _this.now);
+        };
+        /*滚动时触发此事件，短时间内多次触发只最后一次有效*/
+        var scrollEvent = (function () {
+            var timer = null;
+            return function () {
+                if (_this.DSE)
+                    return;
+                scrolling = true;
+                if (!Switch)
+                    return;
+                timer && clearTimeout(timer);
+                timer = setTimeout(scrollEnd, 100);
+            };
+        })();
+        Init();
+        window.onresize = Init;
+        this.boxParent = this.box.offsetParent;
+        this.boxParent.scrollLeft = this.boxWidth * (this.current - this.now);
+        this.DSE = false;
+        this.boxParent.addEventListener('scroll', scrollEvent);
+        document.addEventListener('touchstart', function () { return Switch = false; });
+        document.addEventListener('touchend', function () {
+            return (Switch = true, scrolling && scrollEvent());
+        });
+    };
+    TaoqianggouPage.prototype.toggleCurrent = function (current) {
+        var _this = this;
+        if (typeof current !== 'number')
+            current = this.now;
+        var time = 200; //动画时长
+        if (this.DSE || this.current == current)
+            return;
+        this.current = current;
+        this.infiniteScroll.enable(current == -1 ? this.items.infiniteScrollSate : this.infiniteScrollState[current]);
+        this.doInfinite();
+        if (current == -1)
+            return;
+        this.DSE = true; //禁用滚动事件
+        var left = this.boxParent.scrollLeft, newLeft = (current - this.now) * this.boxWidth, bool = left <= newLeft, num = (newLeft - left) / (time / 20);
+        var timer = setInterval(function () {
+            left += num;
+            if (bool ? left >= newLeft : left <= newLeft) {
+                _this.boxParent.scrollLeft = newLeft;
+                clearInterval(timer);
+                _this.DSE = false; //取消滚动事件禁用
+            }
+            else
+                _this.boxParent.scrollLeft = left;
+        }, 20);
+    };
+    TaoqianggouPage.prototype.clickHand = function (i) {
+        this.toggleCurrent(i);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */])
+    ], TaoqianggouPage.prototype, "content", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("proslides"),
+        __metadata("design:type", Object)
+    ], TaoqianggouPage.prototype, "proSlides", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("pro"),
+        __metadata("design:type", Object)
+    ], TaoqianggouPage.prototype, "pro", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* InfiniteScroll */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* InfiniteScroll */])
+    ], TaoqianggouPage.prototype, "infiniteScroll", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("scroll"),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* Scroll */])
+    ], TaoqianggouPage.prototype, "scroll", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('box_container'),
+        __metadata("design:type", Object)
+    ], TaoqianggouPage.prototype, "box", void 0);
+    TaoqianggouPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-taoqianggou',template:/*ion-inline-start:"E:\cordova\maoxuan\maoxuan\src\pages\taoqianggou\taoqianggou.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>淘抢购</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only *ngIf="current==-1?items.data.length>0:data.length&&data[current].length>0" (click)="pro.toggleShareMode()">\n      <ion-icon name="share" color="{{cp.settings.share_mode?\'primary\':\'\'}}"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n  <div [class]="\'changci\'+ (current==-1?\' beforeGoods\':\'\')" no-padding text-center relative>\n    <div class="title_box box" relative (click)="toggleCurrent(-1)">\n      <p class="content"><span>热卖榜单</span><span>已开抢</span></p>\n    </div>\n    <ion-scroll #scroll no-padding scrollX="true" relative>\n      <div class="box_container" absolute top left #box_container>\n        <ng-container *ngFor="let time of times;let i = index;">\n\n          <div *ngIf="i>=now" [class]="i==current?\'box current_box\':\'box\'"\n               (click)="clickHand(i)">\n            <p class="content"><span>{{time}}</span>\n              <span>{{now==i?\'抢购进行中\':\'即将开场\'}}</span></p>\n          </div>\n\n        </ng-container>\n        <div class="box"></div>\n        <div class="box"></div>\n      </div>\n    </ion-scroll>\n  </div>\n</ion-header>\n\n\n<ion-content>\n  <!--抢购计时-->\n  <div class="timer flex" *ngIf="time !== undefined">\n\n    <div class="left">\n      <ion-icon color="primary" name="ios-cart"></ion-icon>\n      <span>限时限量 疯狂抢购</span>\n    </div>\n    <div class="right">\n      <span>距离本场结束:</span>\n      <span class="block block1">{{time.hour | fixed:-2}}</span>:<span\n      class="block block2">{{time.minute | fixed:-2}}</span>:<span\n      class="block block3">{{time.second | fixed:-2}}</span>\n    </div>\n  </div>\n  <div class="no_records" *ngIf="!(current==-1?items.data.length>0:data.length&&data[current].length>0)">\n    <p></p>\n    <p> 未找到相关记录 </p>\n  </div>\n  <ion-infinite-scroll (ionInfinite)="doInfinite()">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>\n'/*ion-inline-end:"E:\cordova\maoxuan\maoxuan\src\pages\taoqianggou\taoqianggou.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_common_common__["a" /* CommonProvider */]])
+    ], TaoqianggouPage);
+    return TaoqianggouPage;
+}());
+
+//# sourceMappingURL=taoqianggou.js.map
+
+/***/ }),
+
+/***/ 288:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PipesModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fixed_fixed__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__split_price_split_price__ = __webpack_require__(290);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var PipesModule = /** @class */ (function () {
+    function PipesModule() {
+    }
+    PipesModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_1__fixed_fixed__["a" /* FixedPipe */],
+                __WEBPACK_IMPORTED_MODULE_2__split_price_split_price__["a" /* SplitPricePipe */]
+            ],
+            imports: [],
+            exports: [
+                __WEBPACK_IMPORTED_MODULE_1__fixed_fixed__["a" /* FixedPipe */],
+                __WEBPACK_IMPORTED_MODULE_2__split_price_split_price__["a" /* SplitPricePipe */]
+            ]
+        })
+    ], PipesModule);
+    return PipesModule;
+}());
+
+//# sourceMappingURL=pipes.module.js.map
+
+/***/ }),
+
+/***/ 289:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FixedPipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var FixedPipe = /** @class */ (function () {
+    function FixedPipe() {
+    }
+    FixedPipe.prototype.transform = function (value, digit) {
+        if (digit >= 0)
+            return parseFloat(value).toFixed(digit);
+        else {
+            value = value.toString();
+            digit = -digit;
+            return value.length == digit ? value :
+                '0'.repeat(digit - value.length) + value;
+        }
+    };
+    FixedPipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({
+            name: 'fixed',
+        })
+    ], FixedPipe);
+    return FixedPipe;
+}());
+
+//# sourceMappingURL=fixed.js.map
+
+/***/ }),
+
+/***/ 290:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SplitPricePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var SplitPricePipe = /** @class */ (function () {
+    function SplitPricePipe() {
+    }
+    SplitPricePipe.prototype.transform = function (value, place) {
+        if (value === void 0) { value = ''; }
+        if (place === void 0) { place = ''; }
+        value = value.toString();
+        place = place.toString();
+        var i = value.indexOf('.');
+        return !place || place.toLowerCase() == 'left' ?
+            value.slice(0, i == -1 ? undefined : i) :
+            value.slice(i + 1 == 0 ? value.length : i);
+    };
+    SplitPricePipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["S" /* Pipe */])({
+            name: 'splitPrice',
+        })
+    ], SplitPricePipe);
+    return SplitPricePipe;
+}());
+
+//# sourceMappingURL=split-price.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=0.js.map

@@ -1,0 +1,12 @@
+page-tabs {
+
+}
+
+.ion-ios-myperson {
+  background: transparent url('../assets/icons/person.png') center no-repeat;
+  background-size: cover;
+}
+.ion-ios-myperson-outline  {
+  background: transparent url('../assets/icons/person-outline.png') center no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,32 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the AfterProgressPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'after-progress'
+})
+@Component({
+  selector: 'page-after-progress',
+  templateUrl: 'after-progress.html',
+})
+export class AfterProgressPage {
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    
+  }
+  goTo(url) {
+    this.cp.goto(url)
+  }
+}

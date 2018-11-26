@@ -1,0 +1,83 @@
+<!--
+  Generated template for the AfterProgressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>退换货详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h4>商品列表</h4>
+  <div class="goods clearfix" (click)="goTo({view:'collage-detail',goods_id:list.goods_id})">
+    <img src="http://www.maoxuankj.com/images/201808/thumb_img/0_thumb_G_1534452217838.jpg" alt="">
+    <div class="goods-info">
+      <p class="goods-title">list.goods_name</p>
+      <p class="goods-price">
+        <span>list.goods_price</span>
+        <span style="float:right;font-size:1.4rem;color:#999;">xgoods_number</span>
+      </p>
+      <!-- <p class="goods-pro">
+        <span>list.goods_attr</span>
+      </p> -->
+    </div>
+  </div>
+  <h4>详细信息</h4>
+  <div class="list">
+    <p>
+      退换货流水号：
+      <ion-note color="primary">201920102030010201</ion-note>
+    </p>
+    <p>
+      申请时间：
+      <ion-note color="dark">2018-02-30 23:12:12</ion-note>
+    </p>
+    <p>
+      服务类型：
+      <ion-note color="primary">仅退款</ion-note>
+    </p>
+  </div>
+  <h4 style="margin-top: .5rem;">订单状态</h4>
+  <div class="list">
+    <p>
+      订单状态：
+      <ion-note color="dark">由买家寄回-未退款</ion-note>
+    </p>
+    <p>
+      问题描述：
+      <ion-note color="dark">来退款</ion-note>
+    </p>
+    <p>
+      退货原因：
+      <ion-note color="dark">七天无理由</ion-note>
+    </p>
+    <p>
+      退款金额：
+      <ion-note color="primary">￥28.90</ion-note>
+    </p>
+  </div>
+
+  <div class="list">
+    <p>
+      联系人姓名：
+      <ion-note color="dark">老路</ion-note>
+    </p>
+    <p>
+      手机号码：
+      <ion-note color="dark">1892893292</ion-note>
+    </p>
+    <p>
+      联系地址：
+      <ion-note color="dark">浙江杭州西湖区西溪湿地</ion-note>
+    </p>
+  </div>
+  <div class="state-btn">
+    待同意
+  </div>
+</ion-content>

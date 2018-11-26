@@ -1,0 +1,227 @@
+import {Component, ViewChild} from '@angular/core';
+import {Content, InfiniteScroll, IonicPage, NavController, NavParams, Scroll} from 'ionic-angular';
+import {CommonProvider} from '../../providers/common/common';
+
+
+@IonicPage({
+  name: 'taoqianggou',
+  priority: 'off',
+})
+@Component({
+  selector: 'page-taoqianggou',
+  templateUrl: 'taoqianggou.html',
+})
+export class TaoqianggouPage {
+  @ViewChild(Content) content : Content;
+  @ViewChild("pro") pro;
+  @ViewChild(InfiniteScroll) infiniteScroll: InfiniteScroll;
+
+  /*touch事件*/
+  @ViewChild("scroll") scroll: Scroll;
+  @ViewChild('box_container') box;
+  boxWidth: number;
+  current: number = 1;
+  boxParent: any;
+  DSE: boolean = true;
+
+  /*计时器*/
+  times: any = ['00:00', '08:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00', '19:00', '21:00', '22:00', '23:00'];
+  now: any = 1;
+  date: any;
+  time: any = {hour: '00', minute: '00', second: '00'};
+  timer: number;
+
+  /*数据*/
+  data: any = [];
+  page: any = [];
+  infiniteScrollState: any = [];
+  items: any = {data: [], page: 1, infiniteScrollSate: !0};//热卖榜单的数据
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public cp: CommonProvider) {
+  }
+
+  ionViewDidEnter() {
+    this.box = this.box.nativeElement;
+    this.timeInit();
+    this.touchInit();
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.timer);
+  }
+
+  dataInit() {
+    this.times.forEach((items: any, i: number) => {
+      this.data.push([]);
+      this.page.push(1);
+      this.infiniteScrollState.push(!0);
+    });
+    this.doInfinite();
+  }
+
+  doInfinite() {
+    if(!0)return;
+    let {year: y, month: m, date: d} = this.date,
+      isHot = this.current < 0;
+
+    /*如果当前页有剩余数据*/
+    if (!(isHot ? this.items.infiniteScrollSate : this.infiniteScrollState[this.current]))
+      return;//没有剩余
+    this.cp.getData('products/getlist', {
+      start_time_type: isHot ? 1 : 0,
+      start_time: y + '-' + m+ '-' + d+ ' ' + this.times[isHot ? this.now : this.current] + ':00',
+      p: isHot ? this.items.page++ : this.page[this.current]++,
+      type: 6
+    }).then((t: any) => {
+      if (isHot) {
+        this.items.data = this.items.data.concat(t.data);
+        Math.ceil(t.total / t.per_page) <= this.items.page && (this.items.infiniteScrollSate = !1, this.infiniteScroll.enable(this.items.infiniteScrollSate))
+
+        if(this.cp.settings.share_mode && this.cp.temp.showSlides)
+          this.pro.slideImgs = this.items.data
+      } else {
+        this.data[this.current] = this.data[this.current].concat(t.data);
+        Math.ceil(t.total / t.per_page) <= this.page[this.current] && (this.infiniteScrollState[this.current] = !1, this.infiniteScroll.enable(this.infiniteScrollState[this.current])
+        )
+
+        if(this.cp.settings.share_mode && this.cp.temp.showSlides)
+          this.pro.slideImgs = this.data[this.current]
+      }
+      this.infiniteScroll.complete();
+    })
+  }
+
+  timeInit() {
+    /*获取当前时间*/
+    let datenow = new Date();
+    /*初始化当前场次*/
+    let hour = datenow.getHours(), minute = datenow.getMinutes();
+    for (let i = 0; i < this.times.length; i++) {
+      let now = this.times[i];
+      let next = this.times[i + 1] ||
+        +this.times[0].slice(0, 2) + 24 + this.times[0].slice(2);
+      if (hour * 60 + minute >= now.slice(0, 2) * 60 + +now.slice(3) &&
+        hour * 60 + minute < next.slice(0, 2) * 60 + +next.slice(3)) {
+        this.current = this.now = i;
+        break;
+      }
+    }
+    /*保存当前*/
+    this.date = {
+      year: datenow.getFullYear(),
+      month: datenow.getMonth() + 1,
+      date: datenow.getDate(),
+    };
+    /*请求数据*/
+    this.dataInit();
+    /*启动定时器*/
+    this.changeTime();
+    this.timer = setInterval(this.changeTime.bind(this), 1000)
+  }
+
+  changeTime() {
+    /*获取当前时间*/
+    let dateNow: any = new Date(),
+      isLast = this.now == this.times.length - 1;
+    /*获取下一场的时间*/
+    let next = !isLast ? this.times[this.now + 1] : this.times[0];
+    let date = this.date;
+    let nextDate: any = new Date(date.year + ':' + date.month);
+    let tomorrow: any = new Date(date.year, date.month-1, date.date + 1);
+    nextDate.setDate(!isLast ? date.date : date.date + 1);
+    nextDate.setHours(next.slice(0, 2));
+    nextDate.setMinutes(next.slice(3));
+    /*判断是否到了下一场*/
+    let time = nextDate - dateNow;
+    if (time < 1000) {
+      this.now++;
+      this.date = {
+        year: dateNow.getFullYear(),
+        month: dateNow.getMonth() + 1,
+        date: dateNow.getDate(),
+      };
+      this.timeEnd();
+    }
+    /*修改剩余时间*/
+    let s = Math.floor((tomorrow - dateNow) / 1000);
+    let hour = Math.floor(s / 3600);
+    let minute = Math.floor(s / 60) - hour * 60;
+    let second = s - hour * 3600 - minute * 60;
+    this.time.hour = hour;
+    this.time.minute = minute;
+    this.time.second = second;
+  }
+
+  timeEnd() {
+    this.toggleCurrent('');//回到进行中的场次
+  }
+
+  touchInit() {
+    let bw;//屏幕宽度4分之一
+    let Switch = true;
+    let scrolling = false;
+    let Init = () => bw = this.boxWidth = document.body.clientWidth / 4;
+    let scrollEnd = () => {
+      scrolling = false;
+      this.toggleCurrent(
+        Math.round(this.boxParent.scrollLeft / this.boxWidth) + this.now
+      )
+    };
+
+    /*滚动时触发此事件，短时间内多次触发只最后一次有效*/
+    let scrollEvent = (() => {
+      let timer = null;
+      return () => {
+        if (this.DSE) return;
+        scrolling = true;
+        if (!Switch) return;
+        timer && clearTimeout(timer);
+        timer = setTimeout(scrollEnd, 100);
+      }
+    })();
+
+    Init();
+    window.onresize = Init;
+    this.boxParent = this.box.offsetParent;
+    this.boxParent.scrollLeft = this.boxWidth * (this.current - this.now);
+    this.DSE = false;
+    this.boxParent.addEventListener('scroll', scrollEvent);
+    document.addEventListener('touchstart', () => Switch = false);
+    document.addEventListener('touchend', () =>
+      (Switch = true, scrolling && scrollEvent()));
+
+
+  }
+
+  toggleCurrent(current: any) {
+    if (typeof current !== 'number')
+      current = this.now;
+    let time = 200;//动画时长
+    if (this.DSE || this.current == current) return;
+    this.current = current;
+    this.infiniteScroll.enable(current==-1?this.items.infiniteScrollSate:this.infiniteScrollState[current]);
+    this.doInfinite();
+    if (current == -1) return;
+    this.DSE = true; //禁用滚动事件
+    let left = this.boxParent.scrollLeft,
+      newLeft = (current - this.now) * this.boxWidth,
+      bool = left <= newLeft,
+      num = (newLeft - left) / (time / 20);
+
+    let timer = setInterval(() => {
+      left += num;
+      if (bool ? left >= newLeft : left <= newLeft) {
+        this.boxParent.scrollLeft = newLeft;
+        clearInterval(timer);
+        this.DSE = false; //取消滚动事件禁用
+      } else
+        this.boxParent.scrollLeft = left;
+    }, 20);
+
+  }
+
+  clickHand(i) {
+    this.toggleCurrent(i);
+  }
+
+}

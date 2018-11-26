@@ -1,0 +1,104 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-sharesdk": {
+      "SHARESDK_ANDROID_APP_KEY": "26b40d99031b0",
+      "SHARESDK_IOS_APP_KEY": "26b40d99031b0",
+      "SHARESDK_IOS_APP_SECRET": "3bdcef6bad62c11bd2860877ca5b895e",
+      "WECHAT_APP_ID": "wx0ebc97aab83e0372",
+      "WECHAT_APP_SECRET": "85daae7dfb118e7c68bf76325180fa67",
+      "WEIBO_APP_ID": "4005303605",
+      "WEIBO_APP_SECRET": "4e31f29544a9498ace86e3cddb205f30",
+      "WEIBO_REDIRECT_URL": "http://m.sheng365.cn",
+      "QQ_IOS_APP_ID": "1106050112",
+      "QQ_IOS_APP_HEX_ID": "41ECFC40",
+      "QQ_IOS_APP_KEY": "nmqQZkJSJP7EtC1S",
+      "QQ_ANDROID_APP_ID": "1106050112",
+      "QQ_ANDROID_APP_KEY": "nmqQZkJSJP7EtC1S",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "lyxpay": {
+      "WX_APP_ID": "wx3490aa450dc99990",
+      "ALIPAY_APP_ID": "2018071360612109",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-themeablebrowser": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-streaming-media": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "ionic-plugin-deeplinks": {
+      "URL_SCHEME": "maoxuan",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "maoxuankj.com",
+      "ANDROID_PATH_PREFIX": "C:/Program Files/Git/",
+      "ANDROID_2_PATH_PREFIX": "/",
+      "ANDROID_3_PATH_PREFIX": "/",
+      "ANDROID_4_PATH_PREFIX": "/",
+      "ANDROID_5_PATH_PREFIX": "/",
+      "DEEPLINK_2_SCHEME": " ",
+      "DEEPLINK_2_HOST": " ",
+      "DEEPLINK_3_SCHEME": " ",
+      "DEEPLINK_3_HOST": " ",
+      "DEEPLINK_4_SCHEME": " ",
+      "DEEPLINK_4_HOST": " ",
+      "DEEPLINK_5_SCHEME": " ",
+      "DEEPLINK_5_HOST": " ",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-appavailability": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-photo-library": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    }
+  }
+}

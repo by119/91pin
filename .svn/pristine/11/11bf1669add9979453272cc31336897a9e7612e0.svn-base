@@ -1,0 +1,33 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the RankPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'rank'
+})
+@Component({
+  selector: 'page-rank',
+  templateUrl: 'rank.html',
+})
+export class RankPage {
+  pet: string = "0";
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RankPage');
+  }
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-appavailability": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-photo-library": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-sharesdk": {
+      "SHARESDK_ANDROID_APP_KEY": "282d8708dbe04",
+      "SHARESDK_IOS_APP_KEY": "282d8708dbe04",
+      "SHARESDK_IOS_APP_SECRET": "00887dbc2d019a3431f4aafb5bdef5d4",
+      "WECHAT_APP_ID": "wxd699648795a2c4ff",
+      "WECHAT_APP_SECRET": "8c88c34aa795966fe89bbce5ffa94295",
+      "WEIBO_APP_ID": "867632275",
+      "WEIBO_APP_SECRET": "fc0fcb7f31533f6c33f9127accb30945",
+      "WEIBO_REDIRECT_URL": "http://www.maoxuankj.com/",
+      "QQ_IOS_APP_ID": "1107820977",
+      "QQ_IOS_APP_HEX_ID": "420801B1",
+      "QQ_IOS_APP_KEY": "olZW6YygfGfX46ev",
+      "QQ_ANDROID_APP_ID": "1107820977",
+      "QQ_ANDROID_APP_KEY": "olZW6YygfGfX46ev",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-streaming-media": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-themeablebrowser": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "GetAjaxRequest": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "ionic-plugin-deeplinks": {
+      "URL_SCHEME": "maoxuan",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "maoxuankj.com",
+      "ANDROID_PATH_PREFIX": "C:/Program Files/Git/",
+      "ANDROID_2_PATH_PREFIX": "/",
+      "ANDROID_3_PATH_PREFIX": "/",
+      "ANDROID_4_PATH_PREFIX": "/",
+      "ANDROID_5_PATH_PREFIX": "/",
+      "DEEPLINK_2_SCHEME": " ",
+      "DEEPLINK_2_HOST": " ",
+      "DEEPLINK_3_SCHEME": " ",
+      "DEEPLINK_3_HOST": " ",
+      "DEEPLINK_4_SCHEME": " ",
+      "DEEPLINK_4_HOST": " ",
+      "DEEPLINK_5_SCHEME": " ",
+      "DEEPLINK_5_HOST": " ",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "lyxpay": {
+      "WX_APP_ID": "wx8463b6251876b305",
+      "ALIPAY_APP_ID": "2018071360612109",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "jpush-phonegap-plugin": {
+      "APP_KEY": "b1dadcaa3f6bccd9068541e8",
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-open-native-settings": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    },
+    "cordova-plugin-jcore": {
+      "PACKAGE_NAME": "com.maoxuan.app"
+    }
+  }
+}

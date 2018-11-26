@@ -1,0 +1,182 @@
+import { Component,ViewChild } from '@angular/core';
+import { IonicPage, NavParams,ViewController,Searchbar,InfiniteScroll,Content } from 'ionic-angular';
+import { CommonProvider } from '../../providers/common/common';
+import { Storage } from '@ionic/storage';
+import { Keyboard } from '@ionic-native/keyboard';
+
+@IonicPage({
+  name : 'products',
+  segment : 'products/:up',
+  defaultHistory : ['welcome']
+})
+@Component({
+  selector: 'page-products',
+  templateUrl: 'products.html',
+})
+export class ProductsPage {
+  @ViewChild(Content) content : Content;
+  @ViewChild("pro") pro;
+  @ViewChild(Searchbar) searchbar: Searchbar;
+  @ViewChild(InfiniteScroll) infiniteScroll : InfiniteScroll;
+
+  currentPageClass = this;
+
+  title="今日特卖";params:any;lastParams;items=[];res;histories=[];focus;modelOpen=false;activeModel;categories;categoriesValue="商品分类";categoriesClass="hide";orders=['默认','优惠力度','价格','销量','券面额'];ordersParams:any=[{},{_order:"tk_rate",_sort:"desc"},{_order:"zk_price",_sort:"asc"},{_order:"volume",_sort:"desc"},{_order:"coupon_amount",_sort:"desc"}];ordersValue="排序";ordersClass="hide";
+
+  constructor(public navParams: NavParams, public cp: CommonProvider, public storage: Storage, public keyboard:Keyboard,public viewCtrl:ViewController) {
+    var _ = this.navParams.get("up");
+    this.params = _ ? JSON.parse(_) : this.navParams.data;
+
+    this.params.p = 0;
+    if(this.params.title){
+      this.title = this.params.title;
+      delete this.params.title;
+    }else if(this.params.keyword)
+      this.title = this.params.keyword;
+
+    storage.get("searchHistories").then(t=>{t&&(this.histories=t)});
+  }
+
+  ionViewDidEnter(){
+    if(this.cp.plt.is("cordova"))
+      this.cp.styleDefault();
+
+    this.params.list_type = typeof this.cp.settings.list_type != 'undefined' && this.cp.settings.list_type >= 0 ? this.cp.settings.list_type : this.params.list_type ? this.params.list_type : 0;
+    this.params.p==0 && this.doInfinite();
+  }
+
+  toggleCategories(){
+    this.toggleModel("categoriesClass");
+
+    if(typeof this.categories=='undefined')
+      this.cp.getData("category/getlist/",{DGAPI: 1}).then(t=>{this.categories=t})
+  }
+  setCategories(k){
+    this.closeActiveModel(null);
+    if((!this.params.category_id && k==-1) || (this.categories[k] && this.params.category_id == this.categories[k].id)) return;
+
+    this.params.p = 0;
+    if(k==-1){
+      delete this.params.category_id;
+      this.categoriesValue="商品分类";
+    }else {
+      this.params.category_id = this.categories[k].id;
+      this.categoriesValue=this.categories[k].name;
+    }
+    this.doInfinite();
+  }
+  toggleOrders(){
+    this.toggleModel("ordersClass");
+  }
+  setOrders(k){
+    this.closeModel("ordersClass");
+    if(this.params._order == this.ordersParams[k]._order) return;
+    
+    this.params.p = 0;
+    if(k==0){ delete this.params._order; delete this.params._sort; this.ordersValue="排序";}
+    else{
+      this.params = Object.assign(this.params,this.ordersParams[k]); this.ordersValue=this.orders[k];
+    }
+    this.doInfinite();
+  }
+  toggleFilters(){
+    this.toggleModel("filtersClass");
+  }
+  setFilters(k){
+    if(typeof k.check_coupon_type!='undefined'){
+      if(this.params.coupon_type !=9)
+        return;
+      delete k.check_coupon_type;
+    }
+    Object.assign(this.params,k);
+  }
+  filter(){
+    if( this.cp.equals(this.lastParams, this.params) )
+      return;
+
+    this.params.p = 0;
+    this.closeModel("filtersClass");
+    this.doInfinite();
+  }
+
+  toggleModel(k){
+    if(this.modelOpen){
+      if(this.activeModel!=k){
+        this.closeActiveModel(null);
+        setTimeout(()=>{this.showModel(k);},300);
+      }else
+        this.closeModel(k);
+    }else{
+      this.showModel(k);
+    }
+  }
+  showModel(k){
+    this.modelOpen=true;this[k]="show";
+    setTimeout(()=>{this[k]="slide-in"},10);
+    this.activeModel = k;
+  }
+  closeModel(k){
+    setTimeout(()=>{this[k]="slide-out"},10);
+    setTimeout(()=>{this[k]="hide";this.modelOpen=false;this.activeModel = ""},300);
+  }
+  closeActiveModel(e){
+    if(!e || (e && (e.srcElement ? e.srcElement : e.target).nodeName != "ION-COL"))
+      this.closeModel(this.activeModel);
+  }
+
+  changeListType() {
+    this.params.list_type = this.params.list_type ? 0 : 1;
+    this.cp.setSettings({list_type: this.params.list_type})
+  }
+
+  search() {
+      this.params.keyword && (
+        this.histories.length > 0 && (this.histories.forEach((e, n) => {
+          e == this.params.keyword && this.histories.splice(n, 1)
+        },
+        this), this.histories.length >= 30 && this.histories.pop()), this.cp.getData("user_search_log/add", {
+            keyword: this.params.keyword,
+            silent: 1,
+            DGAPI: 1
+        }),
+        this.histories.unshift(this.params.keyword),
+        this.storage.set("searchHistories", this.histories),
+        this.title=this.params.keyword,
+        this.params.p=0,
+        this.focus=false,
+        this.doInfinite()
+     )
+  }
+  setFocus(){
+    this.focus = true;
+    setTimeout(()=>{this.searchbar.setFocus(),this.cp.plt.is('android') && this.keyboard.show()},100);
+  }
+  cancel(){
+    this.focus = false;
+  }
+
+  doInfinite(){
+    if(this.lastParams && this.lastParams.p == this.params.p) //如果上面对象本身不相等 而p不变则表示其他参数变了
+      this.params.p = 0;
+
+    if(typeof this.params.title!='undefined'){
+      this.title = this.params.title;
+      delete this.params.title;
+    }
+
+    if(this.params.keyword && this.orders.length==5)
+      this.orders.pop();
+    else if(!this.params.keyword)
+      this.orders[4] = "券面额";
+
+    this.lastParams = Object.assign({},this.params);
+    this.params.p++;
+    this.params.DGAPI = 1;
+    this.cp.getData("product/"+(this.params.keyword?"searchlist/":"getlist/"),this.params).then(e=>{
+      this.res=e, this.items = this.params.p == 1 ? (this.viewCtrl.contentRef().nativeElement.querySelector('.scroll-content').setAttribute('style','margin-top:'+( (this.res.data.length?83:44) + (this.cp.plt.is("cordova") && this.cp.plt.is("cordova")?20:0) )+'px'), this.res.data, this.res.data) : this.items.concat(this.res.data);
+      if(Math.ceil(this.res.total / this.res.per_page) <= this.params.p)
+        this.infiniteScroll.enable(false);
+      this.infiniteScroll.complete()
+    })
+  }
+}

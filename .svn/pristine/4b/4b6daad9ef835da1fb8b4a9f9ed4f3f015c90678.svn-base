@@ -1,0 +1,88 @@
+webpackJsonp([5],{
+
+/***/ 277:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomePageModule", function() { return HomePageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home__ = __webpack_require__(286);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var HomePageModule = /** @class */ (function () {
+    function HomePageModule() {
+    }
+    HomePageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__home__["a" /* HomePage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__home__["a" /* HomePage */]),
+            ],
+        })
+    ], HomePageModule);
+    return HomePageModule;
+}());
+
+//# sourceMappingURL=home.module.js.map
+
+/***/ }),
+
+/***/ 286:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_common__ = __webpack_require__(196);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var HomePage = /** @class */ (function () {
+    function HomePage(navCtrl, cp) {
+        this.navCtrl = navCtrl;
+        this.cp = cp;
+        this.navList = [{ id: 0, title: '推荐', content: '推荐列表' }, { id: 1, title: '美食特产', content: '美食列表' }, { id: 2, title: '水果生鲜', content: '水果列表' }, { id: 3, title: '推荐', content: '推荐列表' }, { id: 4, title: '美食特产', content: '美食列表' }, { id: 5, title: '水果生鲜', content: '水果列表' }, { id: 6, title: '水果生鲜', content: '水果列表' }, { id: 7, title: '推荐', content: '推荐列表' }, { id: 8, title: '美食特产', content: '美食列表' }, { id: 9, title: '水果生鲜', content: '水果列表' }];
+        this.pet = "0";
+    }
+    HomePage.prototype.getItems = function (ev) {
+        var val = ev.target.value;
+        if (val && val.trim() != '') {
+            console.log(val);
+        }
+    };
+    HomePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-home',template:/*ion-inline-start:"D:\byyy\dev\cordova\91pin\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons start>\n      <button ion-button icon-only color="royal">\n        <ion-icon name="md-text"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-searchbar placeholder="请输入您需要搜索的商品" (ionInput)="getItems($event)"></ion-searchbar>\n    <ion-buttons end>\n      <button ion-button icon-only color="royal">\n        <ion-icon name="md-search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content>\n    <ion-item class="nav-title">\n      <ion-toolbar no-border-top>\n        <ion-segment [(ngModel)]="pet">\n          <ion-segment-button value="{{item.id}}" *ngFor="let item of navList;">\n            {{item.title}}\n          </ion-segment-button>\n        </ion-segment>\n      </ion-toolbar>\n    </ion-item>\n  \n    <div [ngSwitch]="pet">\n      <div *ngSwitchCase="0">\n        <ion-slides pager>\n          <ion-slide>\n            <img src="assets/imgs/card-saopaolo.png" alt="">\n          </ion-slide>\n          <ion-slide>\n            <img src="assets/imgs/avatar.png" alt="">\n          </ion-slide>\n          <ion-slide>\n            <img src="assets/imgs/card-saopaolo.png" alt="">\n          </ion-slide>\n          <ion-slide>\n            <img src="assets/imgs/avatar.png" alt="">\n          </ion-slide>\n          <ion-slide>\n            <img src="assets/imgs/card-saopaolo.png" alt="">\n          </ion-slide>\n        </ion-slides>\n      </div>\n    </div>\n  </ion-content>'/*ion-inline-end:"D:\byyy\dev\cordova\91pin\src\pages\home\home.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_common_common__["a" /* CommonProvider */]])
+    ], HomePage);
+    return HomePage;
+}());
+
+//# sourceMappingURL=home.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=5.js.map

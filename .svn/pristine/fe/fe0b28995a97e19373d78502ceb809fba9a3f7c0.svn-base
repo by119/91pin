@@ -1,0 +1,77 @@
+import {Component} from '@angular/core';
+import {IonicPage, NavParams} from 'ionic-angular';
+import {CommonProvider} from '../../providers/common/common';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+
+@IonicPage({
+  priority: 'off',
+  name: 'reg'
+})
+@Component({
+  selector: 'page-reg',
+  templateUrl: 'reg.html',
+})
+export class RegPage {
+  pageForm = this.formBuilder.group({
+    mobile : ["", [Validators.required, Validators.pattern('^[1][3,4,5,7,8][0-9]{9}$')]],
+    password: ["", [Validators.required, Validators.minLength(6)]],
+    confirm_pwd: ["", [Validators.required, Validators.minLength(6)]],
+    // captcha: ["", [Validators.required, Validators.minLength(4)]],
+    // auth: [this.cp.global.auth, [Validators.required, Validators.minLength(3)]]
+  }, {validator: this.matchingPasswords('password', 'confirm_pwd')});
+
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    }
+  }
+
+  constructor(public navParams: NavParams,
+              public formBuilder: FormBuilder,
+              public cp: CommonProvider) {
+  }
+
+  ionViewDidEnter() {
+    if (this.cp.plt.is("cordova"))
+      this.cp.styleLightContent();
+  }
+
+  captcha(t) {
+    var u = typeof u == 'undefined' ? 0 : u;
+    if (!u) {
+      var n, i = this.pageForm.controls.mobile;
+      if (!i.valid) return void this.cp.toast("手机号填写错误");
+      n = i.value,
+        u = 60;
+      var r = setInterval(() => {
+          u--,
+            0 == u ? (t.target.innerText = "重新发送", clearInterval(r)) : t.target.innerText = "重新发送(" + u + ")"
+        },
+        1000);
+      this.cp.getData('?m=user&c=login&a=send_sms_new',{H5API:!0,mobile:n,type:'register'}).then((res:any)=>{
+        this.cp.toast(res.content)
+        console.log(res);
+      })
+    }
+  }
+
+  sub(t) {
+    this.cp.getData("?m=user&c=login&a=register", t).then((res: any) => {
+      console.log(res);
+      /*
+      this.cp.toast(n.msg);
+      if (n.status) {
+        this.cp.setU(n.data);
+        this.cp.pop();
+      }
+      * */
+    })
+  }
+}

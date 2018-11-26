@@ -1,0 +1,22 @@
+<!--
+  Generated template for the CollageProgressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>拼团进度</ion-title>
+  </ion-navbar>
+
+</ion-header>
+  <div class="avatar">
+    <img src="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epiaJGzmQ9uWShic99HvCwG1GwmXTV0bgPYEQsibyhVqsj2XXx38vbWaXrnebQUGHLTdwKfzQW4ChJrA/132" alt="">
+    <h4>参团已完成</h4>
+    <p>可以参与新的拼团活动啦！</p>
+  </div>
+
+<ion-content padding>
+
+</ion-content>

@@ -1,0 +1,97 @@
+<!--
+  Generated template for the FirmOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>订单确认</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div class="addr clearfix">
+    <ion-icon class="icon-addr" name="ios-pin-outline"></ion-icon>
+    <div class="addr-info">
+      <p>
+        <span>行行 13223940201</span>
+        <span class="def-addr">默认</span>
+      </p>
+      <p style="font-size: 1.4rem;margin-top: .4rem;">中国 浙江 杭州 西湖区 留下</p>
+    </div>
+    <ion-icon class="icon-more" name="arrow-forward"></ion-icon>
+  </div>
+  <div class="shop">
+    <ion-icon class="iconfont icon-shop" style="color: #ec5151"></ion-icon>
+    诺美衣旗舰店
+  </div>
+  <div class="goods">
+    <img src="assets/imgs/avatar.png" alt="">
+    <div class="goods-info">
+      <p class="goods-title">2018秋装新款弹力修身牛仔裤女潮撞色小脚九分裤</p>
+      <p class="goods-price">
+        <span>￥69.00</span>
+        <span style="float:right;font-size:1.4rem;color:#999;">x1</span>
+      </p>
+      <p class="goods-pro">
+        <span>颜色：蓝色</span>
+        <span>尺码：26</span>
+      </p>
+    </div>
+  </div>
+  <!-- 配送方式 -->
+  <div class="logistics">
+    <ion-item>
+      <ion-label>配送方式</ion-label>
+      <ion-select [(ngModel)]="toppings" placeholder="百世汇通" multiple="false" interface="action-sheet" cancelText="取消">
+        <ion-option>韵达快递</ion-option>
+        <ion-option>圆通</ion-option>
+        <ion-option>中通</ion-option>
+        <ion-option>申通</ion-option>
+        <ion-option>EMS</ion-option>
+        <ion-option>邮政</ion-option>
+        <ion-option>天天</ion-option>
+        <ion-option>国通快递</ion-option>
+        <ion-option>顺丰快递</ion-option>
+        <ion-option>京东物流</ion-option>
+        <ion-option>凡客配送</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div class="goods-total">
+    共1件商品 合计：
+    <span style="color: #ec5151">￥69</span>
+  </div>
+  <div class="total">
+    <p>
+      合计金额：
+      <span>￥69.00</span>
+    </p>
+    <p>
+      快递费用：
+      <span>+￥0</span>
+    </p>
+    <p>优惠活动：
+      <span>-￥0</span>
+    </p>
+  </div>
+  <!-- 支付方式 -->
+  <div class="payment">
+    <ion-item>
+      <ion-label>支付方式</ion-label>
+      <ion-select [(ngModel)]="toppings" placeholder="微信支付" multiple="false" interface="action-sheet" cancelText="取消">
+        <ion-option>微信支付</ion-option>
+        <ion-option>支付宝</ion-option>
+        <ion-option>货到付款</ion-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <!-- 提交订单 -->
+  <div class="submit">
+    <span>实付款：</span><span style="color: #ec5151;">￥69</span>
+    <div class="sub-btn">提交订单</div>
+  </div>
+</ion-content>

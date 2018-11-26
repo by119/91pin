@@ -1,0 +1,84 @@
+
+
+  
+
+page-nine {}
+ion-content.content {
+    background-color: #fff;
+}
+.searchbar-ios {
+    border: none;
+    background-color: transparent;
+}
+.searchbar-ios .searchbar-input {
+    background-color: #F4F4F8;
+}
+.toolbar-background-ios {
+    background-color: #fff;
+}
+.nav-title {
+    // display: flex;
+    width: 100%;
+    overflow-x: scroll;
+    min-height: 0;
+}
+
+ion-label {
+    overflow: initial;
+}
+.input-wrapper {
+    overflow: auto;
+}
+.nav-list {
+    // flex: 1;
+    // min-width: 5rem;
+    padding:.8rem;
+    text-align: center;
+}
+.active {
+    border-bottom: 1px solid #FF6570;
+}
+::-webkit-scrollbar { display: none !important; }
+
+.goods-list {
+    width: 100%;
+}
+
+.item-ios {
+    padding: 0;
+}
+.goods-list {
+    padding: .5rem 0;
+}
+.goods-list img  {
+    width: 24%;
+    float: left;
+    padding: 2%;
+    vertical-align: middle;
+}
+.list-info {
+    float: left;
+    width: 72%;
+    padding-left: 2%;
+    border: none;
+}
+.list-info ion-icon {
+    color: #FE5261;
+}
+.list-info p {
+    margin: .3rem 0 0 0;
+}
+.list-info ion-note{
+    font-size: .8rem;
+}
+.list-info .trait {
+    border: 1px solid #FE5261;
+    color: #FE5261;
+    border-radius: 15%;
+    font-size: .34rem;
+    padding: .15rem;
+}
+.list-info .price {
+    font-size: 2rem;
+    color: #FE5261;
+}

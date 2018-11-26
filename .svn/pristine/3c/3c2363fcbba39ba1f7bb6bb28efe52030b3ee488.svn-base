@@ -1,0 +1,275 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the CollageDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collage-detail'
+})
+@Component({
+  selector: 'page-collage-detail',
+  templateUrl: 'collage-detail.html',
+})
+export class CollageDetailPage {
+  @ViewChild(Slides) slides: Slides;
+  pet = '0';
+  current = 1; //当前所在轮播图
+  slideLen = 1;  //轮播图数量
+  tipsState: boolean = false; //服务说明状态 false隐藏  true显示
+  ruleState: boolean = false; //拼团规则状态 false隐藏  true显示
+  isCollect: boolean = false; //收藏 true已收藏   false未收藏
+  buyInfoState: boolean = false; //购买明细框 false隐藏  true显示
+  buyState = 1; //购买方式  1：单独购买   2：拼团购买
+  goodsId = null; //商品id
+  teamId = 0; //拼团队伍id
+  goodDeatil = {};
+  goodInfo = {};
+  goodImg = [];
+  goodPro = {};
+  shopImg = '';//商店图片
+  newGoods = [];
+  newLen = 7; // 拼团新品数量
+  pro = {}; //个人团信息
+  teamPro = {}; //多人团信息
+  // 购买商品 参数选项
+  goodsParam = [];
+  attrId = [];//选择的商品参数
+  chooseAttr = []; //选择的商品参数名
+  chooseAttrIndex = []; //选择的商品参数index
+  chooseNum = 1;//已选数量
+  goodNum = 1;//库存数量
+  astrictNum = 1; //限购数量
+  bigNum = 1;//最大购买数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+  grey2: boolean = false; // 加数量的按钮是否置灰
+
+
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.goodsId = this.navParams.get('goods_id');
+    this.teamId = this.navParams.get('team_id') ? this.navParams.get('team_id') : 0;
+    this.getList();
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    if (currentIndex < this.slideLen) {
+      this.current = currentIndex + 1;
+    }
+    // console.log('Current index is', currentIndex, this.slides.length());
+  }
+  // 显隐服务说明
+  showTips() {
+    console.log('查看服务说明', this.tipsState);
+    this.tipsState = !this.tipsState;
+  }
+  // 显隐拼团规则详情
+  switchRule() {
+    console.log('显隐拼团规则详情', this.ruleState);
+    this.ruleState = !this.ruleState;
+  }
+  switchCollect() {
+    console.log('收藏切换', this.isCollect);
+    this.isCollect = !this.isCollect;
+  }
+  // 显隐购买明细框
+  showBuy(num) {
+    // console.log(num, 'eee');
+    this.buyInfoState = !this.buyInfoState;
+    if (num) {
+      this.buyState = num;
+      if (this.buyState == 1) {
+        this.bigNum = this.goodNum;
+      } else {
+        this.bigNum = this.astrictNum;
+      }
+    } else {
+      this.chooseNum = 1;
+      this.grey = this.chooseNum <= 1 ? true : false;
+      this.grey2 = this.chooseNum >= this.bigNum ? true : false;
+    }
+  }
+
+  // 选择商品属性
+  choseStyle(name, val, arrIndex) {
+    console.log(this.chooseAttr, 'this.chooseAttr');
+    this.attrId[name] = val;
+    this.chooseAttr[name] = name;
+    console.log(this.chooseAttr, 'this.chooseAttr2');
+    this.chooseAttrIndex[name] = arrIndex;
+    if (this.buyState == 2) {
+      this.teamProperty();
+    } else {
+      this.property();
+    }
+  }
+  // 减少数量
+  reduce() {
+    console.log(this.chooseNum, this.bigNum, 'reduce');
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+      this.grey2 = false;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+    if (this.buyState == 2) {
+      this.teamProperty();
+    } else {
+      this.property();
+    }
+  }
+  // 添加数量
+  add() {
+    console.log(this.chooseNum, this.bigNum, 'add');
+    if (this.chooseNum < this.bigNum) {
+      this.chooseNum++;
+      this.grey = false;
+    }
+    if (this.chooseNum >= this.bigNum) {
+      this.grey2 = true;
+    }
+
+    if (this.buyState == 2) {
+      this.teamProperty();
+    } else {
+      this.property();
+    }
+  }
+
+  inputKeyUp($event) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+    $event.target.value = Math.floor($event.target.value);
+    if ($event.target.value <= this.bigNum) {
+      this.chooseNum = $event.target.value;
+    } else {
+      this.chooseNum = this.bigNum;
+    }
+    this.grey = this.chooseNum <= 1 ? true : false;
+    this.grey2 = this.chooseNum >= this.bigNum ? true : false;
+
+    if (this.buyState == 2) {
+      this.teamProperty();
+    } else {
+      this.property();
+    }
+  }
+  getList() {
+    this.cp.getData('team/goodsDetail', {
+      goods_id: this.goodsId,
+      team_id: this.teamId
+    }).then(
+      (t: any) => {
+        // t.error 商品已下架：1    正常状态：0
+        this.goodDeatil = t.data;
+        this.goodImg = t.data.goods_img;
+        this.slideLen = this.goodImg.length;
+        this.goodInfo = t.data.goods_info;
+        this.goodPro = t.data.goods_properties ? t.data.goods_properties.pro : [];
+        this.shopImg = t.data.detail.sellershopinfo.logo_thumb;
+        this.newGoods = t.data.new_goods;
+        this.newLen = this.newGoods.length;
+        this.astrictNum = t.data.goods_info.astrict_num;
+        this.goodNum = t.data.goods_info.goods_number;
+        var pro = this.goodPro, proArr = [];
+        for (var i in pro) {
+          proArr.push(pro[i]);
+          this.chooseAttr[this.chooseAttr.length] = this.chooseAttr.length;
+          this.chooseAttrIndex[this.chooseAttrIndex.length] = 0;
+          this.attrId[this.attrId.length] = pro[i].values[0].id;
+          console.log(pro[i], this.attrId, 'pro');
+        }
+        this.goodsParam = proArr;
+        this.property();
+        this.teamProperty();
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //个人团
+  property() {
+    this.cp.getData('goods/property', {
+      id: this.goodsId,
+      attr_id: this.attrId,
+      num: this.chooseNum,
+      groupNum: 1,
+      warehouse_id: "1",
+      area_id: "1",
+      silent: true
+    }).then(
+      (t: any) => {
+        this.pro = t.data;
+        console.log(this.pro, 'Pro');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //多人团
+  teamProperty() {
+    this.cp.getData('team/teamProperty', {
+      goods_id: this.goodsId,
+      attr_id: this.attrId,
+      num: this.chooseNum,
+      warehouse_id: "1",
+      area_id: "1",
+      silent: true
+    }).then(
+      (t: any) => {
+        this.teamPro = t.data;
+        console.log(this.teamPro, 'teamPro');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 个人购买添加到购物车
+  addCart() {
+    this.cp.getData('cart/add', {
+      id: this.goodsId,
+      num: this.chooseNum,
+      attr_id: this.attrId,
+      silent: true
+    }).then(
+      (t: any) => {
+        console.log(t, 'addCart');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 个人地址信息
+  addressList() {
+    this.cp.getData('user/address/list', {
+      silent: true
+    }).then(
+      (t: any) => {
+        console.log(t, 'addressList');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+
+}

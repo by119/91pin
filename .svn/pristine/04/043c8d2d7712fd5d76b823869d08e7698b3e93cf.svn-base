@@ -1,0 +1,117 @@
+page-cart {
+    // width: 100%;
+    // height: 100%;
+    // background-color: #F7F7F7;
+}
+ion-app.ios [padding] .scroll-content {
+    padding: 0;
+    background-color: #F7F7F7;
+}
+.cart-box {
+    margin: 1rem 0;
+}
+.cart-list {
+    width: 100%;
+    border-bottom: 0;
+    background-color: #fff;
+}
+.cart-list .item-ios {
+    border-bottom: none;
+}
+.list-title {
+    font-size: 1.6rem;
+    line-height: 3rem;
+    padding:0 5%!important;
+}
+.list-note {
+    font-size: 1.2rem;
+    line-height: 3rem;
+    padding:0 5%!important;
+}
+.list-content {
+    padding: 1rem 5%!important;
+}
+.list-content .item-ios {
+    border-bottom: none;
+}
+.list-content p{
+    margin: 0;
+}
+.list-content ion-note{
+    
+}
+.list-img {
+    width: 30%;
+    vertical-align: middle;
+}
+.list-detail {
+    width: 60%;
+    float: right;
+}
+.list-detail ion-label {
+    overflow: hidden;
+    white-space:initial;
+}
+.list-detail p{
+    // width: 100%;
+    font-size: 1.4rem;
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    
+}
+.list-detail .list-price {
+    // padding-right: 1rem;
+    color: #FE5261;
+}
+
+.list-price span {
+    font-size: 1rem;
+}
+.list-detail ion-note{
+    font-size: 1rem;
+}
+// 购物车为空
+.cart-null {
+    text-align: center;
+    color: #c6c6c6;
+    line-height: 10rem;
+}
+
+
+// 可能喜欢
+.like-box {
+    background-color: #fff;
+}
+.like-box ion-title{
+    line-height: 4rem;
+    border-bottom: 1px solid #F7F7F7;
+    margin-bottom: 1rem;
+}
+.like-list {
+    width: 44%;
+    margin: 2% 3%;
+    float: left;
+}
+
+.like-list ion-label {
+    overflow: hidden;
+    white-space:initial;
+}
+.like-list .like-depict {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6rem;
+}
+.like-list .like-price {
+    margin-top: 1rem;
+    color: #FE5261;
+    line-height: 1.4rem;
+}
+.like-price span {
+    font-size: 1rem;
+}
+
+.may-like .item-ios {
+    border-bottom: none;
+}

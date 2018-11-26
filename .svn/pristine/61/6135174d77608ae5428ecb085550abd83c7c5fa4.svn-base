@@ -1,0 +1,15 @@
+page-home {
+
+}
+page-home .header .searchbar-ios .searchbar-search-icon {
+    display: none;
+}
+page-home .header .searchbar-ios .searchbar-input {
+    text-align: center;
+    padding: 0;
+    color: #fff;
+    background-color: #ED6E67;
+}
+page-home .header .searchbar-ios .searchbar-input::-webkit-input-placeholder {
+    color: #F4D4CD;
+}

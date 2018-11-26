@@ -1,0 +1,1049 @@
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions/*,Request,RequestMethod*/ } from '@angular/http';
+import 'rxjs/add/operator/map';
+import {
+  Platform, LoadingController, ToastController, AlertController, PopoverController, ModalController,
+  ActionSheetController, App
+} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Storage } from '@ionic/storage';
+
+/*
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {PhotoLibrary} from '@ionic-native/photo-library';
+import getGeoLocation from "./geolocation";
+import getAmp from "./amap-location";
+// import {AMapLocate} from "../../../plugins/cordova-amap-locate/ionic-native";
+import { ThemeableBrowser, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+import { Toast } from '@ionic-native/toast';
+* */
+
+declare var sharesdk: any;
+declare var ShareSDK: any;
+declare var lyxpay: any;
+declare var navigator: any;
+
+@Injectable()
+export class CommonProvider {
+  WWW_URL = "http://www.maoxuankj.com/mobile/public/";
+  SITE_URL = "http://www.maoxuankj.com/mobile/";
+  BASE_URL = this.SITE_URL + "public/api/wx/";
+  H5_BASE_URL = this.SITE_URL + 'index.php';
+  DOWNLOAD_URL = "http://a.app.qq.com/o/simple.jsp?pkgname=com.zhixingshang.app";
+  DOWNLOAD_ANDROID_URL = this.WWW_URL + "sqb.apk";
+  APP_STORE_ID = "1340424357";
+  DOWNLOAD_IOS_URL = "https://itunes.apple.com/us/app/%e6%89%a7%e8%a1%8c%e8%b5%8f/id" + this.APP_STORE_ID + "?l=zh&ls=1&mt=8";
+
+  APP_NAME = "猫选";
+  SHARE_TEXT = "来自猫选APP的分享";
+
+  u: any = {};
+  token: string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjgyOTgsImV4cCI6MTUzODU0NTYzMSwicGxhdGZvcm0iOiJ3eCJ9.TxUhSihoRtfsVS389NitOBhwHfpJAcwwgY5TqSczs0k';
+  loadingCount = 0;
+  loading;
+  settings: any = {};
+  initialized = 0;
+  logining = 0;
+  navCtrl;
+  pressed = !1;
+  shareOpt;
+  global: any = {};
+  sharePlatform;
+  statusBarColor = 0; // 0 黑 1 白
+  checking_update = 1;
+  temp: any = {};
+
+  browserButtons: any = {
+    backButton: {
+      wwwImage: 'assets/img/back.png',
+      wwwImagePressed: 'assets/img/back.png',
+      wwwImageDensity: 3,
+      align: 'left',
+    },
+    closeButton: {
+      wwwImage: 'assets/img/close.png',
+      wwwImagePressed: 'assets/img/close.png',
+      wwwImageDensity: 3,
+      align: 'left',
+    },
+  };
+  /*
+  browser: ThemeableBrowserObject;
+  * */
+  browserOptions: any = {
+    toolbar: {
+      height: 44,
+      color: '#ffffffff'
+    },
+    title: {
+      staticText: this.APP_NAME
+    },
+    hardwareback: false,
+    backButtonCanClose: true,
+    hidden: false,
+    keyboarddisplayrequiresuseraction: false
+  };
+
+  backButtonSwitch: boolean = true;
+
+  constructor(public http: Http,
+    public req: RequestOptions,
+    public loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    // public amap: AMapLocate,
+    public actionsheetCtrl: ActionSheetController,
+    public plt: Platform,
+    public appCtrl: App,
+    public statusBar: StatusBar,
+    /*
+    public xToast: Toast,
+    public themeableBrowser: ThemeableBrowser,
+
+    public socialSharing: SocialSharing,
+    public photoLibrary: PhotoLibrary,
+    * */
+    public storage: Storage,
+  ) {
+    window['c'] = this;
+    var t = this.getQueryString("code"), i = this.getQueryString("state");
+    if (t)
+      this.logining = 1,
+        this.getData("user/wechatLogin", {
+          code: t,
+          state: i
+        }).then((i: any) => {
+          this.logining = 0, this.load(),
+            i.status ?
+              (this.toast(i.msg), localStorage.setItem('uid', i.data.id), this.setU(i.data)) :
+              this.toast(i.msg)
+        });
+    else
+      this.load();
+
+    if (plt.is('cordova')) {
+      this.initBackButton();
+      if (ShareSDK)
+        this.sharePlatform = {
+          qq: ShareSDK.PlatformType.QQFriend, qzone: ShareSDK.PlatformType.QZone,
+          timeline: ShareSDK.PlatformType.WechatTimeline, wechat: ShareSDK.PlatformType.WechatSession,
+          weibo: ShareSDK.PlatformType.SinaWeibo
+        }
+    }
+  }
+
+  load() {
+    this.storage.get("settings").then(settings => {
+      this.settings = settings ? settings : {
+        /*
+        province: 31,
+        city: 383,
+        district:3229,
+        province_name: '浙江',
+        city_name: '杭州'
+        */
+      };
+
+      this.storage.get('token').then(token=>{
+        this.setToken(token)
+        this.storage.get("user").then(u => {
+          this.setU(u || {});
+          this.initialized = 1;
+        })
+      })
+    })
+  }
+
+  getData(url, data: any = {}) {
+    /*
+    * silent  //显示loading
+    *
+    * */
+    let header = new Headers();
+    let token = this.token;
+    header.append("X-ECTouch-Authorization", token);
+    let options = new RequestOptions({ headers: header });
+
+    //  console.log(header.get("Content-Type"),header.get('X-ECTouch-Authorization'),'Content-Type');
+
+    let URL = url.indexOf('http://') == -1 ? this.BASE_URL + url : url;
+    /*使用H5接口*/
+    if (data.H5API) {
+      delete data.H5API;
+      URL = url.indexOf('http://') == -1 ? this.H5_BASE_URL + url : url;
+      // options = null;
+    }
+
+    /*如果参数中没有指定user_id，则默认携带上用户id和签名信息*/
+    if (data.user_id === undefined)
+      Object.assign(data, { user_id: this.u.id, sign: this.u.sign });
+
+    if (data.silent)
+      delete data.silent;
+    else {
+      this.loadingCount++;
+      if (this.loadingCount == 1) {
+        this.loading = this.loadingCtrl.create({
+          spinner: "dots",
+          content: "",
+          duration: 10000
+        });
+        this.loading.present();
+      }
+    }
+    return new Promise((resolve, reject) => {
+      if (data.method=="get") {
+        delete data.method;
+        
+        let str = '';
+        for(var i in data) {
+          str += '&' + i + "=" + data[i];
+        }
+        this.http.get(URL+str,options).map(t => {
+          if (this.loadingCount) {
+            this.loadingCount--;
+            if (!this.loadingCount)
+              this.loading.dismiss();
+          }
+          return t.json();
+        }).subscribe(t => {
+          resolve(t);
+        }, err => {
+          console.log(err);
+          this.alert('服务器错误');
+        })
+      } else {
+        this.http.post(URL, data, options).map(t => {
+          if (this.loadingCount) {
+            this.loadingCount--;
+            if (!this.loadingCount)
+              this.loading.dismiss();
+          }
+          return t.json();
+        }).subscribe(t => {
+          resolve(t);
+        }, err => {
+          console.log(err);
+          // reject();
+          this.alert('服务器错误');
+        })
+      }
+    })
+  }
+
+  parseJson(str) {
+    return new Promise(function (resolve, reject) {
+      resolve(JSON.parse(str));
+    });
+  }
+
+  getCache(key: string) {
+    return new Promise(resolve =>
+      this.storage.get(key).then((res: any) =>
+        res && res.expire ? (res.expire === true ? (resolve(res.data)) : (
+          res.expire > +new Date() ? resolve(res.data) : this.storage.remove(key)
+        )) : resolve(null)
+        // resolve(res && res.expire > +new Date() ? res.data : null ))
+      ));
+  }
+
+  setCache(key: string, value: any, expire: any = !0) {
+    this.storage.set(key, { expire: expire === true ? expire : expire * 1000 + +new Date(), data: value });
+  }
+
+  // 回退到上一页
+  pop() {
+    if (!this.navCtrl)
+      this.setActiveNavCtrl();
+    this.navCtrl.canGoBack() && this.navCtrl.pop()
+  }
+
+  //当切换tab的时候 重新设置下navCtrl 虽然都是设置的getActiveNavs()[0] 实际表示的都是当前tab的navCtrl
+  setActiveNavCtrl(navCtrl = null, delay = 0) {
+    if (delay)
+      setTimeout(() => {
+        this.navCtrl = navCtrl ? navCtrl : this.appCtrl.getActiveNavs()[0];
+      }, delay);
+    else
+      this.navCtrl = navCtrl ? navCtrl : this.appCtrl.getActiveNavs()[0];
+  }
+
+  getActiveViewCtrl() {
+    if (!this.navCtrl)
+      this.setActiveNavCtrl();
+    return this.navCtrl.getActive();
+  }
+
+  // 回到根页面
+  gotoRoot() {
+    if (!this.navCtrl)
+      this.setActiveNavCtrl();
+
+    this.navCtrl.popToRoot()
+  }
+
+  // 跳转页面
+  goto(params, view = '') {
+    if (typeof params === 'string')
+      params = { view: params };
+    if (view)
+      params.view = view;
+    if (params.data) {
+      params = Object.assign(params, params.data);
+      delete params.data;
+    }
+    if (!params.view)
+      return;
+
+    switch (params.view) {
+    }
+    if (!this.navCtrl)
+      this.setActiveNavCtrl();
+
+
+    if (params.view) {
+      this.temp.dl = 1;
+      if (this.navCtrl.push) {
+
+        this.navCtrl.push(params.view, params);
+      } else {
+        setTimeout(() => {
+          this.setActiveNavCtrl();
+          this.navCtrl.push(params.view, params);
+        }, 100)
+      }
+    }
+  }
+
+  styleDefault(set = 1) {
+    if (set) {
+      if (!this.statusBarColor) return;
+      this.statusBarColor = 0;
+    }
+    this.statusBar.styleDefault();
+  }
+
+  styleLightContent(set = 1) {
+    if (set) {
+      if (this.statusBarColor) return;
+      this.statusBarColor = 1;
+    }
+    this.statusBar.styleLightContent();
+  }
+
+  // 设置信息的保存
+  setSettings(settings) {
+    Object.assign(this.settings, settings);
+    this.storage.set("settings", this.settings);
+  }
+
+  // 检测是否登录  未登录时会自动跳转到登录页
+  checkLogin(gotoLogin = !0) {
+    return new Promise((resolve, reject) => {
+      this.init().then(() => {
+        /*
+        console.log('init ok!', {
+          pop: this.settings.pop,
+          u: this.u
+        });
+        */
+        if (this.settings.pop) {
+          this.setSettings({ pop: 0 });
+          this.pop();
+          resolve(!1);
+        } else if (!this.u.id) {
+          // }if (!this.u.id){
+          // this.setSettings({pop: 1});
+          /*
+          let config = {enableBackdropDismiss:false};
+          let login = this.popoverCtrl.create('login',{},config);
+          */
+          // let login = this.modalCtrl.create('login');
+          // login.present();
+          gotoLogin && this.goto({ view: "login" });
+          resolve(!1)
+        }
+        else resolve(!0)
+      })
+    })
+  }
+
+  // 全局保存用户信息
+  setU(u = null) { //{} 清空     不传参数 也就是 n 会等于null this.u维持不变 直接storage.set
+    let user = this.u,
+      us = JSON.stringify(u);
+    u = us == '{}' ? {} :         // {} 清空
+      us == 'null' ? user :       // null  维持不变
+        Object.assign(user, u);   // 合并更新
+    console.log('setU', u);
+    this.u = u;
+    this.storage.set("user", this.u);
+  }
+  setToken(token){
+    if(token){
+      this.token = token;
+      this.storage.set('token', token)
+    }
+  }
+
+  // 是否初始化完成
+  init() {
+    return new Promise((resolve, reject) => {
+      if (this.initialized) resolve()
+      else {
+        let timer = setInterval(() => {
+          this.initialized && (clearInterval(timer), resolve())
+        }, 100);
+      }
+    });
+  }
+
+  /*
+    openBrowser(url,params){
+      return new Promise((resolve, reject) => {
+        if(params.target != '_system'){
+          if(this.statusBarColor)
+            this.styleDefault(0);
+        }
+  
+        params.browserButtons = params.browserButtons ? params.browserButtons : params.remainBrowserButtons ? this.browserOptions.browserButtons : this.browserButtons;
+        let changeToolbar = !this.equals(this.browserOptions.browserButtons, params.browserButtons), changeTitle = !changeToolbar && params.title && this.browserOptions.title.staticText != params.title.staticText, event;
+  
+        Object.assign(this.browserOptions, params);
+        this.browserOptions.url = url;
+        this.browserOptions.resolve = resolve;
+        this.browserOptions.reject = reject;
+  
+        if(this.browser){
+          if(params.target == '_system')
+            return this.browser.executeScript({code:"var _system="+url});
+          else
+            return params.hidden || (this.browserOptions.hidden = !1),
+              changeTitle && this.browser.executeScript({code:"var _title="+this.browserOptions.title.staticText}),
+              changeToolbar && this.browser.executeScript({code:"var _toolbar="+JSON.stringify(Object.assign({title:this.browserOptions.title},this.browserOptions.browserButtons))}),
+              this.browserOptions.hidden || this.browser.show(),
+              this.browser.executeScript({code:this.plt.is('ios') ? 'var _open='+url : 'document.write("<div style=\' position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url(http://www.bujie.com/tpl/red/images/loading.gif) center center no-repeat;\'></div><script>window.location.href = \''+url+'\'</script>")'});
+        }else{
+          if(params.target == '_system'){
+            if(typeof params.hidden == 'undefined')
+              this.browserOptions.hidden = true;
+          }else if(!this.browserOptions.hidden)
+            setTimeout(()=>{this.nativeToast('加载中')},250)
+  
+          Object.assign(this.browserOptions, this.browserOptions.browserButtons),
+          this.browser = this.themeableBrowser.create(params.target == '_system' ? "about:blank" :url, '_blank', this.browserOptions);
+        }
+  
+        this.browser.on('exit').subscribe(e => {
+          if(this.statusBarColor)
+            this.styleLightContent(0);
+        });
+      });
+    }
+  */
+
+
+  toast(t) {
+    return this.toastPosition(t, "middle")
+  }
+
+  toastPosition(t, e) {
+    return this.toastPositionDuration(t, e, 3e3)
+  }
+
+  toastPositionDuration(t, e, n) {
+    var i = this;
+    return new Promise((r, s) => {
+      var tt = i.toastCtrl.create({ message: t, duration: n, position: e });
+      tt.onDidDismiss(() => {
+        r()
+      }), tt.present()
+    })
+  }
+  /*
+    nativeToast(t){
+      this.nativeToastDuration(t,"5000")
+    }
+    nativeToastDuration(t,time){
+      this.xToast.show(t,time,"center").subscribe(t=>{}) /!*需要加上subscribe不然ios下不显示*!/
+    }*/
+
+  getQueryString(t) {
+    return this.getUrlParam(t, window.location.search.substr(1))
+  }
+
+  getUrlParam(t, e) {
+    var n = new RegExp("(^|&)" + t + "=([^&]*)(&|$)", "i"), i = e.match(n);
+    return null != i ? decodeURIComponent(i[2]) : null
+  }
+
+  getSharePic(controller, filename, opts: any = {}, url = '') {
+    let item = Object.assign({}, opts);
+    switch (controller) {
+      case 'product':
+        item.view = 'detail';
+        item.pic = item.pic.replace("_160x160.jpg", "_600x600.jpg").replace(".160x160.jpg", ".600x.jpg").replace("s=160x160&", "");
+        filename = item.iid;
+        url = this.BASE_URL + 'qrcode/' + controller + '/' + filename + '.png?params=' + encodeURIComponent(JSON.stringify(item)) + (this.u.auth ? "&u=" + this.u.auth : "") + '&' + filename + '.png';
+        break;
+      case 'activity':
+        if (item.qrcode)
+          url = this.BASE_URL + 'qrcode/' + controller + '/' + filename + '.png?auth=' + this.u.auth + '&url=' + encodeURIComponent(item.url ? this.getShareUrl(item.url) : url) + "&pic=" + encodeURIComponent(item.pic) + "&width=" + item.width + "&left=" + item.left + "&top=" + item.top + (item.margin ? "&margin=" + item.margin : "") + (item.bc ? "&bc=" + item.bc : "") + (item.fc ? "&fc=" + item.fc : "") + "&" + filename + ".png"
+        else
+          url = item.pic;
+        break;
+    }
+    return url;
+  }
+
+  getShareUrl(url: any = '') {
+    let /*timestamp = new Date(new Date().toLocaleDateString()).getTime()/1000, */share_url: any = "";
+
+    url = url.split("#");
+
+    // #前面部分
+    share_url = url[0];
+    share_url = share_url.split("?");
+    share_url = share_url[0] + "?u=" + this.u.auth /*+ "&_t=" + timestamp*/ + (share_url[1] ? "&" + share_url[1] : "");
+
+    if (share_url.indexOf("http") !== 0)
+      share_url = this.SITE_URL + share_url;
+    // #后面部分
+    if (url[1])
+      share_url += "#" + url[1];
+    return share_url;
+  }
+
+  share(t) {
+    return new Promise((resolve, reject) => {
+      var e = this.popoverCtrl.create("share", t.type == 'url' ? { hideSave: 1 } : {}, { cssClass: 'share-container' });
+      e.onDidDismiss(data => {
+        resolve();
+      });
+      e.present(), this.shareOpt = t;
+    })
+  }
+  /*
+  
+    shareTo(t) {
+      var packageName, clientType, appName, opt: any = this.shareOpt;
+      if (!opt) return;
+      if (t == 'weibo' && opt.type == 'url') //微博不能直接分享网页链接出去 改成加到内容中的普通分享
+        delete opt.type, opt.weiboPic && (opt.pic = opt.weiboPic, delete opt.weiboPic)
+      if (opt.type == 'url')
+        delete opt.type
+      else if (opt.url)
+        opt.message += "\r\n" + opt.url, delete opt.url;
+  
+      if (typeof opt.pic == 'object' && opt.pic.length == 1)
+        opt.pic = opt.pic[0];
+  
+      var isIos11 = !1;
+      if (t != 'weibo' && t != 'save') {
+        // ios 11 下 原生分享到微信、朋友圈等报错 —— but remote VC failed, dismissing
+        isIos11 = this.plt.versions().ios && this.plt.versions().ios.major >= 11;
+        if (isIos11 && typeof opt.pic == 'object')
+          return this.toast('ios11下不支持多图分享QQ空间，请点击右下角-保存图片后自行分享'), false;
+      }
+      switch (t) {
+        case "qzone":
+          //QQ空间APP不支持分享链接  当分享链接到QQ空间时 采用通过QQ分享到空间的方式
+          if (opt.url || isIos11) {
+            t = "qq";
+            clientType = ShareSDK.ClientType.QQ;
+            appName = 'QQ'
+          } else {
+            packageName = this.plt.is("ios") ? "com.tencent.mqq.ShareExtension" : "com.qzone";
+            appName = 'QQ空间';
+          }
+          break;
+        case "qq":
+          if (opt.url || isIos11)
+            clientType = ShareSDK.ClientType.QQ;
+          else
+            packageName = this.plt.is("ios") ? "com.tencent.mqq.ShareExtension" : "com.tencent.mobileqq";
+          appName = 'QQ';
+          break;
+        case "wechat":
+          //android 单图 分享到微信  显示的是文件 而不是 图片  所以采用 shareSDK 的方式
+          if (opt.url || (typeof opt.pic != 'object' && this.plt.is("android")) || isIos11)
+            clientType = ShareSDK.ClientType.Wechat;
+          else
+            packageName = this.plt.is("ios") ? "com.tencent.xin.sharetimeline" : "com.tencent.mm";
+          appName = '微信';
+          break;
+        case "timeline":
+          if (isIos11 && typeof opt.pic == 'object')
+            return this.toast('ios11下不支持多图分享朋友圈，请点击右下角-保存图片后自行分享'), false;
+  
+          if (opt.url || isIos11)
+            clientType = ShareSDK.ClientType.Wechat;
+          else
+            packageName = this.plt.is("ios") ? "com.tencent.xin.sharetimeline" : "com.tencent.mm/com.tencent.mm.ui.tools.ShareToTimeLineUI";
+          appName = '微信';
+          break;
+        case "weibo":
+          if (opt.url || this.plt.is("ios"))
+            clientType = ShareSDK.ClientType.SinaWeibo;
+          else
+          //com.sina.weibo.ShareExtension 就是不出来分享图片 分享不了
+          //com.apple.social.sinaweibo、com.apple.share.SinaWeibo.post 官方的、要在系统设置里面设置账户
+          //this.plt.is("ios")?"com.sina.weibo.ShareExtension":
+            packageName = "com.sina.weibo";
+          appName = '微博';
+          break;
+        case "save":
+          this.toast("保存中");
+          this.photoLibrary.requestAuthorization().then(() => {
+            if (typeof this.shareOpt.pic == 'object') {
+              let saveImg = (key) => {
+                setTimeout(() => {
+                  this.toast('正在保存第' + (key + 1) + '张');
+                  this.photoLibrary.saveImage(this.shareOpt.pic[key], this.plt.is("ios") ? "Camera Roll" : this.APP_NAME);
+                }, key * 600)
+              }
+              for (var i = 0, len = this.shareOpt.pic.length; i < len; i++) {
+                //来个setTimeout 直接循环写的话 会出现 write busy 错误
+                saveImg(i);
+              }
+              setTimeout(() => {
+                this.toast("保存成功")
+              }, this.shareOpt.pic.length * 600)
+            } else
+              this.photoLibrary.saveImage(this.shareOpt.pic, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME), this.toast("保存成功");
+          }).catch(err => {
+            this.toast("未授权访问相册，保存失败")
+          });
+          break;
+      }
+      if (clientType) {
+        this.toastPositionDuration("即将打开" + appName, "middle", 10000);
+        sharesdk.isInstallClient.promise(clientType).then(n => {
+          n ?
+            opt.url ?
+              sharesdk.share(this.sharePlatform[t], ShareSDK.ShareType.WebPage, {
+                icon: opt.pic,
+                title: opt.title,
+                text: opt.message,
+                url: opt.url
+              }, (t) => {
+                this.toast("分享成功")
+              }, (t) => {
+                this.toast("分享失败")
+              }) :
+              sharesdk.share(this.sharePlatform[t], ShareSDK.ShareType.Image, {
+                image: opt.pic,
+                title: opt.title,
+                text: opt.message
+              }, (t) => {
+                this.toast("分享成功")
+              }, (t) => {
+                this.toast("分享失败")
+              }) :
+            this.toast("未安装" + appName)
+        });
+      } else if (packageName) {
+        this.toast("即将打开" + appName);
+        this.socialSharing.canShareVia(packageName).then(() => {
+          if (t != 'weibo' && this.plt.is("ios") && this.statusBarColor)
+            this.styleDefault(0);
+          //安卓里面被分享的应用 基本是 singletask 的  会立即执行回调  所以执行成功的回调就不提示了
+          this.socialSharing.shareVia(packageName, opt.message, opt.message, opt.pic, opt.url).then((t) => {
+            this.plt.is("ios") && this.toast("分享成功"), t != 'weibo' && this.plt.is("ios") && this.statusBarColor && this.styleLightContent(0)
+          }, (t) => {
+            this.plt.is("ios") && this.toast("分享失败"), t != 'weibo' && this.plt.is("ios") && this.statusBarColor && this.styleLightContent(0)
+          })
+        }).catch(() => {
+          this.toast("未安装" + appName)
+        });
+      }
+      return true;
+    }
+  
+    // resource_type 0 图片 1 视频
+    saveResource(resouce, resource_type = 0) {
+      return new Promise((resolve, reject) => {
+        this.toast("保存中");
+        this.photoLibrary.requestAuthorization().then(() => {
+          resource_type ?
+            this.photoLibrary.saveVideo(resouce, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME).then(() => {
+              this.toast("已成功保存到相册"), resolve()
+            }, () => {
+              this.toast("保存失败，请联系客服"), reject()
+            }) :
+            this.photoLibrary.saveImage(resouce, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME).then(() => {
+              this.toast("已成功保存到相册"), resolve()
+            }, () => {
+              this.toast("保存失败，请联系客服"), reject()
+            })
+        }).catch(err => {
+          this.toast("未授权访问相册，保存失败")
+        });
+      })
+    }
+  */
+
+  actionsheet(title, btns) {
+    var i = this.actionsheetCtrl.create({
+      title: title,
+      cssClass: "action-sheets-basic-page",
+      buttons: btns
+    });
+    i.present()
+  }
+
+  alert(t) {
+    const alert = this.alertCtrl.create({
+      subTitle: t,
+      buttons: ['知道了']
+    });
+    alert.present();
+    return alert;
+  }
+
+  //title,message,btn1_text,btn1_callback,btn2_text,btn2_callback
+  prompt(t, e, n, i, r, s) {
+    let p = this.alertCtrl.create({
+      title: t,
+      message: e,
+      enableBackdropDismiss: false,
+      buttons: [{
+        text: n,
+        handler: t => {
+          return i()
+        }
+      },
+      {
+        text: r,
+        handler: t => {
+          return s()
+        }
+      }]
+    });
+    p.present()
+  }
+
+  isWechat() {
+    return navigator.userAgent.toLowerCase().match(/MicroMessenger/i) + "" == "micromessenger"
+  }
+
+  // 同Jquery
+  hasClass(t, e) {
+    return t.className.match(new RegExp("(\\s|^)" + e + "(\\s|$)"))
+  }
+
+  addClass(t, e) {
+    this.hasClass(t, e) || (t.className += " " + e)
+  }
+
+  removeClass(t, e) {
+    if (this.hasClass(t, e)) {
+      var n = new RegExp("(\\s|^)" + e + "(\\s|$)");
+      t.className = t.className.replace(n, "")
+    }
+  }
+
+  toggleClass(t, e) {
+    console.log(t, e);
+    this.hasClass(t, e) ? this.removeClass(t, e) : this.addClass(t, e)
+  }
+
+  /*后退*/
+  goback() {
+    let nav = this.appCtrl.getActiveNav();
+    nav.canGoBack() && nav.pop();
+  }
+
+  pay(t, e, fail = null) {
+    if (this.plt.is('cordova')) {
+      t.open_id = 'mock one';
+      switch(t.type){
+        case 1:
+          t.pay_type = 'wechat_pay'; 
+        break;
+        case 2:
+          t.pay_type = 'alipay'; 
+        break;
+      }
+      this.getData("payment/pay", t).then((i: any) => {
+        if(i.data.indexOf('app_id') == -1)
+          this.toast(i.data);
+        else
+        // if (i.status == 2) { //余额/优惠码 全额付款成功
+        //   this.u.money = (this.u.money - i.data).toFixed(2);
+        //   e();
+        // } else 
+        // if (i.status) {
+          lyxpay.pay(t.type, t.type == 1 && this.plt.is("android") ? JSON.stringify(i.data) : i.data, {
+            success: () => {
+              e()
+            },
+            failure: (t) => {
+              //支付宝的错误码
+              /*
+              if (8000 == t || 6004 == t)
+                this.toast('支付结果确认中'), this.getData("tradelist/check", { id: i.msg }).then((i: any) => {
+                  i.msg ? e() : fail ? fail() : this.toast("支付失败")
+                })
+              else */
+                fail ? fail() : this.toast("支付失败")
+            }
+          })
+        // } else {
+        //   if (i.msg == '余额不足')
+        //     this.u.money = i.data;
+        //   this.toast(i.msg)
+        // }
+      })
+    } else if (this.isWechat()) {
+      this.toast("正在生成支付信息");
+      this.getData("tradelist/add", t).then((i: any) => {
+        if ("please bind wechat first" == i.msg)
+          window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5ead4b1c3b371c37&redirect_uri=" + encodeURIComponent('http://m.sheng365.cn/?btn_click=1#' + t.buy_page_url) + "&response_type=code&state=&scope=snsapi_base#wechat_redirect"
+        else if (i.status == 2) //余额/优惠码 全额付款成功
+          this.u.money = (this.u.money - i.data).toFixed(2), e();
+        else if (1 == i.status)
+          window['WeixinJSBridge'].invoke("getBrandWCPayRequest", i.data, (t) => {
+            "get_brand_wcpay_request:ok" == t.err_msg ? e() : this.toast("支付失败")
+          })
+        else
+          this.toast(i.msg)
+      })
+    } else {
+      if (t['money'] + t['promo_code_amount'] + 0.0001 > t['amount']) {
+        this.getData("tradelist/add", t).then((i: any) => {
+          if (i.status == 2) //余额/优惠码 全额付款成功
+            this.u.money = (this.u.money - i.data).toFixed(2), e();
+          else if (1 == i.status) {
+          }
+          else
+            this.toast(i.msg)
+        })
+      } else
+        this.toast("非余额全额付款，请在微信或APP内进行支付操作")
+    }
+  }
+
+  /*新增方法*/
+  getCurrentPosition() {
+
+    return new Promise((resolve, reject) => {
+      let $this = this;
+      getPosition();
+
+      /*获取定位*/
+      function getPosition() {
+        reject();
+        if (!1)
+          errHandle();
+        /*
+                getAmp().then(data=>{
+                    console.log('do getAmap ok', JSON.stringify(data));
+                      resolve(data);
+                },err=>{
+                  console.log('do getAmap Err!', JSON.stringify(err));
+                  getGeoLocation().then((data) => {
+                    console.log('do getGeolocation ok', data);
+                    resolve(data)
+                  }, (err)=>{
+                    console.log('do getGeolocation err', err);
+                    errHandle()
+                  });
+                });*/
+        /*  // $this.amap.getCurrentPosition().then(data => {
+          //   console.log('do get amap locate ok', JSON.stringify(data));
+          //
+          // }, err => {*/
+        //   console.log('do get amap locate err', JSON.stringify(err));
+        //   getAmp().then(data => {
+        //     resolve(data);
+        //   }, err => {
+        //     console.log('do getAmapErr!', JSON.stringify(err));
+        //     getGeoLocation().then((data) => {
+        //       console.log('do getGeolocation ok', data);
+        //       resolve(data)
+        //     }, (err)=>{
+        //       console.log('do getGeolocation err', err);
+        //       errHandle()
+        //     });
+        //
+        //   // });
+        // })
+
+      }
+
+      /*去设置*/
+      function gotoConfig() {
+        let cordova: any = window['cordova'];
+        if (!cordova) {
+          console.log('open settings err: cordova undefined');
+          reject({ msg: 'cordova undefined!' });
+          return
+        }
+
+        if (!cordova.plugins.settings) {
+          console.log('open settings err: cordova.plugins.settings undefined!');
+          reject({ msg: 'cordova.plugins.settings undefined!' })
+          return
+        }
+
+        cordova.plugins.settings.open('application_details',
+          function (data) {
+            console.log('open settind ok', data);
+          },
+          function (err) {
+            console.log('open settind error', err);
+            reject({ msg: 'open settind error' })
+          })
+      }
+
+      /*定位失败*/
+      function errHandle() {
+        if ($this.plt.is('cordova')) {
+          let alert = $this.alertCtrl.create({
+            title: '获取位置失败',
+            message: '请检查定位权限，如果已允许访问位置并且网络畅通，请点击重新定位！',
+            buttons: [
+              {
+                text: '重新定位',
+                role: 'cancel',
+              },
+              {
+                text: '去检查设置',
+                handler: gotoConfig
+              }
+            ]
+          });
+          alert.onDidDismiss(() => {
+            getPosition();
+          });
+          alert.present();
+        } else {
+          reject({ msg: '获取位置失败！' })
+        }
+      }
+
+    });
+  }
+
+  gotoConfig() {
+
+  }
+
+  error(error: any = '非法请求') {
+    if (typeof error == 'string') {
+      error = {
+        msg: error,
+        goBack: true
+      }
+    }
+    this.alert(error.msg);
+    error.goBack && this.goback();
+  }
+
+  initBackButton() {
+    let $this = this;
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+      console.log('emit ondeviceReady of backbutton');
+      //navigator.splashscreen.hide();
+      document.addEventListener("backbutton", onBackKeyDown, false);
+    }
+    function onBackKeyDown() {
+      if (!$this.backButtonSwitch) return;
+      $this.toast('再点击一次退出!');
+      document.removeEventListener("backbutton", onBackKeyDown, false); // 注销返回键
+      document.addEventListener("backbutton", exitApp, false);//绑定退出事件
+      // 3秒后重新注册
+      var intervalID = window.setInterval(function () {
+        window.clearInterval(intervalID);
+        document.removeEventListener("backbutton", exitApp, false); // 注销返回键
+        document.addEventListener("backbutton", onBackKeyDown, false); // 返回键
+      }, 3000);
+    }
+    function exitApp() {
+      console.log('退出应用程序');
+      navigator.app.exitApp();
+    }
+  }
+
+  /*特殊跳转*/
+  goToPersonalHome(user) {
+    if (typeof user == 'string') {
+      user = { id: user }
+    }
+    this.goto({ view: 'personal-home', user })
+  }
+
+  goToDownload(obj: any = '') {
+    if (typeof obj == 'string')
+      obj = { message: obj };
+    let {
+      title = '下载',
+      message,
+      confirm
+    } = obj;
+
+    let alert = this.alertCtrl.create({
+      title,
+      message,
+      buttons: ['取消',
+        {
+          text: '去下载',
+          handler: () => {
+            console.log('去下载');
+            typeof confirm === 'function' && confirm();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  /*退出登录*/
+  logout() {
+    return new Promise((resolve, reject) => {
+      this.setU({});
+      resolve();
+    });
+  }
+
+  equals(x, y) {
+    if (x === y) {
+      return true; // if both x and y are null or undefined and exactly the same
+    } else if (!(x instanceof Object) || !(y instanceof Object)) {
+      return false; // if they are not strictly equal, they both need to be Objects
+    } else if (x.constructor !== y.constructor) {
+      // they must have the exact same prototype chain, the closest we can do is
+      // test their constructor.
+      return false;
+    } else {
+      for (const p in x) {
+        if (!x.hasOwnProperty(p)) {
+          continue; // other properties were tested using x.constructor === y.constructor
+        }
+        if (!y.hasOwnProperty(p)) {
+          return false; // allows to compare x[ p ] and y[ p ] when set to undefined
+        }
+        if (x[p] === y[p]) {
+          continue; // if they have the same strict value or identity then they are equal
+        }
+        if (typeof (x[p]) !== 'object') {
+          return false; // Numbers, Strings, Functions, Booleans must be strictly equal
+        }
+        if (!this.equals(x[p], y[p])) {
+          return false;
+        }
+      }
+      for (const p in y) {
+        if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+}

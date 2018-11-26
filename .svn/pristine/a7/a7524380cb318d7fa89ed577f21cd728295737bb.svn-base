@@ -1,0 +1,59 @@
+<ion-content>
+  <div class="transheader" ion-fixed> 
+    <ion-header>
+      <ion-navbar>
+        <ion-title>商品详情</ion-title>
+        <ion-buttons end>
+          <button ion-button class="overlay" (click)="share()"> <img src="./assets/imgs/share_trans_white.png" /> </button>
+        </ion-buttons>
+      </ion-navbar>
+    </ion-header>
+  </div>
+  <div class="pict">
+    <img src="{{item.pic}}" />
+    <span class="video" (click)="cp.play(item.video, $event)" *ngIf="item.video"></span>
+  </div>
+  <div class="con" *ngIf="item.title">
+    <div class="section">
+      <p class="title">{{item.title}}</p>
+      <p class="flex"><em class="flex1"><i class="t{{item.shop_type}}"></i>
+        <ion-note color="gray">{{item.shop_title}}</ion-note>
+        </em>
+        <ng-container *ngIf="item.update_time_text">数据缓存于{{item.update_time_text}}&nbsp;<a (click)="refresh()">点击刷新</a></ng-container>
+      </p>
+    </div>
+    <div class="section">
+      <p> <i>{{item.coupon_price?'券后价':'折后价'}}</i> <span><small>￥</small>{{(item.now_price) | number : '1.2-2'}}</span> <del>￥{{item.price}}</del> </p>
+      <p *ngIf="item.coupon_info"> <a>{{item.coupon_info}}</a></p>
+      <p *ngIf="item.volume"> 月销量：{{item.volume>30?item.volume:'新品超实惠'}} </p>
+      <p *ngIf="item.coupon_amount"><a>{{item.coupon_amount}}元优惠券</a>
+        <ng-container *ngIf="item.coupon_total_count">，剩余数量{{item.coupon_left_count}}/{{item.coupon_total_count}}</ng-container>
+      </p>
+    </div>
+    <ion-card *ngIf="item.coupons">
+      <ion-card-header class="coupon flex"><span class="flex1"> <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i> 优惠券面值</span>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let item of item.coupons;let i=index;" [class]="(i%3==2?'col mr0':'col')+(couponIndex == i?' on':'')" (click)="sel(i)">{{item.couponInfo}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header class="tkl flex"><span class="flex1"> <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i> 下单淘口令</span>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="pt" [innerHTML]="share_text"></p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<ion-footer>
+   <ion-toolbar>
+    <div class="flex"> <span> 市场价<br>
+      <a><i>￥</i>{{item.price | number : '1.0-2'}}</a> </span> <span> 猫选价<br>
+      <a><i>￥</i>{{item.now_price | number : '1.0-2'}}</a>
+      </span> <span class="buy copy flex1" (click)="open()" data-clipboard-target="#copyTarget"> 去购买 </span></div></ion-toolbar>
+</ion-footer>

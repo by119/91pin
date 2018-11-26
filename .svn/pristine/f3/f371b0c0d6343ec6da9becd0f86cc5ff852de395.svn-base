@@ -1,0 +1,169 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the CollageDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collage-detail'
+})
+@Component({
+  selector: 'page-collage-detail',
+  templateUrl: 'collage-detail.html',
+})
+export class CollageDetailPage {
+  @ViewChild(Slides) slides: Slides;
+  pet = '0';
+  current = 1; //当前所在轮播图
+  slideLen = 1;  //轮播图数量
+  tipsState: boolean = false; //服务说明状态 false隐藏  true显示
+  ruleState: boolean = false; //拼团规则状态 false隐藏  true显示
+  followNum = 0; //商店关注人数
+  newLen = 7; // 拼团新品数量
+  isCollect: boolean = false; //收藏 true已收藏   false未收藏
+  buyInfoState: boolean = false; //购买明细框 false隐藏  true显示
+  buyState = 1; //购买方式  1：单独购买   2：拼团购买
+  goodsId = null; //商品id
+  teamId = 0; //拼团队伍id
+  goodDeatil = {};
+  goodInfo = {};
+  goodImg = [];
+  goodPro = {};
+  pro = {}; //个人团信息
+  teamPro = {}; //多人团信息
+  // 购买商品 参数选项
+  goodsParam: object[] = [{
+    title: '颜色',
+    list: ['颜色随机', '绿色', '栗色', '荧光绿', '红色', '白色', '米白色', '黑色', '黄色'],
+  }, {
+    title: '尺码',
+    list: ['M[80-100斤]', 'L【100-120斤】', 'XL【120-140斤】', '2XL【140-160斤】']
+  }];
+  chooseNum: number = 1;//已选数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+
+
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.goodsId = this.navParams.get('goods_id');
+    this.teamId = this.navParams.get('team_id') ? this.navParams.get('team_id') : 0;
+    console.log(this.navParams, this.goodsId, this.teamId, 'ionViewDidLoad CollageDetailPage');
+    this.getList();
+    this.property();
+    this.teamProperty();
+  }
+
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    if (currentIndex < this.slideLen) {
+      this.current = currentIndex + 1;
+    }
+    // console.log('Current index is', currentIndex, this.slides.length());
+  }
+  // 显隐服务说明
+  showTips() {
+    console.log('查看服务说明', this.tipsState);
+    this.tipsState = !this.tipsState;
+  }
+  // 显隐拼团规则详情
+  switchRule() {
+    console.log('显隐拼团规则详情', this.ruleState);
+    this.ruleState = !this.ruleState;
+  }
+  switchCollect() {
+    console.log('收藏切换', this.isCollect);
+    this.isCollect = !this.isCollect;
+  }
+  // 显隐购买明细框
+  showBuy(num) {
+    console.log(num, 'eee');
+    console.log('查看购买明细', this.buyState, this.buyInfoState);
+    this.buyInfoState = !this.buyInfoState;
+    if (num) {
+      this.buyState = num;
+    }
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+  }
+  // 添加数量
+  add() {
+    this.grey = false;
+    this.chooseNum++;
+  }
+  // 选择商品属性
+  choseStyle(i) {
+    console.log(i, 'ii');
+  }
+  getList() {
+    this.cp.getData('team/goodsDetail', {
+      goods_id: this.goodsId,
+      team_id: this.teamId
+    }).then(
+      (t: any) => {
+        // t.error 商品已下架：1    正常状态：0
+        this.goodDeatil = t.data;
+        this.goodImg = t.data.goods_img;
+        this.slideLen = this.goodImg.length;
+        this.goodInfo = t.data.goods_info;
+        this.goodPro = t.data.goods_properties;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //个人团
+  property() {
+    this.cp.getData('goods/property', {
+      id: this.goodsId,
+      attr_id: [],
+      num: 1,
+      groupNum: 1,
+      warehouse_id: "1",
+      area_id: "1"
+    }).then(
+      (t: any) => {
+        this.pro = t.data;
+        console.log(this.pro);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //多人团
+  teamProperty() {
+    this.cp.getData('team/teamProperty', {
+      goods_id: this.goodsId,
+      attr_id: [],
+      num: 1,
+      warehouse_id: "1",
+      area_id: "1"
+    }).then(
+      (t: any) => {
+        this.teamPro = t.data;
+        console.log(this.teamPro);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+}

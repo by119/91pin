@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only color="royal" (click)="cp.goto({view:'sysmsg'})">
+        <ion-icon name="md-text"></ion-icon>
+      </button>
+    </ion-buttons>
+    <input class="search-btn" type="text" placeholder="请输入您需要搜索的商品" readonly="readonly" (click)="cp.goto({view:'search'})">
+    <!-- <ion-searchbar placeholder="请输入您需要搜索的商品" type="text" (ionInput)="getItems($event)" [disabled]="disabled"></ion-searchbar> -->
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="cp.goto({view:'search'})">
+        <ion-icon name="md-search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-item class="nav-title">
+      <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="pet">
+          <ion-segment-button value="{{item.id}}" *ngFor="let item of navList;">
+            {{item.name}}
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-item>
+  
+    <ng-container [ngSwitch]="pet">
+      <ng-container *ngSwitchCase="0">
+        <div class="bgwhite pb10">
+        <ion-slides pager="true" autoplay="4000" *ngIf="adv[1].length > 0">
+          <ion-slide *ngFor="let item of adv[1]" (click)="jump(item.link_arr)">
+            <img src="{{item.pic_url}}" />
+          </ion-slide>
+        </ion-slides>
+        <index-column [columns]="adv[4]"></index-column>
+        <div (click)="cp.goto(adv[2][0]['link_arr'])" *ngIf="adv[2].length > 0">
+          <img src="{{adv[2][0]['pic_url']}}" />
+        </div>
+      </div>
+
+      <div class="bgwhite" margin-vertical>
+      <div class="flex youhaohuo" padding-top padding-bottom> 
+          <div class="flex1"></div>
+        <div class="flex2"><img src="./assets/imgs/youhaohuo.png" /></div> <div class="flex1"></div>
+      </div>
+        <ion-card class="types" *ngIf="adv[3].length == 3">
+          <div float-left> <img src="{{adv[3][0]['pic_url']}}" (click)="cp.goto(adv[3][0]['link_arr'])" /> </div>
+          <div float-right> <img src="{{adv[3][1]['pic_url']}}" (click)="cp.goto(adv[3][1]['link_arr'])" /> <img src="{{adv[3][2]['pic_url']}}" (click)="cp.goto(adv[3][2]['link_arr'])" /> </div>
+        </ion-card>
+      </div>
+        <div class="products" padding-bottom>
+          <pro #pro [content]="content" [items]="items"></pro>
+          <div class="btm" (click)="jump({view:'products'})"><img src="./assets/imgs/youhaohuo_more.png"></div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+
+      </ng-container>
+    </ng-container>
+  </ion-content>

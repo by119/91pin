@@ -1,0 +1,78 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the RankPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'rank'
+})
+@Component({
+  selector: 'page-rank',
+  templateUrl: 'rank.html',
+})
+
+export class RankPage {
+  @ViewChild(Content) content: Content;
+  pet: string = "0";
+  listArr: any = [];
+  num = 0; //当前所在tab列 热门：0   新品：1  优选：2
+  size = 10;//一次请求数据条数
+  page = 1; //当前请求的页数
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.getList(0);
+  }
+
+  getList(num) {
+    this.content.scrollToTop();
+    this.page = 1;
+    this.num = num;
+    this.cp.getData('team/teamRanking', {
+      page: this.page,
+      size: this.size,
+      type: this.num
+    }).then(
+      (t: any) => {
+        this.listArr = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  getMore() {
+    this.cp.getData('team/teamRanking', {
+      page: this.page,
+      size: this.size,
+      type: this.num
+    }).then(
+      (t: any) => {
+        let arr = this.listArr;
+        this.listArr = arr.concat(t.data);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.getMore();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
+  }
+}

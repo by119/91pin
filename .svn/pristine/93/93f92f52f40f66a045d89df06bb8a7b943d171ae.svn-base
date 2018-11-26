@@ -1,0 +1,129 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the OrderDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'order-detail',
+  segment: 'order-detail/:objectId',
+})
+@Component({
+  selector: 'page-order-detail',
+  templateUrl: 'order-detail.html',
+})
+export class OrderDetailPage {
+  objectId = null;
+  listArr:any = [];
+  flowOk: boolean = !1;
+  address = '';
+  extension_code = '';
+  viewUrl = '';
+  toppings: any = 2;
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams,
+    private alertCtrl: AlertController) {
+  }
+  ionViewWillEnter() {
+    this.cp.checkLogin().then(loaded=>{
+      this.objectId = this.navParams.get('objectId');
+      this.detail();
+
+      this.extension_code = this.navParams.get('extension_code');
+      this.viewUrl = this.extension_code == '' ? 'pro-detail' : (this.extension_code == 'bargain_buy' ? 'pro-detail' : (this.extension_code == 'team_buy' ? 'collage-detail' : '')) || 'collage-detail';
+      this.flowOk && this.checkOrder();
+    })
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  detail() {
+    this.cp.getData('user/order/detail', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        this.listArr = t.data;
+        this.address = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 取消订单
+  cancel() {
+    this.cp.getData('user/order/cancel', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        if (t.code == 0) {
+          this.cp.toast('取消成功');
+          this.detail();
+        } else {
+          this.cp.toast(t.data);
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  confirmCancel() {
+    let that = this;
+    this.cp.prompt(
+      '提示', '确认取消订单？', '取消', function () {
+        // console.log('取消');
+      }, '确定', function () {
+        that.cancel();
+      });
+  }
+  pay(){
+    let {order_id:id, log_id} = this.listArr;
+    let type = this.toppings;
+    let params = {
+      code: 'order.pay',
+      id,
+      type,
+      log_id
+    };
+
+    this.cp.pay(params, () => {
+      this.cp.getData("flow/detail", { id }).then((res: any) => {
+        if (res.code == 0) {
+          this.cp.goto({ view: 'collage-progress', team_id: res.data.team_id });
+          //设置按钮不可点击（2）
+
+        }
+      })
+    }, () => {
+      // 设置按钮可点击（1）
+
+    })
+  }
+
+  checkOrder() {
+    if (this.address != '') {//这里判断有没有地址
+      this.goToAddr();
+    }
+  }
+
+  chooseAddr(addr) {
+    //这里赋值地址
+    this.address = addr;
+  }
+  goToAddr() {
+    this.cp.goto({
+      view: 'address',
+      callBack: this.chooseAddr.bind(this)
+    });
+  }
+
+}
+

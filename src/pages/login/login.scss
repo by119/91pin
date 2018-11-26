@@ -1,0 +1,30 @@
+page-login {
+  .back-button {
+    //display: none !important;
+  }
+  .input-container {
+    .list-ios > .item-block:last-child {
+      border-bottom: none;
+    }
+  }
+  .btn-container {
+    margin-top: -5px;
+  }
+}
+
+page-login, page-reg, page-findpwd {
+  .transheader + form {
+    padding: 2rem;
+    .list {
+      .item {
+        &:first-child {
+          border-top: none;
+        }
+        background: transparent;
+      }
+    }
+    .btn-container{
+
+    }
+  }
+}

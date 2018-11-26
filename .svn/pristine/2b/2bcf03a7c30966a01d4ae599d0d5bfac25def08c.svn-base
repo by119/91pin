@@ -1,0 +1,32 @@
+page-home {
+    // .nav-title {
+    //     .label-ios {
+    //         margin: 0;
+    //     }
+    //     .item-inner{
+    //         border: none!important;
+    //     }
+    //     .toolbar-ios {
+    //         padding: 0!important;
+    //         min-height: 2.6rem;
+    //         .segment-button {
+    //             height: 2.5rem;
+    //             line-height: 2.5rem;
+    //         }
+    //     }
+    // }
+    // .header .searchbar-ios {
+    //     .searchbar-search-icon {
+    //         display: none;
+    //     }
+    //     .searchbar-input {
+    //         text-align: center;
+    //         padding: 0;
+    //         color: #fff;
+    //         background-color: #ED6E67;
+    //     }
+    //     .searchbar-input::-webkit-input-placeholder {
+    //         color: #F4D4CD;
+    //     }
+    // }
+}

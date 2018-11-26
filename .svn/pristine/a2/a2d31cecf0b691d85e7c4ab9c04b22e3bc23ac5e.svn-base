@@ -1,0 +1,13 @@
+import {Component, Input, OnInit, Output} from '@angular/core';
+
+@Component({
+  selector: 'good-item',
+  templateUrl: 'good-item.html'
+})
+export class GoodItemComponent {
+  @Input('good') good;
+
+  constructor() {
+  }
+
+}

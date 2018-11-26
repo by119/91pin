@@ -1,0 +1,117 @@
+<!--
+  Generated template for the CollageProgressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title *ngIf="teamInfo.status!='1';else elseTitle">等待成团</ion-title>
+    <ng-template #elseTitle>
+      <ion-title>拼团完成</ion-title>
+    </ng-template>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <div class="avatar clearfix">
+    <img src="{{teamInfo.user_picture}}" alt="">
+    <div *ngIf="teamInfo.status!='1';else elseState">
+      <h4>开团成功啦！</h4>
+      <p>只差
+        <span style="color: #ff495e">{{teamInfo.surplus}}</span>位小伙伴参团，快点邀请好友参团。</p>
+    </div>
+    <ng-template #elseState>
+      <h4>参团已完成</h4>
+      <p>可以参与新的拼团活动啦！</p>
+    </ng-template>
+  </div>
+  <div class="good-info clearfix" (click)="goTo({goods_id:teamInfo.goods_id,view:'collage-detail'})">
+    <img src="{{teamInfo.goods_thumb}}" alt="">
+    <div class="list-info">
+      <h4 class="list-title">{{teamInfo.goods_name}}</h4>
+      <p class="group-num">{{teamInfo.team_num}}人团</p>
+      <div class="list-price">{{teamInfo.team_price}}</div>
+    </div>
+  </div>
+
+  <!-- 拼团进度 -->
+  <div class="progress-info clearfix">
+    <div class="progress-title">
+      <p *ngIf="teamInfo.status!='1';else elseProgress">剩余
+        <span>{{difftimeStr}}</span>结束</p>
+      <ng-template #elseProgress>
+        <p>拼团完成</p>
+      </ng-template>
+    </div>
+    <div class="member-list" *ngFor="let item of teamUser;let i=index;">
+      <div class="member-avatar">
+        <span *ngIf="item.team_parent_id!='0'">团长</span>
+        <img src="{{item.user_picture}}" alt="">
+      </div>
+    </div>
+    <div class="member-list-more" (click)="goTo({view:'team-user',team_id:teamInfo.team_id})">···</div>
+    <div class="progress-box">
+      <div class="progress" [style.width.%]="teamInfo.bar">
+        <span>{{teamInfo.bar}}%</span>
+      </div>
+    </div>
+  </div>
+  <!-- 拼团规则 -->
+  <div class="collage-rule">
+    <p>拼团规则</p>
+    <div class="step">
+      <div class="step1">
+        <span>1</span>
+      </div>
+      <div class="step2">
+        <span>2</span>
+      </div>
+      <div class="step3">
+        <span>3</span>
+      </div>
+      <div class="step4">
+        <span>4</span>
+      </div>
+    </div>
+    <p class="step-txt">
+      <span>选择商品</span>
+      <span>开团/参团</span>
+      <span>邀请好友</span>
+      <span>人满成团</span>
+    </p>
+    <div *ngIf="!ruleState; else elseRule">
+      <p class="switch-rule">
+        <ion-icon name="ios-arrow-down" (click)="switchRule()"></ion-icon>
+      </p>
+    </div>
+    <ng-template #elseRule>
+      <p class="switch-rule">
+        <ion-icon name="ios-arrow-up" (click)="switchRule()"></ion-icon>
+      </p>
+      <div class="rule-txt">
+        <p> 1.开团：在商城内选择喜欢的商品，点击“去开团”，付款成功后即为开团成功；</p>
+        <p> 2.参团：进入朋友分享的页面，点击“立即参团”，付款后即为参团成功，若多人同时支付，按先支付成功的用户获得参团资格，参团订单未支付不计入参团数量，团过期未支付订单失效，但参团人信息也会显示在团里面；</p>
+        <p> 3.成团：在开团或参团之后,可以点击“分享出去”，在有效时间凑齐成团人数即拼团成功；</p>
+        <p> 4.组团失败：在有效时间内未凑齐人数，即为组团失败，此时商城会将原款分别退回；</p>
+      </div>
+    </ng-template>
+  </div>
+  <!-- 热卖商品 -->
+  <!-- <div class="hot">热卖商品</div> -->
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- 底部 -->
+    <div class="progress-foot">
+      <div class="foot-btn" style="background: #f4a213;" *ngIf="teamInfo.status!='1'" (click)="goTo('group')">更多拼团</div>
+      <div class="foot-btn" style="background: #f4a213;" *ngIf="teamInfo.status=='1'" (click)="goTo('group')">开团或参团</div>
+      <div class="foot-btn" style="background: #ff495e;" *ngIf="teamInfo.team_join!='1';else elsebtn" (click)="goTo({goods_id:teamInfo.goods_id,view:'collage-detail'})">去参团</div>
+      <ng-template #elsebtn>
+        <div class="foot-btn" style="background: #ff495e;" *ngIf="teamInfo.status!='1'">邀请好友拼团</div>
+      </ng-template>
+    </div>
+  </ion-toolbar>
+</ion-footer>

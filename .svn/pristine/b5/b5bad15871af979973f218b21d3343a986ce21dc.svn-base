@@ -1,0 +1,85 @@
+page-after-sale {
+    .list-data {
+        background-color: #fff;
+        padding: 1rem;
+        p {
+            margin: 0;
+            color: #c6c6c6;
+            line-height: 1.6rem;
+            font-size: 1.4rem;
+        }
+        .order-num {
+            font-size: 1.2rem;
+            span {
+                font-size: 1.6rem;
+                color: #333;
+            }
+        }
+        
+        .state {
+            color: #ec5151;
+            margin-left: .5rem!important;
+        }
+    }
+    
+    .goods {
+        padding: 1.3rem;
+        background-color: #fff;
+        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
+        img {
+            width: 30%;
+        }
+        .goods-info {
+            width: 70%;
+            float: right;
+            padding-left: .8rem;
+            p {
+                margin: 0;
+            }
+            .goods-title {
+                font-size: 1.5rem;
+                line-height:2rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;  
+                font-size: 1.5rem;
+                color: #444; 
+            }
+            .goods-pro {
+                margin-top: 1rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                font-size:1.3rem;
+                color:#777;
+            }
+        }
+    }
+    .after-btn {
+        float: right;
+        padding: .3rem .8rem;
+        border: 1px solid #ec5151;
+        color: #EC5151;
+        font-size: 1.4rem;
+        border-radius: 5px;
+    }
+    .progress-btn {
+        float: right;
+        .del-btn {
+            color: #555;
+            padding: .3rem .8rem;
+            font-size: 1.4rem;
+            width: auto;
+            background: #fff;
+            border: 1px solid #efefef;
+            float: left;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+    }
+}

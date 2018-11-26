@@ -1,0 +1,41 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
+/**
+ * Generated class for the DetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+@IonicPage({
+  name: 'detail'
+})
+@Component({
+  selector: 'page-detail',
+  templateUrl: 'detail.html',
+})
+export class DetailPage {
+  @ViewChild(Slides) slides: Slides;
+  title: string = '全脂牛奶';
+  current:number = 1;
+  slideLen:number = 1;
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DetailPage');
+    this.slideLen = this.slides.length();
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    this.current = currentIndex+1;
+    console.log('Current index is', currentIndex,this.slides.length());
+    
+  }
+}

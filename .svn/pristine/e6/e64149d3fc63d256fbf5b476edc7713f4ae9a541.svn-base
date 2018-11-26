@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+   <form action=".">
+     <ion-searchbar [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (search)="search()" placeholder="逛累了，直接搜~" animated="true"></ion-searchbar></form>
+    <ion-buttons end>
+      <button ion-button (click)="back()"> 取消 </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header> 热门搜索 </ion-card-header>
+    <ion-card-content class="hot">
+      <button ion-button outline *ngFor="let item of hot" (click)="goSearch(item.keyword)">{{item.keyword}}</button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (click)="cp.goto({view:'convert'})">
+    <ion-card-header> 优惠券工具
+      <ion-note float-right class="link">去查券</ion-note>
+    </ion-card-header>
+    <ion-card-content no-padding class="tool">
+      <div class="card-title">优惠券工具</div>
+      <div class="card-subtitle">一键查询商品优惠券，平均省30%</div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header> 历史搜索
+      <ion-note float-right class="link" (click)="clear()">清除记录</ion-note>
+    </ion-card-header>
+    <ion-card-content no-padding>
+      <ion-list>
+        <button ion-item *ngFor="let item of histories;let i = index" detail-none (click)="goSearch(item)">
+        <ion-label>{{item}}</ion-label>
+        <ion-icon color="gray" item-right name="close" (click)="del(i)"></ion-icon>
+        </button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

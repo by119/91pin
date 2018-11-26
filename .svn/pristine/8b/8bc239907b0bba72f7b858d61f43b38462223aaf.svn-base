@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的订单</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0">
+          全部订单
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          待付款
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          待收货
+        </ion-segment-button>
+        <ion-segment-button value="3">
+          待评价
+        </ion-segment-button>
+        <span style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;">|</span>
+        <ion-icon style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;" name="ios-arrow-down"></ion-icon>
+        <!-- <ion-icon style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;" name="ios-arrow-up"></ion-icon> -->
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+
+  <div [ngSwitch]="pet">
+      <div *ngSwitchCase="0">
+        全部订单
+      </div>
+      <div *ngSwitchCase="1">
+        待付款
+      </div>
+      <div *ngSwitchCase="2">
+        待收货
+      </div>
+      <div *ngSwitchCase="3">
+        待评价
+      </div>
+  </div>
+</ion-content>

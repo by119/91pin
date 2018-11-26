@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>我的订单</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="pet" (ionChange)="changeSeg()" class="bgwhite" mode="md">
+    <ion-segment-button value="-1">
+      全部订单
+    </ion-segment-button>
+    <ion-segment-button value="0">
+      待付款
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      待收货
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      待评价
+    </ion-segment-button>
+    <span style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;">|</span>
+    <ion-icon *ngIf="orderState" style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;" name="ios-arrow-down" (click)="showOrder()"></ion-icon>
+    <ion-icon *ngIf="!orderState" style="margin: 0 .5rem;color:#6c6c6c;line-height: 2.5rem;" name="ios-arrow-up" (click)="showOrder()"></ion-icon>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  <!-- 全部订单：-1  待付款：0 待收货：2  待评价：3  -->
+  <div *ngIf="items[tabs]&&items[tabs]?.length>0;else elseBlank">
+    <div *ngIf="tabs!=3">
+      <div class="order-list" *ngFor="let item of items[tabs];let i = index;">
+        <div class="list-title">
+          <span>{{item.shop_name}}</span>
+          <span class="list-state">{{item.pay_status}} {{item.shipping_status}} {{item.order_status}}</span>
+        </div>
+        <div class="list-data">
+          <p class="order-num">
+            订单号：
+            <span>{{item.order_sn}}</span>
+            <i *ngIf="item.extension_code!=''">{{item.extension_code=='bargain_buy'?'砍价订单':(item.extension_code=='team_buy'?'拼团订单':'')}}</i>
+          </p>
+          <p>{{item.add_time}}</p>
+        </div>
+        <div class="list-style clearfix" (click)="goTo({extension_code:item.extension_code,objectId:item.order_id,view:'order-detail'})">
+          <img src="{{item.goods[0].goods_thumb}}" alt="">
+          <p>{{item.goods[0].goods_name}}</p>
+          <div class="list-num">
+            <span>共{{item.goods_count}}款</span>
+            <ion-icon name="ios-arrow-forward"></ion-icon>
+          </div>
+        </div>
+        <div class="list-deal clearfix">
+          <div class="list-total">
+            合计:
+            <span>{{item.total_amount_formated}}</span>
+          </div>
+        <div>
+          <span  *ngIf="item.shipping_status=='未发货'&&item.pay_status=='已付款'" (click)="goTo({extension_code:item.extension_code,objectId:item.order_id,view:'order-detail'})">查看详情</span>
+          <!-- <span *ngIf="item.shipping_status=='已发货'" (click)="goTo({extension_code:item.extension_code,objectId:item.order_id,view:'order-detail'})">查看物流</span> -->
+          <span *ngIf="item.pay_status=='未付款'" class="cancel" (click)="confirmCancel(item.order_id)">取消</span>
+          <span *ngIf="item.pay_status=='未付款'" class="pay" (click)="goTo({extension_code:item.extension_code,objectId:item.order_id,view:'order-detail'})">去付款</span>
+          <span *ngIf="item.shipping_status=='已发货'" (click)="confirmOrder()">确认收货</span>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="tabs==3">
+      <div class="assess-list clearfix" *ngFor="let item of items[tabs];let i=index;">
+        <img src="{{item.goods_thumb}}" alt="">
+        <div class="list-info">
+          <h4 class="list-title">{{item.goods_name}}</h4>
+          <div class="list-buy">
+            <div class="list-price">{{item.shop_price}}</div>
+            <div class="list-btn" (click)="goTo({objectId:item.id,oid:item.oid,view:'assess-detail'})">去评价</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseBlank>
+    <div class="no_records">
+      <p></p>
+      <p> 未找到相关记录 </p>
+    </div>
+  </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <div class="order-dialog" *ngIf="orderState">
+    <div class="dialog-bg" (click)="showOrder()"></div>
+    <div class="dialog">
+      <!-- <div>
+        <ion-icon name="" class="iconfont icon-axe"></ion-icon>
+        <span>我的砍价</span>
+      </div> -->
+      <div (click)="goTo('collage')">
+        <ion-icon name="ios-people"></ion-icon>
+        <span>我的拼团</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

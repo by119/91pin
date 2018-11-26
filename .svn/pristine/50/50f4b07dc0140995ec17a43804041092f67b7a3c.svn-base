@@ -1,0 +1,166 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+@IonicPage({
+  name: 'cart',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-cart',
+  templateUrl: 'cart.html',
+})
+export class CartPage {
+  bestGoods = [];
+  cartList = [];
+  total = [];
+  teamId = 0; //拼团队伍id
+  tId = 0;//goodinfoid
+  flowType = null; //
+  temp = {}; //跳转页面所带参数
+  cartId = null;
+  cartIdList = [];
+  placeList = []; //商品选中状态
+  shopList = []; //店铺选中状态
+  editState = true; //商品可否编辑状态
+  chooseNum = 1;//已选数量
+  goodNum = 1;//库存数量
+  astrictNum = 1; //限购数量
+  bigNum = 1;//最大购买数量
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.cart();
+  }
+
+  goTo(url) {
+    this.cp.goto(url)
+  }
+  // 编辑
+  showEdit() {
+    this.editState = !this.editState;
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+    }
+  }
+  // 添加数量
+  add() {
+    if (this.chooseNum < this.bigNum) {
+      this.chooseNum++;
+    }
+  }
+
+  inputKeyUp($event) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+    $event.target.value = Math.floor($event.target.value);
+    this.chooseNum = $event.target.value <= this.bigNum ? $event.target.value : this.bigNum;
+
+
+  }
+  // 购物车
+  cart() {
+    this.cp.getData('cart', {
+      silent: true
+    }).then(
+      (t: any) => {
+        this.bestGoods = t.data.best_goods;
+        this.cartList = t.data.cart_list;
+        this.total = t.data.total;
+        let cart_list = t.data.cart_list, cartArr = [];
+        for (let i in cart_list) {
+          let o = {};
+          o[i] = cart_list[i];
+          // console.log(o, 'oooooooooooooo');
+          for (const key in o) {
+            let list = o[key];
+            let id = [], place = [];
+            cartArr.push(list);
+            for (let k = 0; k < list.length; k++) {
+              id.push(list[k].rec_id);
+              place.push(0);
+            }
+            this.cartIdList.push(id);
+            this.placeList.push(place);
+            this.shopList.push(0);
+          }
+        }
+        this.cartList = cartArr;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 选择商店
+  chooseShop(i) {
+    this.shopList[i] = !this.shopList[i];
+    for (let j = 0; j < this.placeList[i].length; j++) {
+      this.placeList[i][j] = this.shopList[i];
+    }
+  }
+  // 选择商品
+  chooseGoods(i, j, cartid) {
+    this.cartIdList[i][j] = this.placeList[i][j] == true ? null : cartid;
+    this.placeList[i][j] = !this.placeList[i][j];
+    for (let k = 0; k < this.placeList.length; k++) {
+      let count = 0;
+      for (let l = 0; l < this.placeList[k].length; l++) {
+        if (this.placeList[k][l] == true) {
+          count++;
+        }
+      }
+      if (count >= this.placeList[k].length) {
+        this.shopList[k] = true;
+      } else {
+        this.shopList[k] = false;
+      }
+    }
+  }
+  distinct(a) {
+    // 数组去重
+    var arr = a, i, j, len = arr.length;
+    for (i = 0; i < len; i++) {
+      for (j = i + 1; j < len; j++) {
+        if (arr[i] == arr[j]) {
+          arr.splice(j, 1);
+          len--;
+          j--;
+        }
+      }
+    }
+    return arr;
+  }
+  // 个人地址信息-提交订单
+  addressList() {
+    this.cp.getData('user/address/list', {
+      silent: true
+    }).then(
+      (t: any) => {
+        if (t.data !== '') {
+          //去确认订单页面
+          // ?objectId=0&flow_type=" + a + "&team_id=" + r + "&t_id=" + o
+          this.temp = {
+            view: 'firm-order',
+            objectId: 0,
+            flow_type: this.flowType,
+            team_id: this.teamId,
+            t_id: this.tId
+          };
+          this.goTo(this.temp);//跳转至订单详情页面
+        } else {
+          // 去添加地址页面
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+}

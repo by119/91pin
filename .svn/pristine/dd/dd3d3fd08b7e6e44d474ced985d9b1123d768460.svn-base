@@ -1,0 +1,57 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {CommonProvider} from "../../providers/common/common";
+
+@IonicPage({
+  name:'channel'
+})
+@Component({
+  selector: 'page-channel',
+  templateUrl: 'channel.html',
+})
+export class ChannelPage {
+  title = "加载中";
+  tc_id:string = "";
+  keyword:string = "1";
+  page:string = '1';
+  size:string = "30";
+  sort_key:string = "0";
+  sort_values:any = ["DESC","DESC","DESC"];
+
+  goods:any = []
+
+  constructor(public navCtrl: NavController,
+              public cp: CommonProvider,
+              public navParams: NavParams) {
+    this.title = this.navParams.data.title;
+    this.tc_id = this.navParams.data.tc_id;
+    if(!this.tc_id)
+      this.navCtrl.pop();
+    else
+      this.getList(0,!1);
+  }
+
+  getList(current_sort_key,changeSort=!0){
+    let {keyword,page,size,sort_key,sort_values,tc_id} = this;
+
+    if(current_sort_key!=sort_key){
+      this.sort_key = sort_key = current_sort_key;
+    }else if(changeSort)
+      sort_values[sort_key] = sort_values[sort_key] == 'DESC' ? 'ASC' : 'DESC';
+
+    let sort_value = sort_values[sort_key];
+
+    this.cp.getData('team/categoryList',{
+      keyword,page,size,sort_key,sort_value,tc_id
+    }).then((res:any)=>{
+      console.log(res);
+      if(res.code==0){
+        this.goods = res.data;
+        console.log(this.goods);
+      }
+    })
+
+  }
+
+
+}

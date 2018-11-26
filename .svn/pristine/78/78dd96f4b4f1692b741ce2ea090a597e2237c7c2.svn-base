@@ -1,0 +1,27 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+/**
+ * Generated class for the FirmOrderPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'firm-order'
+})
+@Component({
+  selector: 'page-firm-order',
+  templateUrl: 'firm-order.html',
+})
+export class FirmOrderPage {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad FirmOrderPage');
+  }
+
+}

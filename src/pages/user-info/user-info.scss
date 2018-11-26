@@ -1,0 +1,10 @@
+page-user-info {
+  .icon[item-end]{
+    display: flex;
+    align-items: center;
+    //align-content: center;
+  }
+  .avatar{
+    border-radius: 50%;
+  }
+}

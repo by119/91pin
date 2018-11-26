@@ -1,0 +1,12 @@
+<div id="share">
+<ion-grid>
+  <ion-row>
+    <ion-col (click)="shareTo('wechat')"><img src="./assets/imgs/share_wechat.png" />微信好友</ion-col>
+    <ion-col (click)="shareTo('timeline')"><img src="./assets/imgs/share_timeline.png" />朋友圈</ion-col>
+    <ion-col (click)="shareTo('weibo')"><img src="./assets/imgs/share_weibo.png" />微博</ion-col>
+    <ion-col (click)="shareTo('qq')"><img src="./assets/imgs/share_qq.png" />QQ好友</ion-col>
+    <ion-col (click)="shareTo('qzone')"><img src="./assets/imgs/share_qzone.png" />QQ空间</ion-col>
+    <ion-col (click)="shareTo('save')"><ng-container *ngIf="showSave"><img src="./assets/imgs/share_save.png" />保存图片</ng-container></ion-col>
+  </ion-row>
+</ion-grid>
+</div><div id="close-share" (click)="closeShare()">取消</div>

@@ -1,0 +1,65 @@
+page-rank {
+    .nav-title {
+        position: fixed;
+    }
+    .rank-list-box {
+        padding-top: 2.5rem;
+    }
+    .rank-list {
+        padding: 1rem;
+        background-color: #fff;
+        margin-top: .5rem;
+        img {
+            width: 25%;
+            float: left;
+            border: 1px solid #f6f6f9;
+            margin-right: .8rem;
+        }
+        .list-info {
+            width: 70%;
+            float: left;
+            .list-title {
+                font-size: 1.6rem;
+                overflow : hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                margin: 0;
+            }
+            .group-num {
+                font-size: 1.3rem;
+                color: #777;
+                margin: .2rem 0 0 0;
+            }
+            .list-buy {
+                .list-price {
+                    float: left;
+                    color: #ec5151;
+                    font-size: 1.8rem;
+                    line-height: 2.6rem;
+                }
+                .list-btn {
+                    float: right;
+                    div {
+                        font-size: 1.5rem;
+                        border: 1px solid #ec5151;
+                        text-align: center;
+                        line-height: 2.6rem;
+                        float: left;
+                        padding: 0 .5rem;
+                    }
+                    .group-2 {
+                        border-radius: .3rem 0 0 .3rem;
+                        color: #ec5151;
+                    }
+                    .group-btn {
+                        border-radius: 0 .3rem .3rem 0;
+                        color: #fff;
+                        background: #ec5151;
+                    }
+                }
+            }
+        }
+    }
+}

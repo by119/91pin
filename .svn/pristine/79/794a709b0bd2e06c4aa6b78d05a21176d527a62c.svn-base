@@ -1,0 +1,130 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the OrderDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'order-detail',
+  segment: 'order-detail/:objectId',
+})
+@Component({
+  selector: 'page-order-detail',
+  templateUrl: 'order-detail.html',
+})
+export class OrderDetailPage {
+  objectId = null;
+  listArr:any = {};
+  // flowOk: boolean = !1;
+  address = '';
+  extension_code = '';
+  viewUrl = '';
+  toppings: any = 2;
+  loading = 0;
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+  ionViewWillEnter() {
+    this.cp.checkLogin().then(loaded=>{
+      this.objectId = this.navParams.get('objectId');
+      this.detail();
+
+      this.extension_code = this.navParams.get('extension_code');
+      this.viewUrl = this.extension_code == '' ? 'pro-detail' : (this.extension_code == 'bargain_buy' ? 'pro-detail' : (this.extension_code == 'team_buy' ? 'collage-detail' : '')) || 'collage-detail';
+      // this.flowOk && this.checkOrder();
+    })
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  detail() {
+    this.cp.getData('user/order/detail', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        this.address = this.listArr = t.data;
+        this.toppings = {11:0, 18:1, 9:2}[t.data.pay_id];
+      }
+    )
+  }
+  // 取消订单
+  cancel() {
+    this.loading = 1;
+    this.cp.getData('user/order/cancel', {
+      id: this.objectId
+    }).then(
+      (t: any) => {
+        this.loading = 0;
+        if (t.code == 0) {
+          this.cp.toast('取消成功');
+          this.detail();
+        } else {
+          this.cp.toast(t.data);
+        }
+      }
+    )
+  }
+  confirmCancel() {
+    if(this.loading) return;
+
+    this.cp.prompt('提示', '确认取消订单？', '取消', () => {}, '确定', () => {
+        this.cancel();
+    });
+  }
+  pay(){
+    if(this.toppings == 0 && + this.listArr.order_amount > + this.cp.u.user_money)
+        return this.cp.toast('余额不足');
+
+    if(this.loading) return;
+        this.loading = 1;
+    
+    let {order_id:id, log_id} = this.listArr;
+    let type = this.toppings;
+    let params = {
+      code: 'order.pay',
+      id,
+      type,
+      log_id
+    };
+
+    this.cp.pay(params, () => {
+      this.cp.getData("flow/detail", { id }).then((res: any) => {
+        if (res.code == 0) {
+          if(res.data.team_id)
+            this.cp.goto({ view: 'collage-progress', team_id: res.data.team_id });
+          else
+            this.cp.toast('付款成功'), this.detail();
+        }
+      })
+    }, () => {
+      this.loading = 0;
+    })
+  }
+
+  // checkOrder() {
+  //   if (this.address != '') {//这里判断有没有地址
+  //     this.goToAddr();
+  //   }
+  // }
+
+  chooseAddr(addr) {
+    //这里赋值地址
+    this.address = addr;
+  }
+  goToAddr() {
+    this.cp.goto({
+      view: 'address',
+      callBack: this.chooseAddr.bind(this)
+    });
+  }
+
+}
+

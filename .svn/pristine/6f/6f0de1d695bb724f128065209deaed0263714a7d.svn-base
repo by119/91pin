@@ -1,0 +1,10 @@
+page-user-info {
+    .item {
+      ion-thumbnail {
+        img {
+          border-radius: 10px;
+        }
+      }
+    }
+
+}

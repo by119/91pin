@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="tabs" (ionChange)="changeSeg()" class="bgwhite" mode="md">
+    <ion-segment-button value="0" (click)="changeSort()" flex>
+      默认
+      <!-- <ion-icon [name]="sort_values[0]=='ASC'?'ios-arrow-up-outline':'ios-arrow-down-outline'"></ion-icon> -->
+    </ion-segment-button>
+    <ion-segment-button value="1" (click)="changeSort()" flex>
+      销量
+      <ion-icon [name]="sort_values[1]=='ASC'?'ios-arrow-up-outline':'ios-arrow-down-outline'"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="2" (click)="changeSort()" flex>
+      价格
+      <ion-icon [name]="sort_values[2]=='ASC'?'ios-arrow-up-outline':'ios-arrow-down-outline'"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  <div class="good-list" *ngIf="items[tabs]&&items[tabs]?.length>0;else elseBlank;">
+    <div class="clearfix" flex flex-wrap flex-start>
+      <good-item type="2" *ngFor="let good of items[tabs];let i = index;" [good]="good"></good-item>
+    </div>
+  </div>
+  <ng-template #elseBlank>
+    <div class="no_records">
+      <p></p>
+      <p> 未找到相关记录 </p>
+    </div>
+  </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

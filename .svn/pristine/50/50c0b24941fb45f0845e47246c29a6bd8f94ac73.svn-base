@@ -1,0 +1,32 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {CommonProvider} from "../../providers/common/common";
+
+
+@IonicPage({
+  name: 'center',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-center',
+  templateUrl: 'center.html',
+})
+export class CenterPage {
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
+  }
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CenterPage');
+  }
+
+  goTo(){
+    this.cp.goto('taoqianggou')
+  }
+
+}

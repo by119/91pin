@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>拼团</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="tc_id" (ionChange)="onSegmentChange()">
+        <ion-segment-button value="0">全部</ion-segment-button>
+        <ion-segment-button *ngFor="let item of categories;let i = index" [value]="item.tc_id" >
+          {{item.name}}
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+
+  <ion-slides pager class="banner" *ngIf="!1">
+
+    <ion-slide>
+      <img src="assets/imgs/card-saopaolo.png" alt="" (click)="goTo('rank')">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/avatar.png" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/card-saopaolo.png" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/avatar.png" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="assets/imgs/card-saopaolo.png" alt="">
+    </ion-slide>
+
+  </ion-slides>
+
+  <div class="banner-bottom">
+    <img *ngFor="let img of banner_bottom" [src]="img.pic">
+  </div>
+
+  <ion-grid no-padding class="ads">
+    <ion-row>
+      <ion-col flex-column>
+        <ng-container *ngIf="tc_id==0">
+          <img *ngFor="let img of ad_best_left" [src]="img.pic">
+        </ng-container>
+        <ng-container *ngIf="tc_id!=0">
+
+        </ng-container>
+      </ion-col>
+      <ion-col flex-column>
+        <ng-container *ngIf="tc_id==0">
+          <img *ngFor="let img of ad_best_right" [src]="img.pic">
+        </ng-container>
+        <ng-container *ngIf="tc_id!=0">
+
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="good-list">
+    <good-item *ngFor="let good of goodList" [good]="good"></good-item>
+  </div>
+
+</ion-content>

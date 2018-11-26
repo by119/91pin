@@ -1,0 +1,92 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>收货地址</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div round class="picker-btn disable-hover button button-ios button-outline button-outline-ios button-round button-round-ios">
+    <city-picker
+      [cancelText]="'取消'"
+      [doneText]="'完成'"
+      [separator]="'-'"
+      [citiesData]="cityData"
+      [(ngModel)]="cityName"
+      (ionChange)="cityChange($event)">
+    </city-picker>
+    其他领地
+  </div>
+  <form  [formGroup]="pageForm" (ngSubmit)="onSubmit(pageForm.value)" action=''novalidate>
+    <div round class="picker-btn disable-hover button button-ios button-outline button-outline-ios button-round button-round-ios">
+      <city-picker
+        [cancelText]="'取消'"
+        [doneText]="'完成'"
+        [separator]="'-'"
+        [citiesData]="cityData"
+        formControlName="cityName"
+        (ionChange)="cityChange($event)">
+      </city-picker>
+      其他领地
+    </div>
+    <ion-list >
+      <ion-item >
+        <ion-label class="wide">收货人</ion-label>
+        <ion-input type="text" formControlName="consignee"></ion-input>
+      </ion-item>
+
+      <ion-item >
+        <ion-label class="wide">电话</ion-label>
+        <ion-input type="number" formControlName="mobile" ></ion-input>
+        <!-- <p ng-show="pageForm.mobile.valid && !pageForm.mobile.$pristine">Enter a valid email.</p> -->
+      </ion-item>
+      <ion-item>
+        <ion-label>地址</ion-label>
+
+      </ion-item>
+      <ion-item >
+        <ion-label>省份</ion-label>
+        <ion-select color="red" formControlName="province" (ionChange)='getCities(this.pageForm.controls.province.value,true)' interface="popover" >
+          <ion-option   *ngFor="let item of provinces" value="{{item.region_id}}">{{item.region_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item >
+        <ion-label>市</ion-label>
+        <ion-select color="red" formControlName="city" (ionChange)='getDistrict(this.pageForm.controls.city.value,true)' interface="popover">
+          <ion-option  *ngFor="let item of cities" value="{{item.region_id}}">{{item.region_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item >
+        <ion-label>区/县</ion-label>
+        <ion-select color="red" formControlName="district" interface="popover">
+          <ion-option   *ngFor="let item of areas" value="{{item.region_id}}">{{item.region_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item >
+        <ion-label>地址类别</ion-label>
+        <ion-select color="red" formControlName="address_type"  interface="popover">
+            <ion-option value="1">公司</ion-option>
+          <ion-option value="2">个人</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item >
+          <ion-label class="wide">邮编</ion-label>
+          <ion-input type="number" formControlName="zipcode"></ion-input>
+        </ion-item>
+      <ion-item >
+        <ion-input type="text" class="_address" formControlName="address" placeholder='请输入详细信息'></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <div class="btn btn1">
+      <button ion-button full color="blue" type="submit"  [disabled]="!pageForm.valid"> 确认</button>
+    </div>
+  </form>
+    <div class="btn btn2" *ngIf="navParams.data.item">
+      <button ion-button full  color="danger" (click)="del()">删除</button>
+    </div>
+    <!--<div class=" wx_address">
+      获取微信收货地址
+    </div>-->
+</ion-content>

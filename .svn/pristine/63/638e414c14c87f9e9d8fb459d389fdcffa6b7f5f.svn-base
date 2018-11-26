@@ -1,0 +1,14 @@
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="首页" tabUrlPath="tab0" tabIcon="ios-home-outline"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="9.9包邮" tabUrlPath="tab1" tabIcon="ios-star-outline"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="特卖" tabUrlPath="tab2" tabIcon="md-alarm"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="购物车" tabUrlPath="tab3" tabIcon="ios-cart-outline"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="个人中心" tabUrlPath="tab4" tabUrlPath="center" tabIcon="myperson"></ion-tab>
+</ion-tabs>
+<span class="dl" *ngIf="cp.temp.dl && !cp.plt.is('cordova')" (click)="cp.goto({view:'download'})"> <img src="./assets/imgs/dl.png" /> </span>
+<video controls class="invisible" id="video" *ngIf="cp.temp.video">
+  <source type="video/mp4" [src]="cp.temp.video">
+  <object [data]="cp.temp.video">
+    <embed [src]="cp.temp.video">
+  </object>
+</video>

@@ -1,0 +1,16 @@
+<ion-header class="group-header">
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="拼团首页" tabIcon="md-people"></ion-tab>
+  <!--
+  md-contacts
+  md-people
+  ios-people-outline
+  ios-stats
+  md-podium
+  -->
+  <ion-tab [root]="tab2Root" tabTitle="排行" tabIcon="md-podium"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="我的拼团" tabIcon="myperson"></ion-tab>
+</ion-tabs>

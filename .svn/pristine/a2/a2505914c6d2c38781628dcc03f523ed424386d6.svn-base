@@ -1,0 +1,58 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the AfterSalePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'after-sale'
+})
+@Component({
+  selector: 'page-after-sale',
+  templateUrl: 'after-sale.html',
+})
+export class AfterSalePage {
+  pet: string = "0";
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AfterSalePage');
+    this.saleAfter();
+  }
+
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+  saleAfter() {
+    this.cp.getData('?m=user&c=refound', {
+      page: 1,
+      size: 10,
+      type: 0,
+      order_id: 0,
+      H5API: true,
+      silent: true
+    }).then(
+      (t: any) => {
+        if (t.data !== '') {
+          console.log(t, '这是售后')
+
+        } else {
+          // 去添加地址页面
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+}

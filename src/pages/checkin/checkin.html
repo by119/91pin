@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>天天打卡</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="cp.goto({view:'article',id:2})"> 奖励查看 </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <img src="./assets/imgs/checkin/banner.png" />
+  <ion-list>
+  <ion-item>
+    <ion-label text-right>打卡提醒</ion-label>
+    <ion-toggle mode="ios" color="secondary" [(ngModel)]="cp.settings.checkin_notification" (ionChange)="toggle()"></ion-toggle>
+  </ion-item></ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of dayOfTheWeek; let i = index;" (click)="checkin(i)" [class.gray]="checkins.indexOf(i) != -1" class="copy" data-clipboard-target="#copyTarget">
+        <div class="day">{{item}}</div>
+        <div class="icon"><img src="{{(numNotEnough.indexOf(i) != -1 ? 'https://img.alicdn.com/imgextra/i4/1771102060/TB253roekCWBuNjy0FaXXXUlXXa_!!1771102060.jpg' : rewards[i]?.reward?.icon) ||  'https://img.alicdn.com/imgextra/i1/1771102060/TB2xyNSdQCWBuNjy0FaXXXUlXXa_!!1771102060.png'}}" /></div>
+        <div class="name">{{rewards[i]?.reward?.short_name || rewards[i]?.reward?.name || '最高10元'}}</div>
+        <div class="intro">{{(week > i + 1 && checkins.indexOf(i) == -1 ? '0.2元补打卡' : (numNotEnough.indexOf(i) == -1 ? rewards[i]?.reward?.intro : '已领完')) || '现金红包'}}</div>
+        <i class="tl"></i>
+        <i class="br"></i>
+      </ion-col>
+      <ion-col class="last" [class.gray]="checkins.indexOf(7) != -1" (click)="checkin(7)">
+        <div class="day">连续签到7天可赢大奖</div>
+        <div class="icon"><img src="{{rewards[7]?.reward?.icon || 'https://img.alicdn.com/imgextra/i1/1771102060/TB2xyNSdQCWBuNjy0FaXXXUlXXa_!!1771102060.png'}}" /></div>
+        <div class="name">{{rewards[7]?.reward?.name || '最高10元'}}</div>
+        <div class="intro">{{rewards[7]?.reward?.intro || '现金红包'}}</div>
+        <i class="tl"></i>
+        <i class="br"></i>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="rules">
+    <hr>
+    <span class="title">活动规则</span>
+    <ol>
+      <li>每人每天进入“天天打卡”都有1次打卡机会，完成当日打卡，可获当日福利，福利包括现金、红包、优惠券等。部分奖奖励需支付一定费用领取。福利数量有限，领完为止，不领取福利不会影响打卡记录。</li>
+      <li>连续打卡7天，即有机会获得终极大奖，周周有不同，周周有惊喜。</li>
+      <li>如有漏打卡，也可支付一定成本补打卡，补打卡不能不领当日奖励。</li>
+      <li>领取到的奖励会直接发放到您的账户，点击查看奖励，可了解奖励查看路径</li>
+      <li>省钱宝严禁作弊行为，一经发现，所有通过天天打卡获得的奖励一概取消使用资格，并取消天天打卡的参与资格。</li>
+    </ol>
+  </div>
+  <div class="floatad" ion-fixed *ngIf="show" (click)="close()">
+  <div class="alert">
+    <img src="./assets/imgs/checkin/alert_bg.png" />
+    <div class="body">
+      <div class="orange">{{reward.reward?.name || '最高10元现金红包'}}</div>
+      <div class="gray">{{reward.reward?.remark?.intro ? reward.reward?.remark?.intro : show == 2 ? '客官，别急嘛~' : '已到账当前账户'}}</div>
+      <button ion-button color="orange" round outline small block (click)="btnClick()" class="copy" data-clipboard-target="#copyTarget">{{show == 2 ? '知道了' : reward.reward?.remark?.btn_text ? reward.reward?.remark?.btn_text : '立即使用'}}</button>
+    </div>
+    <div class="day">{{dayOfTheWeek[index] ? dayOfTheWeek[index]+'来领' : '连续签到大奖'}}</div>
+  </div>
+  </div>
+</ion-content>

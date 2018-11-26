@@ -1,0 +1,401 @@
+pro {
+  background-color: color($colors, background);
+  .video{ padding-bottom: 0!important;}
+  $height: 1.6rem;
+      $width: 5.5rem;
+      .quan {
+        width: $width;
+        height: $height;
+        line-height: $height;
+        box-sizing: content-box;
+        text-align: center;
+        position: relative;
+        font-size: 1.2rem;
+        border: 1px solid color($colors, primary);
+        border-radius: 3px;
+        .left {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          color: color($colors, white);
+          height: 100%;
+          background-color: color($colors, primary);
+          padding: 0 0.2rem;
+          min-width: 2rem;
+        }
+        .right {
+          flex: 1;
+          color: color($colors, primary);
+          padding: 0 0.2rem;
+        }
+      }
+      .item-button[icon-only]{
+        border-radius: 1.1rem; width: 2.2rem; height: 2.2rem;
+        ion-icon{ font-size: 1.7rem; line-height: 2rem;}
+      }
+
+  .goods {
+    .item {
+      padding-left: 0;
+      position: relative;
+      > img[item-left] {
+        width: 12rem;
+        height: 12rem;
+        margin: 1px 0 1px 0;
+      }
+      .video {
+        width: 4rem;
+        height: 4rem;
+        top: 4rem;
+        left: 4rem;
+        position: absolute;
+        background: url("../assets/imgs/play.png") no-repeat;
+        background-size: contain;
+      }
+      &:first-child > img {
+        margin-top: 0;
+      }
+      &:last-child > img {
+        margin-bottom: 0;
+      }
+      .item-inner {
+        padding: 8px 0;
+        margin-left: 8px;
+        border-color: #ccc;
+      }
+      .label {
+        margin: 0;
+      }
+      .title {
+        padding-right: 8px;
+        h6 {
+          img {
+            height: 1.2rem;
+            margin-top: .2rem;
+            margin-right: 1rem;
+            float: left;
+          }
+          font-size: 1.2rem;
+          line-height: 1.7rem;
+          height: 3.4rem;
+          white-space: normal;
+          margin: 0;
+        }
+        p {
+          font-size: 1rem
+        }
+      }
+      .prices {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        small {
+          font-size: 1.2rem;
+        }
+        .zk_price {
+          margin-bottom: .5rem;
+        }
+        .share{
+          border-left: .55px solid #ccc;
+          margin-left: 1rem;
+          text-align: center;
+          min-width: 8rem;
+          small{
+            display: block;
+          }
+        }
+      }
+      .share_icon {
+        margin-left: 8px;
+        img {
+          height: 3.2rem;
+          display: block;
+        }
+      }
+    }
+  }
+  .goods1 {
+    $padding: 0.5rem;
+    background-color: transparent;
+    .item-inner {
+      padding-right: 0 !important;
+    }
+
+    .label {
+      margin: 0;
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .item:nth-child(odd) {
+      margin-left: $padding;
+    }
+
+    .item {
+      width: calc(50% - #{$padding * 3 / 2});
+      margin-right: $padding;
+      background-color: color($colors, white);
+
+      margin-bottom: $padding;
+      .imgContainer {
+        position: relative;
+        width: 100%;
+        padding-top: 100%;
+        img {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+      .textContainer{ padding: $padding;}
+      .video {
+        width: 4rem;
+        height: 4rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        background: url("../assets/imgs/play.png") no-repeat;
+        background-size: contain;
+      }
+      .item-inner {
+        border: none;
+      }
+
+      .good_title {
+        margin-top: 0.2rem;
+        color: color($colors, black);
+        font-size: 1.3rem;
+        height: 3rem;
+        line-height: 1.5rem;
+        overflow: hidden;
+        white-space: normal;
+        margin-bottom: .5rem;
+      }
+      .quan{ margin-top: .5rem;}
+
+      img {
+        width: 100%;
+      }
+
+      $priceRowHeight: 2rem;
+      .price_row {
+        height: $priceRowHeight*2;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        font-size: 1.2rem;
+        color: color($colors, gray);
+
+        /* .inline-flex {
+          height: $priceRowHeight;
+          display: inline-flex;
+          align-items: flex-end;
+        }
+        > .right{
+           & > .inline-flex{ width: 100%; justify-content: flex-end}
+        } */
+        .price {
+          height: $priceRowHeight;
+          overflow: hidden;
+          
+          
+          .old_price {
+            text-decoration: line-through;
+            margin-left: 0.2rem;
+          }
+        }
+        .new_price {
+          color: color($colors, primary);
+        }
+        .big {
+          font-size: 1.7rem;
+          transform: translateY(0.2rem);
+        }
+        .share_icon {
+          margin: 0.7rem 1rem 0;
+          img {
+            height: 2.8rem;
+            width: auto;
+            display: block;
+          }
+        }
+      }
+
+      .vip {
+        /*border-color: color($colors, secondary);*/
+        width: auto;
+        .left {
+          background-color: color($colors, secondary);
+          padding: 0 0.2rem;
+        }
+        .right {
+          color: color($colors, secondary);
+          padding: 0 0.2rem;
+        }
+      }
+    }
+  }
+
+  .goods2 {
+    background-color: white;
+    
+    [col-70] {
+      max-width: 70%;
+      width: 70%;
+    }
+
+    [col-28] {
+      max-width: 28%;
+      width: 28%;
+    }
+
+    [padding-right] {
+      padding-right: 10px !important;
+    }
+
+    [f15], .f15 {
+      font-size: 1.5rem;
+    }
+
+    .red, [red] {
+      color: color($colors, primary);;
+    }
+
+    .black, [black] {
+      color: #000;
+    }
+
+    .gray, [gray] {
+      color: color($colors, gray);;
+    }
+
+    [lr_layout] { /*左右布局*/
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    [lr_layout] [lr_left] {
+      align-self: flex-start;
+    }
+
+    [lr_layout] [lr_right] {
+      align-self: flex-end;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .f12 {
+      font-size: 1.2rem;
+    }
+
+    .item-inner {
+      padding-right: 0 !important;
+    }
+
+    .label {
+      margin: 0;
+    }
+
+    $itemHeight: 8rem;
+    .detail {
+      background-color: transparent !important;
+      padding: 0.5rem;
+      border-bottom: 0.5px solid #ddd;
+
+      ion-thumbnail {
+        height: $itemHeight;
+        width: $itemHeight;
+        overflow: hidden;
+        margin: 0 !important;
+        position: relative;
+        .video {
+          position: absolute;
+          width: 3.6rem;
+          height: 3.6rem;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: url("../assets/imgs/play.png") no-repeat;
+          background-size: contain;
+        }
+        .img {
+          width: 100% !important;
+          height: 100%;
+        }
+      }
+
+      ion-grid {
+
+        ion-row {
+          height: $itemHeight/2;
+          justify-content: space-between;
+
+          ion-col {
+
+            p {
+              margin: 0;
+              height: $itemHeight/4;
+              line-height: $itemHeight/4;
+            }
+
+            .good_title {
+              height: $itemHeight/2;
+              white-space: normal;
+              color: color($colors, black);
+              display: -webkit-box;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              word-wrap: break-word;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+            }
+
+            .lisheng {
+              color: color($colors, primary);;
+            }
+
+            .baoYou {
+              display: inline-block;
+              background-color: color($colors, primary);;
+              margin-left: 0.5rem;
+              font-size: 1.2rem;
+              color: color($colors, white);
+              padding: 0 0.8rem;
+            }
+          }
+
+          .buy {
+            line-height: $itemHeight/2;
+            position: relative;
+
+            button {
+              height: 85%;
+              width: 100%;
+              margin-top: 7%;
+            }
+            .share_icon {
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              bottom: 15%;
+              display: flex;
+              justify-content: center;
+              img {
+                height: 100%;
+                width: auto;
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,53 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the RedbagPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'redbag'
+})
+@Component({
+  selector: 'page-redbag',
+  templateUrl: 'redbag.html',
+})
+export class RedbagPage {
+  pet: string = "0";
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    window['c'] = this.cp;
+    // this.cp.setCache('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjExOTQyOSwiZXhwIjoxNTM5ODUyNjQ3LCJwbGF0Zm9ybSI6Ind4In0.CmrueMyeIeBmVn9cjWvCKNZCYNJ9PeafN6A7vjhGCOY',true);
+
+
+    this.cp.getData('user/conpont', {type: 0}).then(res => {
+      console.log(res);
+    });
+
+    this.cp.getData('team/teamRanking', {
+      page: 1,
+      size: 30,
+      type: "1"
+    }).then(
+      (t: any) => {
+        console.log(1);
+      },
+      err => {
+        console.log(2);
+      })
+  }
+
+  getToken() {
+    console.log('token');
+    // this.cp.getCache('token').then(token => console.log(token));
+  }
+}

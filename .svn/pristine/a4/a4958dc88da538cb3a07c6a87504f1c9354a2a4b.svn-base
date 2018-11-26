@@ -1,0 +1,83 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1.3.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device@2.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-splashscreen": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-splashscreen@5.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-webview": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-webview@^2.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-keyboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-keyboard@^2.0.5"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-sharesdk": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/hzjianshi/cordova-plugin-sharesdk"
+    },
+    "is_top_level": true,
+    "variables": {
+      "SHARESDK_ANDROID_APP_KEY": "26b40d99031b0",
+      "SHARESDK_IOS_APP_KEY": "26b40d99031b0",
+      "SHARESDK_IOS_APP_SECRET": "3bdcef6bad62c11bd2860877ca5b895e",
+      "WECHAT_APP_ID": "wx0ebc97aab83e0372",
+      "WECHAT_APP_SECRET": "85daae7dfb118e7c68bf76325180fa67",
+      "WEIBO_APP_ID": "4005303605",
+      "WEIBO_APP_SECRET": "4e31f29544a9498ace86e3cddb205f30",
+      "WEIBO_REDIRECT_URL": "http://m.sheng365.cn",
+      "QQ_IOS_APP_ID": "1106050112",
+      "QQ_IOS_APP_HEX_ID": "41ECFC40",
+      "QQ_IOS_APP_KEY": "nmqQZkJSJP7EtC1S",
+      "QQ_ANDROID_APP_ID": "1106050112",
+      "QQ_ANDROID_APP_KEY": "nmqQZkJSJP7EtC1S"
+    }
+  },
+  "cordova-plugin-statusbar": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-statusbar@2.4.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "lyxpay": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git"
+    },
+    "is_top_level": true,
+    "variables": {
+      "WX_APP_ID": "wx3490aa450dc99990",
+      "ALIPAY_APP_ID": "2018071360612109"
+    }
+  }
+}

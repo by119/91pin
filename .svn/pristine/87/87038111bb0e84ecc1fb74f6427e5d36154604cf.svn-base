@@ -1,0 +1,114 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-ionic-webview@^2.0.0",
+        "scope": null,
+        "escapedName": "cordova-plugin-ionic-webview",
+        "name": "cordova-plugin-ionic-webview",
+        "rawSpec": "^2.0.0",
+        "spec": ">=2.0.0 <3.0.0",
+        "type": "range"
+      },
+      "E:\\cordova\\maoxuan\\maoxuan"
+    ]
+  ],
+  "_from": "cordova-plugin-ionic-webview@>=2.0.0 <3.0.0",
+  "_id": "cordova-plugin-ionic-webview@2.0.2",
+  "_inCache": true,
+  "_location": "/cordova-plugin-ionic-webview",
+  "_nodeVersion": "8.3.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-ionic-webview_2.0.2_1533001786936_0.42225542703355035"
+  },
+  "_npmUser": {
+    "name": "nhyatt",
+    "email": "nick@ionic.io"
+  },
+  "_npmVersion": "6.0.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-ionic-webview@^2.0.0",
+    "scope": null,
+    "escapedName": "cordova-plugin-ionic-webview",
+    "name": "cordova-plugin-ionic-webview",
+    "rawSpec": "^2.0.0",
+    "spec": ">=2.0.0 <3.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.0.2.tgz",
+  "_shasum": "c46b0a7b7295efe4c3d7620f44c3a297b77bab5f",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-ionic-webview@^2.0.0",
+  "_where": "E:\\cordova\\maoxuan\\maoxuan",
+  "author": {
+    "name": "Ionic Team"
+  },
+  "bugs": {
+    "url": "https://github.com/ionic-team/cordova-plugin-ionic-webview/issues"
+  },
+  "dependencies": {},
+  "description": "The official Ionic's WKWebView Engine Plugin",
+  "devDependencies": {
+    "np": "^3.0.4",
+    "sync-cordova-xml": "^0.4.0"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-KSI4V8vigTzwFqWGGr8DSMFuao2obVxqfgNho9gROFK7dEIldpju1jshQZuxsoRa6llKpbTu3W7/XQvB8fTDFw==",
+    "shasum": "c46b0a7b7295efe4c3d7620f44c3a297b77bab5f",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.0.2.tgz",
+    "fileCount": 49,
+    "unpackedSize": 366170,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbX8A7CRA9TVsSAnZWagAAfhgQAIA3Hxq+cWHTpG+YZ2s4\nLpEcw+cRJw/pRFJ/g+buFJcuQrzWb7x4I0Z2vcxN8tNqCHSl7F+Tcmv0ahe6\nK2bmJT42pcCI7E/kAVHh8QkPFO/u3+5d5ufGoi1nqdY1LwLEfBIo2l4BpbfX\nLw5FNGkKjTZ7LmyHbx+7L187Rbz9xSJV82Nj5fibLkQnxFuJbvoESBXq2xPt\nXTDbidbR+0vCCqxdBYwToHf36tW+Jht614Ei1ogX4rttnuKx6a7Z3jinSyWa\n2PNg/FeU9JJ2nF4VyhUpLcrhGTYIt/2bCf9deH905F1CBT7pBJBO0A6rVHzj\ngL31P45usWb9j44+bFf7cqM3TPVN0ahMfErCMoFpoDSUyZLwJdDXVyY1dp1F\nn2tM1RBlwZVieUarkH1iHRDfjIkES+y8wMIVpLjgQQTBi08bcp1vL0zFkhIx\nQrIgDoMhBzupid69mr67olYM8Y3kf+hI95mF0XhrKI3Ftjk7wHwO4jdF2zgM\njryLbyquZ76Jrw/pylaCgjTV+4WrC5XTI76F3XMe8ykJZxh20B2XRgMsTyFF\nBb80jvJRYmdDtF9mKOTo87SQdHNVX0ORVZB0iEECjPo76w5BFw8I5XvYGYvq\nMbb80zLtENdMLN5PRqeBh8/1aNP0Uwse7PxLZUmrHDfbs8WKrGOhrtEC+X9p\nI/2l\r\n=X3Uw\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova-android": ">=6.4.0",
+        "cordova-ios": ">=4.0.0-dev"
+      }
+    }
+  },
+  "gitHead": "5e38e86a7e45a6a546ec0895ee87fa9601722d1f",
+  "homepage": "https://github.com/ionic-team/cordova-plugin-ionic-webview#readme",
+  "keywords": [
+    "cordova",
+    "wkwebview"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "manucorporat",
+      "email": "manu.mtza@gmail.com"
+    },
+    {
+      "name": "maxlynch",
+      "email": "max@ionic.io"
+    },
+    {
+      "name": "nhyatt",
+      "email": "nick@ionic.io"
+    }
+  ],
+  "name": "cordova-plugin-ionic-webview",
+  "optionalDependencies": {},
+  "readme": "<!--\n# license: Licensed to the Apache Software Foundation (ASF) under one\n#         or more contributor license agreements.  See the NOTICE file\n#         distributed with this work for additional information\n#         regarding copyright ownership.  The ASF licenses this file\n#         to you under the Apache License, Version 2.0 (the\n#         \"License\"); you may not use this file except in compliance\n#         with the License.  You may obtain a copy of the License at\n#\n#           http://www.apache.org/licenses/LICENSE-2.0\n#\n#         Unless required by applicable law or agreed to in writing,\n#         software distributed under the License is distributed on an\n#         \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n#         KIND, either express or implied.  See the License for the\n#         specific language governing permissions and limitations\n#         under the License.\n-->\n\n<!-- TODO: remove beta in README.md and CONTRIBUTING.md -->\n\n# Ionic Web View\n\nThe Web View plugin for Cordova that is specialized for Ionic apps.\n\nThis is for `cordova-plugin-ionic-webview` @ `2.x`, which uses the latest and greatest features and may not work with all apps. See [Requirements](#requirements) and [Migrating to 2.x](#migrating-to-2x).\n\n:book: **Documentation**: [https://beta.ionicframework.com/docs/building/webview][ionic-webview-docs]\n\n:mega: **Support/Questions?** Please see our [Support Page][ionic-support] for general support questions. The issues on GitHub should be reserved for bug reports and feature requests.\n\n:sparkling_heart: **Want to contribute?** Please see [CONTRIBUTING.md](https://github.com/ionic-team/cordova-plugin-ionic-webview/blob/master/CONTRIBUTING.md).\n\n### Requirements\n\n* **iOS**: iOS 10+ and `cordova-ios` 4+\n* **Android**: Android 5.0+ and `cordova-android` 6.4+\n\n### Migrating to 2.x\n\n1. Remove and re-add the Web View plugin:\n\n    ```\n    cordova plugin rm cordova-plugin-ionic-webview\n    cordova plugin add cordova-plugin-ionic-webview@latest\n    ```\n\n1. Apps are now served from HTTP on Android.\n\n    * The origin for requests from the Web View is `http://localhost:8080`.\n\n1. Replace any usages of `window.Ionic.normalizeURL()` with `window.Ionic.WebView.convertFileSrc()`.\n\n    * For Ionic Angular projects, there is an [Ionic Native wrapper](https://beta.ionicframework.com/docs/native/ionic-webview):\n\n        ```\n        npm install @ionic-native/ionic-webview@beta\n        ```\n\n[ionic-homepage]: https://ionicframework.com\n[ionic-docs]: https://ionicframework.com/docs\n[ionic-webview-docs]: https://beta.ionicframework.com/docs/building/webview\n[ionic-support]: https://ionicframework.com/support\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ionic-team/cordova-plugin-ionic-webview.git"
+  },
+  "scripts": {
+    "deploy": "np --yolo",
+    "sync_plugin_xml": "sync-cordova-xml package.json plugin.xml --output=plugin.xml",
+    "version": "npm run sync_plugin_xml && git add plugin.xml"
+  },
+  "version": "2.0.2"
+}

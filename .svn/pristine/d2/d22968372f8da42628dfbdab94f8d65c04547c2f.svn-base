@@ -1,0 +1,98 @@
+webpackJsonp([4],{
+
+/***/ 277:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NinePageModule", function() { return NinePageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__nine__ = __webpack_require__(285);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var NinePageModule = /** @class */ (function () {
+    function NinePageModule() {
+    }
+    NinePageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__nine__["a" /* NinePage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__nine__["a" /* NinePage */]),
+            ],
+        })
+    ], NinePageModule);
+    return NinePageModule;
+}());
+
+//# sourceMappingURL=nine.module.js.map
+
+/***/ }),
+
+/***/ 285:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NinePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_common__ = __webpack_require__(196);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var NinePage = /** @class */ (function () {
+    function NinePage(navCtrl, navParams, cp) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.cp = cp;
+        this.navList = ['推荐', '美食特产', '水果生鲜'];
+        this.navList2 = ['推荐2', '美食特产2', '水果生鲜2'];
+        // navList:string[]= ['推荐','时尚女装','精品男装','美食特产','水果生鲜','时尚女装','精品男装','美食特产','水果生鲜'];
+        // navList0:any[]= [{id:number,title:string,content:string,[0,'推荐','推荐列表']},{id:1,title:'美食特产',content:'美食列表'},,{id:1,title:'水果生鲜',content:'水果列表'}];
+        this.navList0 = [{ id: 0, title: '推荐', content: '推荐列表' }, { id: 1, title: '美食特产', content: '美食列表' }, { id: 2, title: '水果生鲜', content: '水果列表' }, { id: 3, title: '推荐', content: '推荐列表' }, { id: 4, title: '美食特产', content: '美食列表' }, { id: 5, title: '水果生鲜', content: '水果列表' }, { id: 6, title: '水果生鲜', content: '水果列表' }, { id: 7, title: '推荐', content: '推荐列表' }, { id: 8, title: '美食特产', content: '美食列表' }, { id: 9, title: '水果生鲜', content: '水果列表' }];
+        this.pet = "0";
+    }
+    NinePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad NinePage');
+    };
+    NinePage.prototype.getItems = function (ev) {
+        var val = ev.target.value;
+        if (val && val.trim() != '') {
+            console.log(val);
+        }
+    };
+    NinePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-nine',template:/*ion-inline-start:"D:\byyy\dev\cordova\91pin\src\pages\nine\nine.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>9.9包邮</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>\n  <ion-item class="nav-title">\n    <ion-toolbar no-border-top>\n      <ion-segment [(ngModel)]="pet">\n        <ion-segment-button value="{{item.id}}" *ngFor="let item of navList0;">\n          {{item.title}}\n        </ion-segment-button>\n      </ion-segment>\n    </ion-toolbar>\n    <div [ngSwitch]="pet">\n        <ion-item *ngSwitchCase="0">\n          <ion-item>\n            <h2>Luna</h2>\n          </ion-item>\n        </ion-item>\n        <ion-list *ngSwitchCase="2">\n          <ion-item>\n            <h2>Lasauna</h2>\n          </ion-item>\n        </ion-list>\n    </div>\n  </ion-item>\n  \n  <ion-item>\n    <ion-slides pager>\n      <ion-slide>\n        <img src="assets/imgs/card-saopaolo.png" alt="">\n      </ion-slide>\n      <ion-slide>\n        <img src="assets/imgs/avatar.png" alt="">\n      </ion-slide>\n      <ion-slide>\n        <img src="assets/imgs/card-saopaolo.png" alt="">\n      </ion-slide>\n    </ion-slides>\n  </ion-item>\n  <ion-item class="goods-list">\n    <img src="assets/imgs/avatar.png" alt="">\n    <ion-item class="list-info">\n      <h3>Apple ipad平板电脑2018年新品上市</h3>\n      <p>\n        <ion-icon class="iconfont icon-tao"></ion-icon>\n        <ion-note class=" trait">新款金色</ion-note>\n        <ion-note class=" trait">支持蓝牙</ion-note>\n      </p>\n      <p class="price">￥201.01</p>\n      <p>\n        <ion-note>原价:￥399.99</ion-note>\n        <ion-note style="float: right;">销售：128923件</ion-note>\n      </p>\n    </ion-item>\n  </ion-item>\n  <ion-item class="goods-list">\n    <img src="assets/imgs/avatar.png" alt="">\n    <ion-item class="list-info">\n      <h3>Apple ipad平板电脑2018年新品上市</h3>\n      <p>\n        <ion-icon class="iconfont icon-mao"></ion-icon>\n        <ion-note class=" trait">新款金色</ion-note>\n        <ion-note class=" trait">支持蓝牙</ion-note>\n      </p>\n      <p class="price">￥201.01</p>\n      <p>\n        <ion-note>原价:￥399.99</ion-note>\n        <ion-note style="float: right;">销售：128923件</ion-note>\n      </p>\n    </ion-item>\n  </ion-item>\n</ion-content>'/*ion-inline-end:"D:\byyy\dev\cordova\91pin\src\pages\nine\nine.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_common_common__["a" /* CommonProvider */]])
+    ], NinePage);
+    return NinePage;
+}());
+
+//# sourceMappingURL=nine.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=4.js.map

@@ -1,0 +1,101 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the CollectPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collect'
+})
+@Component({
+  selector: 'page-collect',
+  templateUrl: 'collect.html',
+})
+export class CollectPage {
+  collect = [];
+  size = 10; //一次请求数据条数
+  page = 1; //当前请求的页数
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams,
+    private toastCtrl: ToastController) {
+  }
+
+  ionViewDidLoad() {
+    this.collectgoods();
+  }
+  goTo(url) {
+    this.cp.goto(url)
+  }
+  collectgoods() {
+    this.page = 1;
+    this.cp.getData('user/collectgoods', {
+      page: this.page,
+      size: this.size,
+      silent: true
+    }).then(
+      (t: any) => {
+        this.collect = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  delete(id) {
+    this.cp.getData('user/collect/add', {
+      id: id
+    }).then(
+      (t: any) => {
+        if (t.code == 0) {
+          // this.showToast('删除成功',2000);
+          this.collectgoods()
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  getMore() {
+    this.cp.getData('user/collectgoods', {
+      page: this.page,
+      size: this.size,
+      type: "0"
+    }).then(
+      (t: any) => {
+        let arr = this.collect;
+        this.collect = arr.concat(t.data);
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 显示toast
+  showToast(tip, time) {
+    let toast = this.toastCtrl.create({
+      message: tip,
+      duration: time,
+      position: 'middle'
+    });
+
+    toast.onDidDismiss(() => {
+    });
+
+    toast.present();
+  }
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.getMore();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 500);
+  }
+}

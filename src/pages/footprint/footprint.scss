@@ -1,0 +1,33 @@
+page-footprint {
+    .foot-list{
+        padding: .5rem;
+        background-color: #fff;
+        border-top: 1px solid #e3e5e9;
+        img {
+            float: left;
+            width: 30%;
+        }
+        .foot-info {
+            width: 70%;
+            float: left;
+            padding: 0 0 0 .5rem;
+            p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+        
+            .foot-price {
+                color: #FE5261;
+                font-size: 1.6rem;
+                span {
+                    font-size: 1.2rem;
+                    color: #b6b6b6;
+                    text-decoration: line-through;
+                }
+            }
+        }
+    }
+}

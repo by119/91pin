@@ -1,0 +1,74 @@
+import { Component } from '@angular/core';
+import { ActionSheetController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+
+@IonicPage({
+  name: 'center',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-center',
+  templateUrl: 'center.html',
+})
+export class CenterPage {
+  itemSelected(item: string) {
+    console.log("Selected Item", item);
+  }
+  constructor(
+    public actionSheetCtrl: ActionSheetController,
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CenterPage');
+  }
+
+  ionViewWillEnter() {
+    console.log('will enter');
+    this.init();
+  }
+
+  init() {
+    this.cp.init().then(res => {
+      if (this.cp.u.id) {
+
+      } else
+        this.goTo('login')
+    })
+  }
+
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+
+
+  logout() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '真的要退出吗？',
+      buttons: [
+        {
+          text: '退出登录',
+          role: 'destructive',
+          handler: () => {
+            this.cp.logout().then(() => {
+              this.cp.toast('您已退出登录！');
+              this.init();
+            })
+          }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+        }
+      ]
+    });
+
+    actionSheet.present()
+
+  }
+
+}

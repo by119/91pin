@@ -1,0 +1,36 @@
+page-pintuan {
+  .searchbar-ios{ min-height: auto}
+  ion-slides{
+    height:auto;
+  }
+  ion-slide{
+    background: #fff;
+    min-height: 14rem;
+  }
+  .categories_children{
+    background: #fff;
+  }
+
+  .categories_children{
+    .categories_child{
+      width: 25%;
+      img{
+        max-width: 60%;
+      }
+    }
+  }
+  .ads{
+    font-size: 0;
+    background: #fff;
+    .col{
+      &:first-child{
+        img{
+          border-right:.5px solid #eee;
+        }
+      }
+      img:not(:last-child){
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+}

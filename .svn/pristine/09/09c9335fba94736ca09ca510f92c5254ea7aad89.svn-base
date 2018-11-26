@@ -1,0 +1,140 @@
+.platform-ios page-detail .toolbar-ios ion-title{padding-top: calc(20px + 4px);padding-top: calc(constant(safe-area-inset-top) + 4px);padding-top: calc(env(safe-area-inset-top) + 4px);} 
+page-detail, page-group-buy {
+  .header{
+    img{ height: 1.8rem;}
+    .back-button-icon-ios{ font-size: 3.4rem;}
+    .bar-buttons-ios{ font-size: 1.4rem;}
+    .bar-button{
+      background-color: rgba(0,0,0,.5); width: 3.6rem; height: 3.6rem; border-radius: 50%;
+      &.overlay{ background-color: rgba(0,0,0,0.35);}
+    }
+    .back-button{
+      margin-left: 4px;
+      .back-button-icon{ min-width: 1.5rem;}
+    }
+  }
+  .pict{
+    position: relative;
+    img{width: 100%;}
+    .video{ position: absolute; width: 6rem; height: 6rem; bottom: 1.5rem; right: 1.5rem; background: url("../assets/imgs/play.png") no-repeat; background-size: contain; padding-bottom: 0;}
+  }
+  
+  .con{
+    padding-bottom: $space;
+    > div{
+      padding: $space;
+      background-color: white;
+      &[no-padding]{ padding: 0;}
+      &.desc{
+        margin-top: $space;
+        p{ margin-bottom: 0;}
+      }
+      &.section{
+        border-bottom: 1px solid color($colors,background);
+        &:last-child{ border-bottom: none;}
+      }
+      p{
+        margin-top: 0; margin-bottom: .5em;
+        &:last-child{ margin-bottom: 0;}
+        &.title{ font-size: 1.4rem;}
+        i.t1,i.t2,i.t3{
+          border: none;
+          display: inline-block;
+          vertical-align: text-top;
+          background: url(../assets/imgs/shop_type.jpg) no-repeat;
+          width: 18px;
+          height: 18px;
+          margin-right: .2rem;
+          &.t2{
+              background-position: 0 -18px;
+          }
+          &.t3{
+              background-position: 0 -36px;
+          }
+        }
+        i{ border:1px solid color($colors,primary); color: color($colors,primary); border-radius: 1px; font-size: 1.1rem; padding: 1px 3px; vertical-align: text-top;}
+        i.secondary{ border:1px solid color($colors,secondary); color: color($colors,secondary);}
+        span{
+          color: color($colors,primary);
+          font-size: 1.7rem;
+          margin-left: 3px;
+          margin-right: 3px;
+          small{font-size: 1.1rem;}
+        }
+        span.secondary{ color: color($colors,secondary);}
+        &.flex1{ margin-bottom: 0;}
+      }
+    }
+    .btn{ background: color($colors,primary); color: white; display: inline-block;
+        padding: 0 10px;
+        height: 2.7rem;
+        border-radius: 2.7rem;
+        line-height: 2.7rem;
+        font-size: 1.3rem;
+    }
+  }
+  .card-ios{
+    margin:0; margin-top: $space; width: 100%;
+    #copyTarget{ padding-top: 12px; font-size: 1.3rem;}
+  }
+  .card-header{
+    border-bottom: 1px solid color($colors,background); color: color($colors,primary); font-size: 1.3rem;
+    &.coupon{
+      i{ background: url(../assets/imgs/coupon.png) no-repeat; background-size:contain;}
+    }
+    &.tkl{
+      i{ background: url(../assets/imgs/pin.png) no-repeat center;background-size:contain;}
+      .icon{ margin-left: 8px;}
+    }
+    &.candidate{
+      i{ background: url(../assets/imgs/submit.png) no-repeat center;background-size:contain;}
+    }
+  }
+  .grid{ padding: 0;}
+  .col{
+    border: 1px solid color($colors,gray); color: color($colors,gray); height: 2.7rem; border-radius: 2.7rem;line-height: 2.7rem; padding: 0; text-align: center; flex-basis: 29.5%; max-width: 29.5%; margin-right: 3.5%; margin-top: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    &.on{ border-color: color($colors,primary); color:color($colors,primary);}
+  }
+  .toolbar-background{
+    background-color: white;
+  }
+  .toolbar-content{
+    span{
+      display: inline-block; text-align: center; font-size: 12px; line-height: 16px; white-space: nowrap;
+      &:first-child{ width: 25%; border-right: 1px solid color($colors,background);}
+      &:nth-child(2){ min-width: 25%; padding: 0 5px;}
+      &.buy{ background-color: color($colors,primary); color: white; height: 44px; line-height: 44px; font-size: 14px;}
+      a{ font-size: 14px; margin-top: 2px; display: inline-block;}
+      .note{ font-size: 11px;}
+      i{ font-size: 11px;}
+    }
+  }
+  .vip{
+    position: fixed; bottom: 44px; left: 0; padding: 0 $space; height: 4.6rem; width: 100%; font-size: 1.2rem;
+    p{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    & > span{ 
+      position: absolute; top: -.8rem; left: $space; transition: all .3s;
+      img{ height: 4rem;}
+    }
+    & > div{
+      background-color: white; height: 3rem; border-radius: 3rem; line-height: 3rem; width: 100%; padding-left: 4.5rem; box-shadow: 0 0 1px 1px color($colors,light);
+      .icon{ font-size: 2.1rem; margin-right: $space; color: rgba(0,0,0,.5);}
+    }
+    &.minimized{
+      left: 80%;
+      > div{ display: none;}
+    }
+  }
+  .tip{ border:1px solid color($colors,primary); color: color($colors,primary); border-radius: 3rem; height: 3rem; font-size: 1.5rem; line-height: 3rem; margin: 0 $space; display: block; text-align: center;}
+  .item{ padding-left: 0;}
+  .text-input{ background-color: color($colors,background); height: 4rem; margin: 0; padding-left: 10px;}
+  .item-ios [item-end]{ margin: 0; height: 4rem; padding: 0 3rem;}
+  .pt{
+     padding-top: 1rem!important;
+     p{ font-size: 1.2rem; margin-top: .5rem;}
+  }
+}

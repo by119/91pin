@@ -1,0 +1,80 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the AfterDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'after-detail'
+})
+@Component({
+  selector: 'page-after-detail',
+  templateUrl: 'after-detail.html',
+})
+export class AfterDetailPage {
+  @ViewChild('form') form;
+  fileElem: any;
+  formElem: any;
+  photos: any = [];        //添加的照片
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams,
+    private toastCtrl: ToastController) {
+  }
+
+  ionViewDidLoad() {
+    this.formElem = this.form.nativeElement;
+    this.fileElem = this.formElem.firstElementChild;
+  }
+  /*图片操作*/
+  addImg() {
+    console.log('addImg');
+    if (this.photos.length == 6) {
+      this.showToast('最多上传6张图片', 2000);
+    } else
+      this.fileElem.click()
+  }
+
+  uploadImg() {
+    console.log('uploadImg');
+    this.cp.getData('upload/index', new FormData(this.formElem)).then((result: any) => {
+      if (result.code != 0)
+        this.showToast(result.msg, 2000);
+      // this.cp.toast(result.msg.indexOf('大小不符') > 0 ? '图片需小于5M' : result.msg);
+      else
+        this.photos.push(this.cp.WWW_URL + result.data.name);
+    });
+    //清空file
+    this.fileElem.value = '';
+  }
+
+  deleteImg(item) {
+    console.log('deleteImg');
+    item &&
+      this.photos.splice(this.photos.indexOf(item), 1);
+  }
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+  // 显示toast
+  showToast(tip, time) {
+    let toast = this.toastCtrl.create({
+      message: tip,
+      duration: time,
+      position: 'middle'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+}

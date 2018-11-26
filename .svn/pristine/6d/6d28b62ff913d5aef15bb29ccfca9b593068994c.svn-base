@@ -1,0 +1,12 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>9.9包邮</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  9.9包邮
+</ion-content>

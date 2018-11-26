@@ -1,0 +1,55 @@
+<div #spec [class]="'spec '+spec_state">
+  <div class="spec_mask" (click)="hide()"></div>
+  <div class="spec_content">
+    <ion-grid>
+      <ion-row class="good_info">
+        <ion-col col-4>
+          <img [src]="cp.URL+goodData.goods_img" >
+        </ion-col>
+        <ion-col col-6>
+          <ion-note class="goods_name" color="dark">{{goodData.goods_name}}</ion-note>
+          <ion-note color="red">￥{{price}}</ion-note>
+          <ion-note class="font12">请选择相关规格</ion-note>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button icon-only clear color="red" (click)="hide()">
+            <ion-icon name="ios-close-circle-outline"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ng-container *ngFor="let specItem of specList;let i = index">
+        <ion-row>
+          <ion-col>
+            <ion-note color="dark">{{specItem.name}}</ion-note>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="spec_items">
+            <button *ngFor="let spec of specItem.values;let j = index" color="red" round [outline]="specSelected[i] != j" ion-button small (click)="toggleSpec(spec,i,j)">{{spec.label}}</button>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+
+      <ion-row>
+        <ion-col>
+          <ion-note color="dark">购买数量：</ion-note>
+        </ion-col>
+        <ion-col class="buy_num">
+          <button ion-button icon-only outline small color="gray" (click)="modNum(-1)">
+            <ion-icon name="ios-remove"></ion-icon>
+          </button>
+          <ion-input class="num" [(ngModel)]="number" text-center></ion-input>
+          <button ion-button icon-only outline small color="gray" (click)="modNum(1)">
+            <ion-icon name="ios-add"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button [disabled]="number==0" ion-button block color="red" (click)="Confirm()">确定</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>
+

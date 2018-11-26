@@ -1,0 +1,16 @@
+page-download {
+  .transheader .bar-button-default-ios, .transheader .bar-button-default-ios:hover:not(.disable-hover) {
+    color: color($colors,background);
+  }
+  .btns {
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 100%;
+    position: absolute;
+    top: 0;
+  }
+  .btns img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

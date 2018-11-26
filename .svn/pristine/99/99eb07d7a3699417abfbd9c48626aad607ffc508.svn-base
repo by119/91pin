@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>channel</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="sort_key">
+        <ion-segment-button value="0" flex (click)="getList(0)">
+          默认<ion-icon [name]="sort_values[0]=='ASC'?'md-arrow-dropup':'md-arrow-dropdown'"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="1" flex (click)="getList(1)">
+          销量<ion-icon [name]="sort_values[1]=='ASC'?'md-arrow-dropup':'md-arrow-dropdown'"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="2" flex (click)="getList(2)">
+          价格<ion-icon [name]="sort_values[2]=='ASC'?'md-arrow-dropup':'md-arrow-dropdown'"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+
+  <div class="good-list">
+    <div class="clearfix" flex flex-wrap flex-start>
+      <good-item type="2" *ngFor="let good of goods" [good]="good"></good-item>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,308 @@
+<!--
+  Generated template for the CollageDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{goodInfo.goods_brief}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div style="position: relative;">
+    <ion-slides (ionSlideDidChange)="slideChanged()" pager>
+      <ion-slide *ngFor="let item of goodDeatil.goods_img;let i=index;">
+        <img src="{{item}}" alt="">
+      </ion-slide>
+    </ion-slides>
+    <div class="slide-i">{{current}}/{{slideLen}}</div>
+  </div>
+  <div class="detail-info">
+    <p style="padding-right: 2rem;position: relative;">
+      <ion-icon class="iconfont icon-self" style="color: #FE5261;margin-right: .3rem"></ion-icon>
+      <!-- {{goodDeatil.goods_info.goods_name}}       -->
+      {{goodInfo.goods_name}}
+    </p>
+    <p class="current-price">
+      <span>{{goodInfo.team_price}}</span>
+      <span class="people-num">{{goodInfo.team_num}}人团</span>
+    </p>
+    <p class="cost-price">市场价：{{goodInfo.market_price}}</p>
+    <p class="repertory">
+      <span>销量：{{goodInfo.sales_volume}}</span>
+    </p>
+  </div>
+  <button class="tips" ion-item (click)="showTips()">
+    <ion-icon name="" class="iconfont icon-quality"></ion-icon>
+    <span>品质保证</span>
+    <ion-icon name="" class="iconfont icon-deliver"></ion-icon>
+    <span>放心物流</span>
+    <ion-icon name="" class="iconfont icon-heart"></ion-icon>
+    <span>贴心服务</span>
+  </button>
+  <div class="collage-rule">
+    <p>拼团规则</p>
+    <div class="step">
+      <div class="step1">
+        <span>1</span>
+      </div>
+      <div class="step2">
+        <span>2</span>
+      </div>
+      <div class="step3">
+        <span>3</span>
+      </div>
+      <div class="step4">
+        <span>4</span>
+      </div>
+    </div>
+    <p class="step-txt">
+      <span>选择商品</span>
+      <span>开团/参团</span>
+      <span>邀请好友</span>
+      <span>人满成团</span>
+    </p>
+    <div *ngIf="!ruleState; else elseRule">
+      <p class="switch-rule">
+        <ion-icon name="ios-arrow-down" (click)="switchRule()"></ion-icon>
+      </p>
+    </div>
+    <ng-template #elseRule>
+      <p class="switch-rule">
+        <ion-icon name="ios-arrow-up" (click)="switchRule()"></ion-icon>
+      </p>
+      <div class="rule-txt">
+        <p> 1.开团：在商城内选择喜欢的商品，点击“去开团”，付款成功后即为开团成功；</p>
+        <p> 2.参团：进入朋友分享的页面，点击“立即参团”，付款后即为参团成功，若多人同时支付，按先支付成功的用户获得参团资格，参团订单未支付不计入参团数量，团过期未支付订单失效，但参团人信息也会显示在团里面；</p>
+        <p> 3.成团：在开团或参团之后,可以点击“分享出去”，在有效时间凑齐成团人数即拼团成功；</p>
+        <p> 4.组团失败：在有效时间内未凑齐人数，即为组团失败，此时商城会将原款分别退回；</p>
+      </div>
+    </ng-template>
+  </div>
+  <div class="seller">
+    <div class="clearfix">
+      <img src="assets/imgs/avatar.png" alt="">
+      <div style="width: 80%;float: left;">
+        <p class="seller-name">日用家居百货</p>
+        <p class="seller-follow">已经有{{followNum}}人关注</p>
+      </div>
+    </div>
+    <div class="seller-score">
+      <div>商品
+        <span style="color: #FE5261">5分</span>
+        <span class="score-num" style="background-color: #FE5261;">100</span>
+      </div>
+      <div>服务
+        <span style="color: #10AA52">5分</span>
+        <span class="score-num" style="background-color: #10AA52;">100</span>
+      </div>
+      <div>时效
+        <span style="color: #F745CE">5分</span>
+        <span class="score-num" style="background-color: #F745CE;">100</span>
+      </div>
+    </div>
+  </div>
+  <div class="new-product">
+    <p class="new-title">拼团新品</p>
+    <div class="new-out">
+      <div class="new-box clearfix" [ngStyle]="{'width':newLen? 6.5*newLen + 'rem':'100%'}">
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+        <div class="new-list">
+          <img src="assets/imgs/avatar.png" alt="">
+          <p class="list-title">夏季冰爽袖套防晒男女</p>
+          <p class="list-price">￥6.60</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-shop clearfix">
+      <div class="contact">
+        <ion-icon class="iconfont icon-contact" style="color: #FE5261"></ion-icon>
+        联系客服
+      </div>
+      <div class="shop">
+        <ion-icon class="iconfont icon-shop" style="color: #f4a213"></ion-icon>
+        进入店铺
+      </div>
+    </div>
+  </div>
+  <ion-item class="nav-title">
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0">
+          商品描述
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          规格参数
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          评论
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-item>
+  <div class="parameter" [ngSwitch]="pet">
+    <!-- 商品描述 -->
+    <div *ngSwitchCase="0">
+      <div class="collage-intro" *ngIf="1;else elseBlank">
+        <img src="http://img.alicdn.com/imgextra/i4/2183668427/TB2OibCiN6I8KJjy0FgXXXXzVXa_!!2183668427.jpg" alt="">
+      </div>
+      <ng-template #elseBlank>
+        <div class="blank">
+          <ion-icon class="iconfont icon-blank"></ion-icon>
+          <p>亲，此处没有内容～！</p>
+        </div>
+      </ng-template>
+    </div>
+    <!-- 规格参数 -->
+    <div *ngSwitchCase="1">
+      <div class="collage-intro" *ngIf="1;else elseBlank">
+        <img src="http://www.maoxuankj.com//images/upload/20180915/15369919939250.jpg" alt="">
+      </div>
+      <ng-template #elseBlank>
+        <div class="blank">
+          <ion-icon class="iconfont icon-blank"></ion-icon>
+          <p>亲，此处没有内容～！</p>
+        </div>
+      </ng-template>
+    </div>
+    <!-- 评论 -->
+    <div *ngSwitchCase="2">
+      <div *ngIf="0;else elseBlank">
+        这是评论内容
+      </div>
+      <ng-template #elseBlank>
+        <div class="blank">
+          <ion-icon class="iconfont icon-blank"></ion-icon>
+          <p>亲，此处没有内容～！</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="collect" (click)="switchCollect()">
+      <div *ngIf="isCollect;else elseCollect">
+        <ion-icon name="ios-heart"></ion-icon>
+      </div>
+      <ng-template #elseCollect>
+        <ion-icon name="ios-heart-outline"></ion-icon>
+      </ng-template>
+      <span style="font-size: 1.1rem;">收藏</span>
+    </div>
+    <div class="car">
+      <ion-icon name="" class="iconfont icon-car"></ion-icon>
+      <span style="font-size: 1.1rem;">购物车</span>
+    </div>
+    <div class="single-buy" (click)="showBuy(1)">
+      <span>单独购买</span>
+      <span style="font-size: 1.3rem;">{{goodInfo.shop_price}}</span>
+    </div>
+    <div class="group-buy" (click)="showBuy(2)">
+      <span>{{goodInfo.team_num}}人团</span>
+      <span style="font-size: 1.3rem;">{{goodInfo.team_price}}</span>
+    </div>
+  </div>
+
+  <div class="buy-dialog" *ngIf="buyInfoState">
+    <div class="dialog-bg" (click)="showBuy()"></div>
+    <div class="dialog">
+      <ion-icon class="close-buy" name="ios-close-circle-outline" (click)="showBuy()"></ion-icon>
+      <div class="buy-info">
+        <div class="buy-info-t clearfix">
+          <img src="http://www.maoxuankj.com/images/201809/goods_img/0_G_1536518756083.jpg" alt="">
+          <div class="buy-detail">
+            <p class="buy-text">{{goodInfo.goods_name}}</p>
+            <p class="buy-price">￥11.90</p>
+            <p class="buy-stock">
+              <span>库存：{{goodInfo.goods_number}}</span>
+              <span *ngIf="buyState==2" style="float: right;">拼团限购：100</span>
+            </p>
+          </div>
+        </div>
+        <div class="buy-info-b">
+          <div class="goods-param" *ngFor="let item of goodsParam">
+            <h4 class="param-title">{{item.title}}</h4>
+            <ul class="param-list-box clearfix">
+                <li class="param-list" [ngClass]="{'chose':index==0}" *ngFor="let list of item.list" (click)="choseStyle(11)">{{list}}</li>
+                <!-- <li class="param-list chose">黑色</li> -->
+            </ul>
+          </div>
+          <div class="ctrl-num clearfix">
+            <span style="float: left;color: #cbcbcb;font-size: 1.4rem;margin: 0 .5rem;">数量</span>
+            <div class="ation">
+              <span class="reduce" [ngClass]="{'grey':grey}" (click)="reduce()">-</span>
+              <input type="text" value="{{chooseNum}}" id="count">
+              <span class="add" (click)="add()">+</span>
+              <input type="hidden" value="1000" id="num">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="buy-btns">
+        <div *ngIf="buyState==1" class="single-btn clearfix">
+          <div class="add-car">加入购物车</div>
+          <div class="add-buy">立即购买</div>
+        </div>
+        <div *ngIf="buyState==2" class="group-btn">
+          确定
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tips-dialog" *ngIf="tipsState">
+    <div class="dialog-bg" (click)="showTips()"></div>
+    <div class="dialog">
+      <p style="border-bottom: 1px solid #ccc;">
+        服务说明
+        <ion-icon class="close-tips" name="ios-close-circle-outline" (click)="showTips()"></ion-icon>
+      </p>
+      <p>
+        <ion-icon name="" class="iconfont icon-quality"></ion-icon>
+        品质保证
+        <span>自实际收货日的次日起7天内，商品完好，可申请退换货哦！</span>
+      </p>
+      <p>
+        <ion-icon name="" class="iconfont icon-deliver"></ion-icon>
+        放心物流
+        <span>放心物流，可以按照预期时间精确收货哦！</span>
+      </p>
+      <p>
+        <ion-icon name="" class="iconfont icon-heart"></ion-icon>
+        贴心服务
+        <span>客服实时在线解答问题</span>
+      </p>
+    </div>
+  </div>
+</ion-content>

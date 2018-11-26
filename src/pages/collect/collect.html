@@ -1,0 +1,39 @@
+<!--
+  Generated template for the CollectPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>我的收藏</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="items&&items?.length>0;else elseCollect;">
+    <div class="assess-list clearfix" *ngFor="let item of items;let i=index;">
+      <img src="{{item.goods_thumb}}" alt="" (click)="goTo({goods_id:item.goods_id,view:'pro-detail'})">
+      <div class="list-info">
+        <h4 class="list-title" (click)="goTo({goods_id:item.goods_id,view:'pro-detail'})">{{item.goods_name}}</h4>
+        <div class="list-buy">
+          <div class="list-price" (click)="goTo({goods_id:item.goods_id,view:'pro-detail'})">￥{{item.shop_price}}</div>
+          <div class="list-btn" (click)="delete(item.goods_id,i)">
+            <ion-icon class="iconfont icon-delete"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseCollect>
+    <div class="no_records" *ngIf="!items.length">
+      <p></p>
+      <p> 未找到相关记录 </p>
+    </div>
+  </ng-template>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

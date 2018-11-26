@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title >请选择付款方式</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid  class="workerInfoContainer">
+    <ion-row >
+      <ion-col col-3 text-center>
+        <div class="workerImg"> <img src="{{subject.icon || './assets/imgs/logo160.png'}}"> </div>
+      </ion-col>
+      <ion-col col-6>
+        <p>{{subject.name}}<br />
+          {{subject.intro}}</p>
+      </ion-col>
+      <ion-col col-3 class="money"><span>&yen; {{subject.price | number : '1.2-2'}}</span></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list radio-group [(ngModel)]="params.id" margin-vertical *ngIf="subjects.length > 1" (ionChange)="subjectChange()">
+    <ion-item *ngFor="let item of subjects">
+      <ion-avatar item-start> <img src="{{item.icon || './assets/imgs/logo160.png'}}"> </ion-avatar>
+      <ion-label>{{item.name}}</ion-label>
+      <ion-radio [value]="item.id"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <p class="intro" margin-vertical *ngIf="subject.introduction" [innerHtml]="subject.introduction"></p>
+  <ion-list margin-vertical>
+    <!-- <ion-item>
+      <ion-label>账户余额</ion-label>
+      <ion-note item-end text-right color="black">￥{{cp.u.money}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>余额付款</ion-label>
+      <ion-input text-right type="number" placeholder="请输入使用余额付款的金额" [(ngModel)]="params.money" (ionChange)="moneyChange()" step="0.01"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>余额支付</ion-label>
+      <ion-label item-end text-right color="primary">- ￥{{params.money}}</ion-label>
+    </ion-item> -->
+    <ion-item>
+      <ion-label>优&nbsp;&nbsp;惠&nbsp;&nbsp;码</ion-label>
+      <ion-input text-right placeholder="有优惠码的用户请输入优惠码" [(ngModel)]="params.promo_code" (ionBlur)="promoCode()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="promo_code.amount || promo_code.msg">
+      <ion-label>{{promo_code.msg}}</ion-label>
+      <ion-note item-end text-right color="primary">- ￥{{promo_code.amount_used | number : '1.2-2'}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-list radio-group [(ngModel)]="params.type" margin-vertical *ngIf="!cp.isWechat()">
+    <ion-item>
+      <ion-avatar item-start> <img src="./assets/imgs/alipay.png"> </ion-avatar>
+      <ion-label>支付宝支付</ion-label>
+      <ion-radio value="2"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-start> <img src="./assets/imgs/weixin_Pay.png"> </ion-avatar>
+      <ion-label>微信支付</ion-label>
+      <ion-radio value="1"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="flex"><span text-right class="flex1">合计金额：<a>￥{{amount}}</a></span><span class="btn" (click)="pay()">确认支付</span></div>
+  </ion-toolbar>
+</ion-footer>

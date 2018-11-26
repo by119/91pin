@@ -1,0 +1,89 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>9.9包邮</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-item class="nav-title">
+    <ion-label class="nav-list active">
+      <p> 商品收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p>时尚女装</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品收藏</p>
+    </ion-label>
+    <ion-label class="nav-list">
+      <p> 商品收藏</p>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-slides pager>
+      <ion-slide>
+        <img src="assets/imgs/card-saopaolo.png" alt="">
+      </ion-slide>
+      <ion-slide>
+        <img src="assets/imgs/avatar.png" alt="">
+      </ion-slide>
+      <ion-slide>
+        <img src="assets/imgs/card-saopaolo.png" alt="">
+      </ion-slide>
+    </ion-slides>
+  </ion-item>
+  <ion-item class="goods-list">
+    <img src="assets/imgs/avatar.png" alt="">
+    <ion-item class="list-info">
+      <h3>Apple ipad平板电脑2018年新品上市</h3>
+      <p>
+        <ion-icon class="iconfont icon-tao"></ion-icon>
+        <ion-note class=" trait">新款金色</ion-note>
+        <ion-note class=" trait">支持蓝牙</ion-note>
+      </p>
+      <p class="price">￥201.01</p>
+      <p>
+        <ion-note>原价:￥399.99</ion-note>
+        <ion-note style="float: right;">销售：128923件</ion-note>
+      </p>
+    </ion-item>
+  </ion-item>
+  <ion-item class="goods-list">
+    <img src="assets/imgs/avatar.png" alt="">
+    <ion-item class="list-info">
+      <h3>Apple ipad平板电脑2018年新品上市</h3>
+      <p>
+        <ion-icon class="iconfont icon-mao"></ion-icon>
+        <ion-note class=" trait">新款金色</ion-note>
+        <ion-note class=" trait">支持蓝牙</ion-note>
+      </p>
+      <p class="price">￥201.01</p>
+      <p>
+        <ion-note>原价:￥399.99</ion-note>
+        <ion-note style="float: right;">销售：128923件</ion-note>
+      </p>
+    </ion-item>
+  </ion-item>
+</ion-content>

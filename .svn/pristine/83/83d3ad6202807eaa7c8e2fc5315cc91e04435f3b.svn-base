@@ -1,0 +1,80 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
+/**
+ * Generated class for the DetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+@IonicPage({
+  name: 'detail'
+})
+@Component({
+  selector: 'page-detail',
+  templateUrl: 'detail.html',
+})
+export class DetailPage {
+  @ViewChild(Slides) slides: Slides;
+  title: string = '全脂牛奶';
+  current: number = 1; //当前所在轮播图
+  slideLen: number = 4;  //轮播图数量
+  sales: number = 20; //销量
+  stock: number = 1000; //库存
+  openCoupon: boolean = true; //优惠券列表开关 默认隐藏
+  openNum: boolean = false; //数量选择开关 默认显示
+  chooseNum: number = 1;//已选数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+  pet: string = "0"; // 默认选中商品描述
+  commodity:boolean = true;
+  commodityStr: string = '<h2>我是标题</h2><h3>我是中标题</h3><h4>我是小标题</h4>';//商品参数
+  specification:boolean = false;
+  specificationStr: string = '';//规格参数
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DetailPage');
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    this.current = currentIndex + 1;
+    // this.slideLen = this.slides.length();
+    console.log('Current index is', currentIndex, this.slides.length());
+
+  }
+  // 分享商品
+  share() {
+    console.log('分享商品');
+  }
+  // 控制优惠券显隐
+  switchCoupon() {
+    console.log('打开选择优惠券', this.openCoupon);
+    this.openCoupon = !this.openCoupon;
+  }
+  // 控制数量显隐
+  switchNum() {
+    console.log('打开数量', this.openNum);
+    this.openNum = !this.openNum;
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+  }
+  // 添加数量
+  add() {
+    this.grey = false;
+    this.chooseNum++;
+  }
+}

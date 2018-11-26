@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>拼团</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <!--分类按钮-->
+  <div *ngIf="!ru_id" class="segment-buttons-container"></div>
+  <div *ngIf="!ru_id" class="segment-buttons" flex ion-fixed top left>
+    <ion-segment class="{{'segment segment-ios'+(tc_id==0?' segment-activated':'')}}" (click)="toggleType(0)">全部</ion-segment>
+    <ion-segment class="{{'segment segment-ios'+(item.tc_id==tc_id?' segment-activated':'')}}" *ngFor="let item of categories;" (click)="toggleType(item.tc_id)">{{item.name}}</ion-segment>
+  </div>
+
+  <!--轮播-->
+  <ion-slides *ngIf="!ru_id" pager>
+    <!--<ion-slide>
+      <img src="assets/imgs/card-saopaolo.png">
+    </ion-slide>-->
+    <ion-slide *ngFor="let item of banner">
+      <img [src]="item.pic" onerror="this.src=='assets/imgs/404.jpg'||(this.src='assets/imgs/404.jpg')">
+    </ion-slide>
+  </ion-slides>
+
+  <!--小分类-->
+  <div class="categories_children" flex padding *ngIf="team_categories_child.length&&!ru_id">
+    <div class="categories_child" *ngFor="let item of team_categories_child" flex-column (click)="goToChannel(item.tc_id)">
+      <img [src]="item.tc_img" onerror="this.src=='assets/imgs/404.jpg'||(this.src='assets/imgs/404.jpg')">
+      <ion-note color="dark">{{item.name}}</ion-note>
+    </div>
+    <!--<div class="categories_child"></div>-->
+  </div>
+
+  <!--大图-->
+  <div *ngIf="!ru_id" class="banner-bottom">
+    <img *ngFor="let img of banner_bottom" [src]="img.pic">
+  </div>
+
+
+  <!--小图推荐-->
+  <ion-grid no-padding class="ads" *ngIf="(ads_left.length&&!ru_id)||(ads_right.length&&!ru_id)" margin-top>
+    <ion-row>
+      <ion-col flex-column>
+        <img *ngFor="let img of ads_left" [src]="img.pic" onerror="this.src=='assets/imgs/404.jpg'||(this.src='assets/imgs/404.jpg')">
+      </ion-col>
+      <ion-col flex-column>
+        <img *ngFor="let img of ads_right" [src]="img.pic" onerror="this.src=='assets/imgs/404.jpg'||(this.src='assets/imgs/404.jpg')">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--推荐商品-->
+  <div class="good-list" margin-top>
+    <good-item *ngFor="let good of goodList" [good]="good"></good-item>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,9 @@
+<ion-header class="group-header">
+  <ion-navbar color="primary">
+  </ion-navbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="拼团首页" tabUrlPath="tab0" tabIcon="md-people"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="排行" tabUrlPath="tab1" tabIcon="md-podium"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="我的拼团" tabUrlPath="tab2" tabIcon="md-person"></ion-tab>
+</ion-tabs>

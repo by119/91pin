@@ -1,0 +1,1152 @@
+webpackJsonp([7],{
+
+/***/ 109:
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 109;
+
+/***/ }),
+
+/***/ 152:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"../pages/cart/cart.module": [
+		274,
+		6
+	],
+	"../pages/center/center.module": [
+		275,
+		5
+	],
+	"../pages/home/home.module": [
+		276,
+		4
+	],
+	"../pages/nine/nine.module": [
+		277,
+		3
+	],
+	"../pages/sale/sale.module": [
+		279,
+		2
+	],
+	"../pages/tabs/tabs.module": [
+		278,
+		1
+	],
+	"../pages/taoqianggou/taoqianggou.module": [
+		280,
+		0
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = 152;
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ 196:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommonProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(155);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var CommonProvider = /** @class */ (function () {
+    function CommonProvider(http, loadingCtrl, popoverCtrl, toastCtrl, alertCtrl, modalCtrl, 
+        // public amap: AMapLocate,
+        actionsheetCtrl, plt, appCtrl, statusBar, 
+        /*
+        public xToast: Toast,
+        public themeableBrowser: ThemeableBrowser,
+
+        public socialSharing: SocialSharing,
+        public photoLibrary: PhotoLibrary,
+        * */
+        storage) {
+        var _this = this;
+        this.http = http;
+        this.loadingCtrl = loadingCtrl;
+        this.popoverCtrl = popoverCtrl;
+        this.toastCtrl = toastCtrl;
+        this.alertCtrl = alertCtrl;
+        this.modalCtrl = modalCtrl;
+        this.actionsheetCtrl = actionsheetCtrl;
+        this.plt = plt;
+        this.appCtrl = appCtrl;
+        this.statusBar = statusBar;
+        this.storage = storage;
+        this.WWW_URL = "http://hongbao.fengsh.cn/";
+        this.SITE_URL = "http://hongbao.fengsh.cn/";
+        //  SITE_URL = "http://192.168.0.188/xuanshangmao/public/";
+        //  SITE_URL = "http://xsm.fs.com/";
+        this.BASE_URL = this.SITE_URL + "api/";
+        this.DOWNLOAD_URL = "http://a.app.qq.com/o/simple.jsp?pkgname=com.zhixingshang.app";
+        this.DOWNLOAD_ANDROID_URL = this.WWW_URL + "sqb.apk";
+        this.APP_STORE_ID = "1340424357";
+        this.DOWNLOAD_IOS_URL = "https://itunes.apple.com/us/app/%e6%89%a7%e8%a1%8c%e8%b5%8f/id" + this.APP_STORE_ID + "?l=zh&ls=1&mt=8";
+        this.APP_NAME = "千米红包";
+        this.SHARE_TEXT = "千米红包！！！";
+        this.u = {};
+        this.loadingCount = 0;
+        this.settings = {};
+        this.initialized = 0;
+        this.logining = 0;
+        this.pressed = !1;
+        this.global = {};
+        this.statusBarColor = 0; // 0 黑 1 白
+        this.checking_update = 1;
+        this.temp = {};
+        this.browserButtons = {
+            backButton: {
+                wwwImage: 'assets/img/back.png',
+                wwwImagePressed: 'assets/img/back.png',
+                wwwImageDensity: 3,
+                align: 'left',
+            },
+            closeButton: {
+                wwwImage: 'assets/img/close.png',
+                wwwImagePressed: 'assets/img/close.png',
+                wwwImageDensity: 3,
+                align: 'left',
+            },
+        };
+        /*
+        browser: ThemeableBrowserObject;
+        * */
+        this.browserOptions = {
+            toolbar: {
+                height: 44,
+                color: '#ffffffff'
+            },
+            title: {
+                staticText: this.APP_NAME
+            },
+            hardwareback: false,
+            backButtonCanClose: true,
+            hidden: false,
+            keyboarddisplayrequiresuseraction: false
+        };
+        this.backButtonSwitch = true;
+        window['c'] = this;
+        var t = this.getQueryString("code"), i = this.getQueryString("state");
+        if (t)
+            this.logining = 1,
+                this.getData("user/wechatLogin", {
+                    code: t,
+                    state: i
+                }).then(function (i) {
+                    _this.logining = 0, _this.load(),
+                        i.status ?
+                            (_this.toast(i.msg), localStorage.setItem('uid', i.data.id), _this.setU(i.data)) :
+                            _this.toast(i.msg);
+                });
+        else
+            this.load();
+        if (plt.is('cordova')) {
+            this.initBackButton();
+            this.sharePlatform = {
+                qq: ShareSDK.PlatformType.QQFriend, qzone: ShareSDK.PlatformType.QZone,
+                timeline: ShareSDK.PlatformType.WechatTimeline, wechat: ShareSDK.PlatformType.WechatSession,
+                weibo: ShareSDK.PlatformType.SinaWeibo
+            };
+        }
+    }
+    CommonProvider.prototype.load = function () {
+        var _this = this;
+        this.storage.get("settings").then(function (settings) {
+            _this.settings = settings ? settings : {};
+            _this.storage.get("user").then(function (u) {
+                _this.setU(u || {});
+                _this.initialized = 1;
+            });
+        });
+    };
+    CommonProvider.prototype.getData = function (url, data) {
+        var _this = this;
+        if (data === void 0) { data = {}; }
+        /*如果参数中没有指定user_id，则默认携带上用户id和签名信息*/
+        if (data.user_id === undefined)
+            Object.assign(data, { user_id: this.u.id, sign: this.u.sign });
+        if (data.silent)
+            delete data.silent;
+        else {
+            this.loadingCount++;
+            if (this.loadingCount == 1) {
+                this.loading = this.loadingCtrl.create({
+                    spinner: "dots",
+                    content: "",
+                    duration: 10000
+                });
+                this.loading.present();
+            }
+        }
+        return new Promise(function (resolve, reject) {
+            _this.http.post(url.indexOf('http://') == -1 ? _this.BASE_URL + url : url, data).map(function (t) {
+                if (_this.loadingCount) {
+                    _this.loadingCount--;
+                    if (!_this.loadingCount)
+                        _this.loading.dismiss();
+                }
+                return t.json();
+            }).subscribe(function (t) {
+                resolve(t);
+            }, function (err) {
+                // reject();
+                _this.alert('服务器错误');
+            });
+        });
+    };
+    CommonProvider.prototype.parseJson = function (str) {
+        return new Promise(function (resolve, reject) {
+            resolve(JSON.parse(str));
+        });
+    };
+    CommonProvider.prototype.getCache = function (key) {
+        var _this = this;
+        return new Promise(function (resolve) {
+            return _this.storage.get(key).then(function (res) {
+                return res && res.expire ? (res.expire === true ? (resolve(res.data)) : (res.expire > +new Date() ? resolve(res.data) : _this.storage.remove(key))) : resolve(null);
+            }
+            // resolve(res && res.expire > +new Date() ? res.data : null ))
+            );
+        });
+    };
+    CommonProvider.prototype.setCache = function (key, value, expire) {
+        if (expire === void 0) { expire = 0; }
+        this.storage.set(key, { expire: expire === true ? expire : expire * 1000 + +new Date(), data: value });
+    };
+    CommonProvider.prototype.pop = function () {
+        if (!this.navCtrl)
+            this.setActiveNavCtrl();
+        this.navCtrl.canGoBack() && this.navCtrl.pop();
+    };
+    //当切换tab的时候 重新设置下navCtrl 虽然都是设置的getActiveNavs()[0] 实际表示的都是当前tab的navCtrl
+    CommonProvider.prototype.setActiveNavCtrl = function (navCtrl, delay) {
+        var _this = this;
+        if (navCtrl === void 0) { navCtrl = null; }
+        if (delay === void 0) { delay = 0; }
+        if (delay)
+            setTimeout(function () {
+                _this.navCtrl = navCtrl ? navCtrl : _this.appCtrl.getActiveNavs()[0];
+            }, delay);
+        else
+            this.navCtrl = navCtrl ? navCtrl : this.appCtrl.getActiveNavs()[0];
+    };
+    CommonProvider.prototype.getActiveViewCtrl = function () {
+        if (!this.navCtrl)
+            this.setActiveNavCtrl();
+        return this.navCtrl.getActive();
+    };
+    CommonProvider.prototype.gotoRoot = function () {
+        if (!this.navCtrl)
+            this.setActiveNavCtrl();
+        this.navCtrl.popToRoot();
+    };
+    CommonProvider.prototype.goto = function (params, view) {
+        var _this = this;
+        if (view === void 0) { view = ''; }
+        if (typeof params === 'string')
+            params = { view: params };
+        if (view)
+            params.view = view;
+        if (params.data) {
+            params = Object.assign(params, params.data);
+            delete params.data;
+        }
+        if (!params.view)
+            return;
+        switch (params.view) {
+        }
+        if (!this.navCtrl)
+            this.setActiveNavCtrl();
+        if (params.view) {
+            this.temp.dl = 1;
+            if (this.navCtrl.push) {
+                this.navCtrl.push(params.view, params);
+            }
+            else {
+                setTimeout(function () {
+                    _this.setActiveNavCtrl();
+                    _this.navCtrl.push(params.view, params);
+                }, 100);
+            }
+        }
+    };
+    CommonProvider.prototype.styleDefault = function (set) {
+        if (set === void 0) { set = 1; }
+        if (set) {
+            if (!this.statusBarColor)
+                return;
+            this.statusBarColor = 0;
+        }
+        this.statusBar.styleDefault();
+    };
+    CommonProvider.prototype.styleLightContent = function (set) {
+        if (set === void 0) { set = 1; }
+        if (set) {
+            if (this.statusBarColor)
+                return;
+            this.statusBarColor = 1;
+        }
+        this.statusBar.styleLightContent();
+    };
+    CommonProvider.prototype.setSettings = function (settings) {
+        Object.assign(this.settings, settings);
+        this.storage.set("settings", this.settings);
+    };
+    CommonProvider.prototype.checkLogin = function (gotoLogin) {
+        var _this = this;
+        if (gotoLogin === void 0) { gotoLogin = !0; }
+        return new Promise(function (resolve, reject) {
+            _this.init().then(function () {
+                /*
+                console.log('init ok!', {
+                  pop: this.settings.pop,
+                  u: this.u
+                });
+                */
+                if (_this.settings.pop) {
+                    _this.setSettings({ pop: 0 });
+                    _this.pop();
+                    resolve(!1);
+                }
+                else if (!_this.u.id) {
+                    // }if (!this.u.id){
+                    // this.setSettings({pop: 1});
+                    /*
+                    let config = {enableBackdropDismiss:false};
+                    let login = this.popoverCtrl.create('login',{},config);
+                    */
+                    // let login = this.modalCtrl.create('login');
+                    // login.present();
+                    gotoLogin && _this.goto({ view: "login" });
+                    resolve(!1);
+                }
+                else
+                    resolve(!0);
+            });
+        });
+    };
+    CommonProvider.prototype.setU = function (u) {
+        if (u === void 0) { u = null; }
+        var user = this.u, us = JSON.stringify(u);
+        u = us == '{}' ? {} : // {} 清空
+            us == 'null' ? user : // null  维持不变
+                Object.assign(user, u); // 合并更新
+        console.log('setU', u);
+        this.u = u;
+        this.storage.set("user", this.u);
+    };
+    CommonProvider.prototype.init = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            if (_this.initialized)
+                resolve();
+            else {
+                var timer_1 = setInterval(function () {
+                    _this.initialized && (clearInterval(timer_1), resolve());
+                }, 100);
+            }
+        });
+    };
+    /*
+      openBrowser(url,params){
+        return new Promise((resolve, reject) => {
+          if(params.target != '_system'){
+            if(this.statusBarColor)
+              this.styleDefault(0);
+          }
+    
+          params.browserButtons = params.browserButtons ? params.browserButtons : params.remainBrowserButtons ? this.browserOptions.browserButtons : this.browserButtons;
+          let changeToolbar = !this.equals(this.browserOptions.browserButtons, params.browserButtons), changeTitle = !changeToolbar && params.title && this.browserOptions.title.staticText != params.title.staticText, event;
+    
+          Object.assign(this.browserOptions, params);
+          this.browserOptions.url = url;
+          this.browserOptions.resolve = resolve;
+          this.browserOptions.reject = reject;
+    
+          if(this.browser){
+            if(params.target == '_system')
+              return this.browser.executeScript({code:"var _system="+url});
+            else
+              return params.hidden || (this.browserOptions.hidden = !1),
+                changeTitle && this.browser.executeScript({code:"var _title="+this.browserOptions.title.staticText}),
+                changeToolbar && this.browser.executeScript({code:"var _toolbar="+JSON.stringify(Object.assign({title:this.browserOptions.title},this.browserOptions.browserButtons))}),
+                this.browserOptions.hidden || this.browser.show(),
+                this.browser.executeScript({code:this.plt.is('ios') ? 'var _open='+url : 'document.write("<div style=\' position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url(http://www.bujie.com/tpl/red/images/loading.gif) center center no-repeat;\'></div><script>window.location.href = \''+url+'\'</script>")'});
+          }else{
+            if(params.target == '_system'){
+              if(typeof params.hidden == 'undefined')
+                this.browserOptions.hidden = true;
+            }else if(!this.browserOptions.hidden)
+              setTimeout(()=>{this.nativeToast('加载中')},250)
+    
+            Object.assign(this.browserOptions, this.browserOptions.browserButtons),
+            this.browser = this.themeableBrowser.create(params.target == '_system' ? "about:blank" :url, '_blank', this.browserOptions);
+          }
+    
+          this.browser.on('exit').subscribe(e => {
+            if(this.statusBarColor)
+              this.styleLightContent(0);
+          });
+        });
+      }
+    */
+    CommonProvider.prototype.toast = function (t) {
+        return this.toastPosition(t, "middle");
+    };
+    CommonProvider.prototype.toastPosition = function (t, e) {
+        return this.toastPositionDuration(t, e, 3e3);
+    };
+    CommonProvider.prototype.toastPositionDuration = function (t, e, n) {
+        var i = this;
+        return new Promise(function (r, s) {
+            var tt = i.toastCtrl.create({ message: t, duration: n, position: e });
+            tt.onDidDismiss(function () {
+                r();
+            }), tt.present();
+        });
+    };
+    /*
+      nativeToast(t){
+        this.nativeToastDuration(t,"5000")
+      }
+      nativeToastDuration(t,time){
+        this.xToast.show(t,time,"center").subscribe(t=>{}) /!*需要加上subscribe不然ios下不显示*!/
+      }*/
+    CommonProvider.prototype.getQueryString = function (t) {
+        return this.getUrlParam(t, window.location.search.substr(1));
+    };
+    CommonProvider.prototype.getUrlParam = function (t, e) {
+        var n = new RegExp("(^|&)" + t + "=([^&]*)(&|$)", "i"), i = e.match(n);
+        return null != i ? decodeURIComponent(i[2]) : null;
+    };
+    CommonProvider.prototype.getSharePic = function (controller, filename, opts, url) {
+        if (opts === void 0) { opts = {}; }
+        if (url === void 0) { url = ''; }
+        var item = Object.assign({}, opts);
+        switch (controller) {
+            case 'product':
+                item.view = 'detail';
+                item.pic = item.pic.replace("_160x160.jpg", "_600x600.jpg").replace(".160x160.jpg", ".600x.jpg").replace("s=160x160&", "");
+                filename = item.iid;
+                url = this.BASE_URL + 'qrcode/' + controller + '/' + filename + '.png?params=' + encodeURIComponent(JSON.stringify(item)) + (this.u.auth ? "&u=" + this.u.auth : "") + '&' + filename + '.png';
+                break;
+            case 'activity':
+                if (item.qrcode)
+                    url = this.BASE_URL + 'qrcode/' + controller + '/' + filename + '.png?auth=' + this.u.auth + '&url=' + encodeURIComponent(item.url ? this.getShareUrl(item.url) : url) + "&pic=" + encodeURIComponent(item.pic) + "&width=" + item.width + "&left=" + item.left + "&top=" + item.top + (item.margin ? "&margin=" + item.margin : "") + (item.bc ? "&bc=" + item.bc : "") + (item.fc ? "&fc=" + item.fc : "") + "&" + filename + ".png";
+                else
+                    url = item.pic;
+                break;
+        }
+        return url;
+    };
+    CommonProvider.prototype.getShareUrl = function (url) {
+        if (url === void 0) { url = ''; }
+        var /*timestamp = new Date(new Date().toLocaleDateString()).getTime()/1000, */ share_url = "";
+        url = url.split("#");
+        // #前面部分
+        share_url = url[0];
+        share_url = share_url.split("?");
+        share_url = share_url[0] + "?u=" + this.u.auth /*+ "&_t=" + timestamp*/ + (share_url[1] ? "&" + share_url[1] : "");
+        if (share_url.indexOf("http") !== 0)
+            share_url = this.SITE_URL + share_url;
+        // #后面部分
+        if (url[1])
+            share_url += "#" + url[1];
+        return share_url;
+    };
+    CommonProvider.prototype.share = function (t) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var e = _this.popoverCtrl.create("share", t.type == 'url' ? { hideSave: 1 } : {}, { cssClass: 'share-container' });
+            e.onDidDismiss(function (data) {
+                resolve();
+            });
+            e.present(), _this.shareOpt = t;
+        });
+    };
+    /*
+    
+      shareTo(t) {
+        var packageName, clientType, appName, opt: any = this.shareOpt;
+        if (!opt) return;
+        if (t == 'weibo' && opt.type == 'url') //微博不能直接分享网页链接出去 改成加到内容中的普通分享
+          delete opt.type, opt.weiboPic && (opt.pic = opt.weiboPic, delete opt.weiboPic)
+        if (opt.type == 'url')
+          delete opt.type
+        else if (opt.url)
+          opt.message += "\r\n" + opt.url, delete opt.url;
+    
+        if (typeof opt.pic == 'object' && opt.pic.length == 1)
+          opt.pic = opt.pic[0];
+    
+        var isIos11 = !1;
+        if (t != 'weibo' && t != 'save') {
+          // ios 11 下 原生分享到微信、朋友圈等报错 —— but remote VC failed, dismissing
+          isIos11 = this.plt.versions().ios && this.plt.versions().ios.major >= 11;
+          if (isIos11 && typeof opt.pic == 'object')
+            return this.toast('ios11下不支持多图分享QQ空间，请点击右下角-保存图片后自行分享'), false;
+        }
+        switch (t) {
+          case "qzone":
+            //QQ空间APP不支持分享链接  当分享链接到QQ空间时 采用通过QQ分享到空间的方式
+            if (opt.url || isIos11) {
+              t = "qq";
+              clientType = ShareSDK.ClientType.QQ;
+              appName = 'QQ'
+            } else {
+              packageName = this.plt.is("ios") ? "com.tencent.mqq.ShareExtension" : "com.qzone";
+              appName = 'QQ空间';
+            }
+            break;
+          case "qq":
+            if (opt.url || isIos11)
+              clientType = ShareSDK.ClientType.QQ;
+            else
+              packageName = this.plt.is("ios") ? "com.tencent.mqq.ShareExtension" : "com.tencent.mobileqq";
+            appName = 'QQ';
+            break;
+          case "wechat":
+            //android 单图 分享到微信  显示的是文件 而不是 图片  所以采用 shareSDK 的方式
+            if (opt.url || (typeof opt.pic != 'object' && this.plt.is("android")) || isIos11)
+              clientType = ShareSDK.ClientType.Wechat;
+            else
+              packageName = this.plt.is("ios") ? "com.tencent.xin.sharetimeline" : "com.tencent.mm";
+            appName = '微信';
+            break;
+          case "timeline":
+            if (isIos11 && typeof opt.pic == 'object')
+              return this.toast('ios11下不支持多图分享朋友圈，请点击右下角-保存图片后自行分享'), false;
+    
+            if (opt.url || isIos11)
+              clientType = ShareSDK.ClientType.Wechat;
+            else
+              packageName = this.plt.is("ios") ? "com.tencent.xin.sharetimeline" : "com.tencent.mm/com.tencent.mm.ui.tools.ShareToTimeLineUI";
+            appName = '微信';
+            break;
+          case "weibo":
+            if (opt.url || this.plt.is("ios"))
+              clientType = ShareSDK.ClientType.SinaWeibo;
+            else
+            //com.sina.weibo.ShareExtension 就是不出来分享图片 分享不了
+            //com.apple.social.sinaweibo、com.apple.share.SinaWeibo.post 官方的、要在系统设置里面设置账户
+            //this.plt.is("ios")?"com.sina.weibo.ShareExtension":
+              packageName = "com.sina.weibo";
+            appName = '微博';
+            break;
+          case "save":
+            this.toast("保存中");
+            this.photoLibrary.requestAuthorization().then(() => {
+              if (typeof this.shareOpt.pic == 'object') {
+                let saveImg = (key) => {
+                  setTimeout(() => {
+                    this.toast('正在保存第' + (key + 1) + '张');
+                    this.photoLibrary.saveImage(this.shareOpt.pic[key], this.plt.is("ios") ? "Camera Roll" : this.APP_NAME);
+                  }, key * 600)
+                }
+                for (var i = 0, len = this.shareOpt.pic.length; i < len; i++) {
+                  //来个setTimeout 直接循环写的话 会出现 write busy 错误
+                  saveImg(i);
+                }
+                setTimeout(() => {
+                  this.toast("保存成功")
+                }, this.shareOpt.pic.length * 600)
+              } else
+                this.photoLibrary.saveImage(this.shareOpt.pic, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME), this.toast("保存成功");
+            }).catch(err => {
+              this.toast("未授权访问相册，保存失败")
+            });
+            break;
+        }
+        if (clientType) {
+          this.toastPositionDuration("即将打开" + appName, "middle", 10000);
+          sharesdk.isInstallClient.promise(clientType).then(n => {
+            n ?
+              opt.url ?
+                sharesdk.share(this.sharePlatform[t], ShareSDK.ShareType.WebPage, {
+                  icon: opt.pic,
+                  title: opt.title,
+                  text: opt.message,
+                  url: opt.url
+                }, (t) => {
+                  this.toast("分享成功")
+                }, (t) => {
+                  this.toast("分享失败")
+                }) :
+                sharesdk.share(this.sharePlatform[t], ShareSDK.ShareType.Image, {
+                  image: opt.pic,
+                  title: opt.title,
+                  text: opt.message
+                }, (t) => {
+                  this.toast("分享成功")
+                }, (t) => {
+                  this.toast("分享失败")
+                }) :
+              this.toast("未安装" + appName)
+          });
+        } else if (packageName) {
+          this.toast("即将打开" + appName);
+          this.socialSharing.canShareVia(packageName).then(() => {
+            if (t != 'weibo' && this.plt.is("ios") && this.statusBarColor)
+              this.styleDefault(0);
+            //安卓里面被分享的应用 基本是 singletask 的  会立即执行回调  所以执行成功的回调就不提示了
+            this.socialSharing.shareVia(packageName, opt.message, opt.message, opt.pic, opt.url).then((t) => {
+              this.plt.is("ios") && this.toast("分享成功"), t != 'weibo' && this.plt.is("ios") && this.statusBarColor && this.styleLightContent(0)
+            }, (t) => {
+              this.plt.is("ios") && this.toast("分享失败"), t != 'weibo' && this.plt.is("ios") && this.statusBarColor && this.styleLightContent(0)
+            })
+          }).catch(() => {
+            this.toast("未安装" + appName)
+          });
+        }
+        return true;
+      }
+    
+      // resource_type 0 图片 1 视频
+      saveResource(resouce, resource_type = 0) {
+        return new Promise((resolve, reject) => {
+          this.toast("保存中");
+          this.photoLibrary.requestAuthorization().then(() => {
+            resource_type ?
+              this.photoLibrary.saveVideo(resouce, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME).then(() => {
+                this.toast("已成功保存到相册"), resolve()
+              }, () => {
+                this.toast("保存失败，请联系客服"), reject()
+              }) :
+              this.photoLibrary.saveImage(resouce, this.plt.is("ios") ? "Camera Roll" : this.APP_NAME).then(() => {
+                this.toast("已成功保存到相册"), resolve()
+              }, () => {
+                this.toast("保存失败，请联系客服"), reject()
+              })
+          }).catch(err => {
+            this.toast("未授权访问相册，保存失败")
+          });
+        })
+      }
+    */
+    CommonProvider.prototype.actionsheet = function (title, btns) {
+        var i = this.actionsheetCtrl.create({
+            title: title,
+            cssClass: "action-sheets-basic-page",
+            buttons: btns
+        });
+        i.present();
+    };
+    CommonProvider.prototype.alert = function (t) {
+        var alert = this.alertCtrl.create({
+            subTitle: t,
+            buttons: ['知道了']
+        });
+        alert.present();
+        return alert;
+    };
+    //title,message,btn1_text,btn1_callback,btn2_text,btn2_callback
+    CommonProvider.prototype.prompt = function (t, e, n, i, r, s) {
+        var p = this.alertCtrl.create({
+            title: t,
+            message: e,
+            enableBackdropDismiss: false,
+            buttons: [{
+                    text: n,
+                    handler: function (t) {
+                        return i();
+                    }
+                },
+                {
+                    text: r,
+                    handler: function (t) {
+                        return s();
+                    }
+                }]
+        });
+        p.present();
+    };
+    CommonProvider.prototype.isWechat = function () {
+        return navigator.userAgent.toLowerCase().match(/MicroMessenger/i) + "" == "micromessenger";
+    };
+    CommonProvider.prototype.hasClass = function (t, e) {
+        return t.className.match(new RegExp("(\\s|^)" + e + "(\\s|$)"));
+    };
+    CommonProvider.prototype.addClass = function (t, e) {
+        this.hasClass(t, e) || (t.className += " " + e);
+    };
+    CommonProvider.prototype.removeClass = function (t, e) {
+        if (this.hasClass(t, e)) {
+            var n = new RegExp("(\\s|^)" + e + "(\\s|$)");
+            t.className = t.className.replace(n, "");
+        }
+    };
+    CommonProvider.prototype.toggleClass = function (t, e) {
+        this.hasClass(t, e) ? this.removeClass(t, e) : this.addClass(t, e);
+    };
+    /*后退*/
+    CommonProvider.prototype.goback = function () {
+        var nav = this.appCtrl.getActiveNav();
+        nav.canGoBack() && nav.pop();
+    };
+    CommonProvider.prototype.pay = function (t, e, fail) {
+        var _this = this;
+        if (fail === void 0) { fail = null; }
+        if (this.plt.is('cordova')) {
+            this.getData("tradelist/add", t).then(function (i) {
+                if (i.status == 2) {
+                    _this.u.money = (_this.u.money - i.data).toFixed(2);
+                    e();
+                }
+                else if (i.status) {
+                    lyxpay.pay(t.type, t.type == 1 && _this.plt.is("android") ? JSON.stringify(i.data) : i.data, {
+                        success: function () {
+                            e();
+                        },
+                        failure: function (t) {
+                            //支付宝的错误码
+                            if (8000 == t || 6004 == t)
+                                _this.toast('支付结果确认中'), _this.getData("tradelist/check", { id: i.msg }).then(function (i) {
+                                    i.msg ? e() : fail ? fail() : _this.toast("支付失败");
+                                });
+                            else
+                                fail ? fail() : _this.toast("支付失败");
+                        }
+                    });
+                }
+                else {
+                    if (i.msg == '余额不足')
+                        _this.u.money = i.data;
+                    _this.toast(i.msg);
+                }
+            });
+        }
+        else if (this.isWechat()) {
+            this.toast("正在生成支付信息");
+            this.getData("tradelist/add", t).then(function (i) {
+                if ("please bind wechat first" == i.msg)
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5ead4b1c3b371c37&redirect_uri=" + encodeURIComponent('http://m.sheng365.cn/?btn_click=1#' + t.buy_page_url) + "&response_type=code&state=&scope=snsapi_base#wechat_redirect";
+                else if (i.status == 2)
+                    _this.u.money = (_this.u.money - i.data).toFixed(2), e();
+                else if (1 == i.status)
+                    window['WeixinJSBridge'].invoke("getBrandWCPayRequest", i.data, function (t) {
+                        "get_brand_wcpay_request:ok" == t.err_msg ? e() : _this.toast("支付失败");
+                    });
+                else
+                    _this.toast(i.msg);
+            });
+        }
+        else {
+            if (t['money'] + t['promo_code_amount'] + 0.0001 > t['amount']) {
+                this.getData("tradelist/add", t).then(function (i) {
+                    if (i.status == 2)
+                        _this.u.money = (_this.u.money - i.data).toFixed(2), e();
+                    else if (1 == i.status) {
+                    }
+                    else
+                        _this.toast(i.msg);
+                });
+            }
+            else
+                this.toast("非余额全额付款，请在微信或APP内进行支付操作");
+        }
+    };
+    /*新增方法*/
+    CommonProvider.prototype.getCurrentPosition = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var $this = _this;
+            getPosition();
+            /*获取定位*/
+            function getPosition() {
+                reject();
+                /*
+                        getAmp().then(data=>{
+                            console.log('do getAmap ok', JSON.stringify(data));
+                              resolve(data);
+                        },err=>{
+                          console.log('do getAmap Err!', JSON.stringify(err));
+                          getGeoLocation().then((data) => {
+                            console.log('do getGeolocation ok', data);
+                            resolve(data)
+                          }, (err)=>{
+                            console.log('do getGeolocation err', err);
+                            errHandle()
+                          });
+                        });*/
+                /*  // $this.amap.getCurrentPosition().then(data => {
+                  //   console.log('do get amap locate ok', JSON.stringify(data));
+                  //
+                  // }, err => {*/
+                //   console.log('do get amap locate err', JSON.stringify(err));
+                //   getAmp().then(data => {
+                //     resolve(data);
+                //   }, err => {
+                //     console.log('do getAmapErr!', JSON.stringify(err));
+                //     getGeoLocation().then((data) => {
+                //       console.log('do getGeolocation ok', data);
+                //       resolve(data)
+                //     }, (err)=>{
+                //       console.log('do getGeolocation err', err);
+                //       errHandle()
+                //     });
+                //
+                //   // });
+                // })
+            }
+            /*去设置*/
+            function gotoConfig() {
+                var cordova = window['cordova'];
+                if (!cordova) {
+                    console.log('open settings err: cordova undefined');
+                    reject({ msg: 'cordova undefined!' });
+                    return;
+                }
+                if (!cordova.plugins.settings) {
+                    console.log('open settings err: cordova.plugins.settings undefined!');
+                    reject({ msg: 'cordova.plugins.settings undefined!' });
+                    return;
+                }
+                cordova.plugins.settings.open('application_details', function (data) {
+                    console.log('open settind ok', data);
+                }, function (err) {
+                    console.log('open settind error', err);
+                    reject({ msg: 'open settind error' });
+                });
+            }
+            /*定位失败*/
+            function errHandle() {
+                if ($this.plt.is('cordova')) {
+                    var alert_1 = $this.alertCtrl.create({
+                        title: '获取位置失败',
+                        message: '请检查定位权限，如果已允许访问位置并且网络畅通，请点击重新定位！',
+                        buttons: [
+                            {
+                                text: '重新定位',
+                                role: 'cancel',
+                            },
+                            {
+                                text: '去检查设置',
+                                handler: gotoConfig
+                            }
+                        ]
+                    });
+                    alert_1.onDidDismiss(function () {
+                        getPosition();
+                    });
+                    alert_1.present();
+                }
+                else {
+                    reject({ msg: '获取位置失败！' });
+                }
+            }
+        });
+    };
+    CommonProvider.prototype.gotoConfig = function () {
+    };
+    CommonProvider.prototype.error = function (error) {
+        if (error === void 0) { error = '非法请求'; }
+        if (typeof error == 'string') {
+            error = {
+                msg: error,
+                goBack: true
+            };
+        }
+        this.alert(error.msg);
+        error.goBack && this.goback();
+    };
+    CommonProvider.prototype.initBackButton = function () {
+        var $this = this;
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log('emit ondeviceReady of backbutton');
+            //navigator.splashscreen.hide();
+            document.addEventListener("backbutton", onBackKeyDown, false);
+        }
+        function onBackKeyDown() {
+            if (!$this.backButtonSwitch)
+                return;
+            $this.toast('再点击一次退出!');
+            document.removeEventListener("backbutton", onBackKeyDown, false); // 注销返回键
+            document.addEventListener("backbutton", exitApp, false); //绑定退出事件
+            // 3秒后重新注册
+            var intervalID = window.setInterval(function () {
+                window.clearInterval(intervalID);
+                document.removeEventListener("backbutton", exitApp, false); // 注销返回键
+                document.addEventListener("backbutton", onBackKeyDown, false); // 返回键
+            }, 3000);
+        }
+        function exitApp() {
+            console.log('退出应用程序');
+            navigator.app.exitApp();
+        }
+    };
+    /*特殊跳转*/
+    CommonProvider.prototype.goToPersonalHome = function (user) {
+        if (typeof user == 'string') {
+            user = { id: user };
+        }
+        this.goto({ view: 'personal-home', user: user });
+    };
+    CommonProvider.prototype.goToDownload = function (obj) {
+        if (obj === void 0) { obj = ''; }
+        if (typeof obj == 'string')
+            obj = { message: obj };
+        var _a = obj.title, title = _a === void 0 ? '下载' : _a, message = obj.message, confirm = obj.confirm;
+        var alert = this.alertCtrl.create({
+            title: title,
+            message: message,
+            buttons: ['取消',
+                {
+                    text: '去下载',
+                    handler: function () {
+                        console.log('去下载');
+                        typeof confirm === 'function' && confirm();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    };
+    /*退出登录*/
+    CommonProvider.prototype.logout = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.setU({});
+            resolve();
+        });
+    };
+    CommonProvider.prototype.equals = function (x, y) {
+        if (x === y) {
+            return true; // if both x and y are null or undefined and exactly the same
+        }
+        else if (!(x instanceof Object) || !(y instanceof Object)) {
+            return false; // if they are not strictly equal, they both need to be Objects
+        }
+        else if (x.constructor !== y.constructor) {
+            // they must have the exact same prototype chain, the closest we can do is
+            // test their constructor.
+            return false;
+        }
+        else {
+            for (var p in x) {
+                if (!x.hasOwnProperty(p)) {
+                    continue; // other properties were tested using x.constructor === y.constructor
+                }
+                if (!y.hasOwnProperty(p)) {
+                    return false; // allows to compare x[ p ] and y[ p ] when set to undefined
+                }
+                if (x[p] === y[p]) {
+                    continue; // if they have the same strict value or identity then they are equal
+                }
+                if (typeof (x[p]) !== 'object') {
+                    return false; // Numbers, Strings, Functions, Booleans must be strictly equal
+                }
+                if (!this.equals(x[p], y[p])) {
+                    return false;
+                }
+            }
+            for (var p in y) {
+                if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    };
+    CommonProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* PopoverController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["q" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["k" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* ActionSheetController */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["n" /* Platform */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* App */],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
+    ], CommonProvider);
+    return CommonProvider;
+}());
+
+//# sourceMappingURL=common.js.map
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(220);
+
+
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 220:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_common_common__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(155);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {
+                    mode: 'ios',
+                    backButtonText: '',
+                    tabsHideOnSubPages: true //隐藏子页面tabs
+                }, {
+                    links: [
+                        { loadChildren: '../pages/cart/cart.module#CartPageModule', name: 'cart', segment: 'cart', priority: 'off', defaultHistory: [] },
+                        { loadChildren: '../pages/center/center.module#CenterPageModule', name: 'center', segment: 'center', priority: 'off', defaultHistory: [] },
+                        { loadChildren: '../pages/home/home.module#HomePageModule', name: 'home', segment: 'home', priority: 'off', defaultHistory: [] },
+                        { loadChildren: '../pages/nine/nine.module#NinePageModule', name: 'nine', segment: 'nine', priority: 'off', defaultHistory: [] },
+                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'welcome', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/sale/sale.module#SalePageModule', name: 'sale', segment: 'sale', priority: 'off', defaultHistory: [] },
+                        { loadChildren: '../pages/taoqianggou/taoqianggou.module#TaoqianggouPageModule', name: 'taoqianggou', segment: 'taoqianggou', priority: 'off', defaultHistory: [] }
+                    ]
+                }),
+                __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["a" /* IonicStorageModule */].forRoot()
+            ],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* IonicApp */]],
+            entryComponents: [
+                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_7__providers_common_common__["a" /* CommonProvider */],
+                __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */],
+                { provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* IonicErrorHandler */] }
+            ]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 273:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(195);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var MyApp = /** @class */ (function () {
+    function MyApp(platform, statusBar, splashScreen) {
+        // rootPage:any = HomePage;
+        this.rootPage = "welcome";
+        platform.ready().then(function () {
+            // Okay, so the platform is ready and our plugins are available.
+            // Here you can do any higher level native things you might need.
+            statusBar.styleDefault();
+            splashScreen.hide();
+        });
+    }
+    MyApp = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\cordova\maoxuan\maoxuan\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"E:\cordova\maoxuan\maoxuan\src\app\app.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+    ], MyApp);
+    return MyApp;
+}());
+
+//# sourceMappingURL=app.component.js.map
+
+/***/ })
+
+},[197]);
+//# sourceMappingURL=main.js.map

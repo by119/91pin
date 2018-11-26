@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的拼团</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0">
+          正在拼团
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          成功团
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          失败团
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+  <div [ngSwitch]="pet">
+    <div *ngSwitchCase="0">
+      <div *ngIf="1">
+        <div class="collage-list">
+          <img class="state-img" src="assets/imgs/handing.png" alt="">
+          <div class="clearfix" style="width: 100%">
+            <img src="assets/imgs/avatar.png" alt="">
+            <div class="collage-info">
+              <p>Apple ipad平板电脑2018年新品上市电脑2018年新品上市</p>
+              <p>
+                <ion-note>已有1人成团</ion-note>
+              </p>
+              <p class="collage-price">￥20.00</p>
+            </div>
+          </div>
+          <div class="clearfix" style="border-top: 1px solid #F2F2F2;padding: .5rem;">
+            <div class="progress">拼团进度</div>
+            <div class="view-order">查看订单</div>
+          </div>
+        </div>
+        <div class="collage-list">
+          <img class="state-img" src="" alt="">
+          <div class="clearfix" style="width: 100%">
+            <img src="assets/imgs/avatar.png" alt="">
+            <div class="collage-info">
+              <p>Apple ipad平板电脑2018年新品上市电脑2018年新品上市</p>
+              <p>
+                <ion-note>已有1人成团</ion-note>
+              </p>
+              <p class="collage-price">￥20.00</p>
+            </div>
+          </div>
+          <div class="clearfix" style="border-top: 1px solid #F2F2F2;padding: .5rem;">
+            <div class="progress">去支付</div>
+            <div class="view-order">查看订单</div>
+          </div>
+        </div>
+      </div>
+      <div class="null-order" *ngIf="0">
+        <img src="assets/imgs/null_order.png" alt="">
+      </div>
+    </div>
+    <div *ngSwitchCase="1">
+      <div class="null-order" *ngIf="1">
+        <img src="assets/imgs/null_order.png" alt="">
+      </div>
+    </div>
+    <div *ngSwitchCase="2">
+      失败团
+    </div>
+  </div>
+</ion-content>

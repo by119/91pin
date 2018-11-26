@@ -1,0 +1,101 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+
+/**
+ * Generated class for the CollageDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collage-detail'
+})
+@Component({
+  selector: 'page-collage-detail',
+  templateUrl: 'collage-detail.html',
+})
+export class CollageDetailPage {
+  @ViewChild(Slides) slides: Slides;
+  collageTitle: string = '带盖带勺陶瓷创意杯子表情水杯家用个性咖啡杯马克杯套装';
+  pet: string = '0';
+  current: number = 1; //当前所在轮播图
+  slideLen: number = 4;  //轮播图数量
+  tipsState: boolean = false; //服务说明状态 false隐藏  true显示
+  ruleState: boolean = false; //拼团规则状态 false隐藏  true显示
+  followNum: number = 0; //商店关注人数
+  newLen: number = 7; // 拼团新品数量
+  isCollect: boolean = false; //收藏 true已收藏   false未收藏
+  buyInfoState: boolean = false; //购买明细框 false隐藏  true显示
+  buyState: number = 1; //购买方式  1：单独购买   2：拼团购买
+  // 购买商品 参数选项
+  goodsParam: object[] = [{
+    title: '颜色',
+    list: ['颜色随机', '绿色', '栗色', '荧光绿', '红色', '白色', '米白色', '黑色', '黄色'],
+  }, {
+    title: '尺码',
+    list: ['M[80-100斤]', 'L【100-120斤】', 'XL【120-140斤】', '2XL【140-160斤】']
+  }];
+  chooseNum: number = 1;//已选数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CollageDetailPage');
+  }
+
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    if (currentIndex < this.slideLen) {
+      this.current = currentIndex + 1;
+    }
+    // console.log('Current index is', currentIndex, this.slides.length());
+
+  }
+  // 显隐服务说明
+  showTips() {
+    console.log('查看服务说明', this.tipsState);
+    this.tipsState = !this.tipsState;
+  }
+  // 显隐拼团规则详情
+  switchRule() {
+    console.log('显隐拼团规则详情', this.ruleState);
+    this.ruleState = !this.ruleState;
+  }
+  switchCollect() {
+    console.log('收藏切换', this.isCollect);
+    this.isCollect = !this.isCollect;
+  }
+  // 显隐购买明细框
+  showBuy(num) {
+    console.log(num, 'eee');
+    console.log('查看购买明细', this.buyState, this.buyInfoState);
+    this.buyInfoState = !this.buyInfoState;
+    if (num) {
+      this.buyState = num;
+    }
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+  }
+  // 添加数量
+  add() {
+    this.grey = false;
+    this.chooseNum++;
+  }
+  // 选择商品属性
+  choseStyle(i) {
+    console.log(i, 'ii');
+  }
+}

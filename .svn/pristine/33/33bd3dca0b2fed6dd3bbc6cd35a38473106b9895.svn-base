@@ -1,0 +1,161 @@
+
+<ion-content>
+  <div class="transheader">
+      <ion-header>
+          <ion-navbar>
+            <ion-buttons start>
+              <button ion-button icon-only color="royal">
+                <ion-icon name="md-text"></ion-icon>
+                <!-- <ion-icon class="iconfont icon-news-h"></ion-icon> -->
+              </button>
+            </ion-buttons>
+            <ion-buttons end>
+              <button ion-button icon-only color="royal" (click)="cp.goto('settings')">
+                <ion-icon name="md-settings"></ion-icon>
+                <!-- <ion-icon name="" class="iconfont icon-set-h"></ion-icon> -->
+              </button>
+            </ion-buttons>
+          </ion-navbar>
+        </ion-header>
+  </div>
+  <ion-card class="myhead">
+    <img src="assets/imgs/card-saopaolo.png" />
+    <ion-card-content>
+      <ion-avatar item-start (click)="cp.goto('user-info')">
+        <img class="avatar" src="assets/imgs/avatar.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>某某用户</h2>
+        <h2>1820***122</h2>
+      </ion-label>
+      <ion-label class="my-sign">
+        <!-- <ion-icon name="ios-create-outline"></ion-icon> -->
+        <ion-icon name="" class="iconfont icon-sign"></ion-icon>
+        <span>每日签到</span>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-label>
+    </ion-card-content>
+
+  </ion-card>
+  <ion-item class="mylist">
+    <ion-list class="my-order-box" no-lines>
+      <ion-item class="my-order-item">
+        <p>0</p>
+        <p> 商品收藏</p>
+      </ion-item>
+      <ion-item class="my-order-item">
+        <p>0</p>
+        <p> 店铺收藏</p>
+      </ion-item>
+      <ion-item class="my-order-item"  (click)="goTo('redbag')">
+        <p>0</p>
+        <p> 优惠券</p>
+      </ion-item>
+      <ion-item class="my-order-item" (click)="goTo('footprint')">
+        <p>5</p>
+        <p> 我的足迹</p>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+  <ion-item class="mylist">
+    <ion-list no-lines>
+      <button ion-item (click)="goTo({view:'order',pet:'-1'})" style="border-bottom: 1px solid #F7F7F7;">
+        <ion-icon name="" class="iconfont icon-order" item-start style="color: #FE965D;"></ion-icon>
+        我的订单
+        <ion-note item-end style="margin-right: 2.5rem;">查看全部订单</ion-note>
+      </button>
+    </ion-list>
+    <ion-list class="my-order-box" no-lines>
+      <ion-item class="my-order-item" (click)="goTo({view:'order',pet:'0'})">
+        <!-- <ion-icon name="ios-tennisball-outline"></ion-icon> -->
+        <ion-icon name="" class="iconfont icon-pay"></ion-icon>
+        <p> 待付款</p>
+        <ion-badge color="danger" item-end>12</ion-badge>
+      </ion-item>
+      <ion-item class="my-order-item" (click)="goTo('collage')">
+        <ion-icon name="" class="iconfont icon-group"></ion-icon>
+        <!-- <ion-icon name="ios-tennisball-outline"></ion-icon> -->
+        <p> 待成团</p>
+        <ion-badge color="danger" item-end>2</ion-badge>
+      </ion-item>
+      <!-- <ion-item class="my-order-item" (click)="goTo({view:'order',pet:'1'})">
+        <ion-icon name="" class="iconfont icon-deliver"></ion-icon>
+        <p> 待发货</p>
+        <ion-badge color="danger" item-end>2</ion-badge>
+      </ion-item> -->
+      <ion-item class="my-order-item" (click)="goTo({view:'order',pet:'2'})">
+        <!-- <ion-icon  name="" class="iconfont icon-group"></ion-icon> -->
+        <ion-icon name="ios-albums-outline"></ion-icon>
+        <p> 待收货</p>
+        <ion-badge color="danger" item-end>2</ion-badge>
+      </ion-item>
+      <ion-item class="my-order-item" (click)="goTo({view:'order',pet:'3'})">
+        <ion-icon name="" class="iconfont icon-assess"></ion-icon>
+        <p> 待评价</p>
+        <ion-badge color="danger" item-end>0</ion-badge>
+      </ion-item>
+      <ion-item class="my-order-item" (click)="goTo({view:'after-sale'})">
+        <ion-icon name="" class="iconfont icon-after-sale"></ion-icon>
+        <p> 退换货</p>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+  <ion-list class="mylist">
+    <button ion-item (click)="goTo('group')">
+      <ion-icon name="ios-people-outline" item-start style="color: #FFD171"></ion-icon>
+      <!-- <ion-icon name="" class="iconfont icon-our" item-start style="color: #FFD171"></ion-icon> -->
+      我的拼团
+    </button>
+    <button ion-item>
+      <ion-icon name="" class="iconfont icon-news" item-start style="color: #9CD807"></ion-icon>
+      我的消息
+    </button>
+    <button ion-item>
+      <ion-icon name="" class="iconfont icon-sale" item-start style="color: #75D6EE"></ion-icon>
+      退款/售后
+    </button>
+    <!-- <button ion-item>
+      <ion-icon name="ios-photos-outline" item-start style="color: #56A9FF"></ion-icon>
+      <ion-icon name="" class="iconfont icon-card" item-start style="color: #56A9FF"></ion-icon>
+      我的卡券
+    </button> -->
+    <button ion-item (click)="goTo('address')">
+      <ion-icon name="ios-pin-outline" item-start style="color: #FC6F16"></ion-icon>
+      <!-- <ion-icon name="" class="iconfont icon-address" item-start style="color: #FC6F16"></ion-icon> -->
+      我的地址
+    </button>
+    <button ion-item>
+      <ion-icon name="" class="iconfont icon-apply" item-start style="color: #F45E63"></ion-icon>
+      申请入驻
+    </button>
+    <button *ngIf="cp.u.id && !1" ion-item (click)="logout()">
+      <ion-icon name="md-power" color="danger" item-start></ion-icon>
+      退出登录
+    </button>
+  </ion-list>
+
+
+  <!-- <ion-list>
+    <ion-item (click)="goTo('wallet')">
+      &lt;!&ndash;
+      <ion-icon flex name="logo-yen" item-start></ion-icon>&ndash;&gt;
+      <ion-icon flex color="primary" name="logo-usd" item-start></ion-icon>
+      <ion-label>钱包</ion-label>
+      <ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>
+    </ion-item>
+    <ion-item (click)="goTo('taoqianggou')">
+      <ion-label>taoqianggou</ion-label>
+    </ion-item>
+
+    <ion-note>商品收藏</ion-note>
+    <ion-note>店铺收藏</ion-note>
+    <ion-note>红包卡券</ion-note>
+    <ion-note>我的足迹</ion-note>
+    <ion-note (click)="cp.goto({view:'order'})">我的订单</ion-note>
+    <ion-note>我的拼团</ion-note>
+    <ion-note>我的砍价</ion-note>
+    <ion-note>我的消息</ion-note>
+    <ion-note>我的地址</ion-note>
+    <ion-note>申请入驻</ion-note>
+  </ion-list> -->
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>9.9包邮</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-item class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="{{item.id}}" *ngFor="let item of navList;">
+          {{item.title}}
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-item>
+
+  <div [ngSwitch]="pet">
+    <div *ngSwitchCase="0">
+      <ion-slides pager>
+        <ion-slide>
+          <img src="assets/imgs/card-saopaolo.png" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/avatar.png" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/card-saopaolo.png" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/avatar.png" alt="">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/card-saopaolo.png" alt="">
+        </ion-slide>
+      </ion-slides>
+      <div class="goods-list">
+        <img src="assets/imgs/avatar.png" alt="">
+        <div class="list-info">
+          <p>Apple ipad平板电脑2018年新品上市</p>
+          <p>
+            <ion-icon class="iconfont icon-tao"></ion-icon>
+            <ion-note class=" trait">新款金色</ion-note>
+            <ion-note class=" trait">支持蓝牙</ion-note>
+          </p>
+          <p class="price">￥201.01</p>
+          <p>
+            <ion-note>原价:￥399.99</ion-note>
+            <ion-note style="float: right;">销售：128923件</ion-note>
+          </p>
+        </div>
+      </div>
+    </div>
+    <ion-item *ngSwitchCase="1">
+      <div class="goods-list">
+        <img src="assets/imgs/avatar.png" alt="">
+        <div class="list-info">
+          <p>Apple ipad平板电脑2018年新品上市</p>
+          <p>
+            <ion-icon class="iconfont icon-tao"></ion-icon>
+            <ion-note class=" trait">新款金色</ion-note>
+            <ion-note class=" trait">支持蓝牙</ion-note>
+          </p>
+          <p class="price">￥201.01</p>
+          <p>
+            <ion-note>原价:￥399.99</ion-note>
+            <ion-note style="float: right;">销售：128923件</ion-note>
+          </p>
+        </div>
+      </div>
+    </ion-item>
+  </div>
+</ion-content>

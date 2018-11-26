@@ -1,0 +1,214 @@
+page-detail {
+    .slide-i {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.2rem 1rem;
+        background-color: rgba(0,0,0,0.4);
+        color: #fff;
+        border-radius: 1rem;
+        z-index: 1;
+    }
+    .detail-info {
+        background-color: #fff;
+        padding: .5rem;
+        color: #333;
+        font-size: 1rem;
+        p {
+            margin: .2rem 0;
+        }
+        .share-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .2rem;
+            font-size:2rem;
+            color: #636563;
+        }
+        .current-price {
+            font-size: 2rem;
+            color: #FE5261;
+        }
+        .cost-price {
+            font-size: 1rem;
+            color: #c6c6c6;
+            text-decoration: line-through;
+        }
+        .repertory {
+            color: #636563;
+        }
+    }
+    // 优惠券
+    .detail-coupon {
+        position: relative;
+        margin-top: .5rem;
+        padding: 0 .5rem;
+        background-color: #fff;
+        line-height: 2.6rem;
+        .coupon-icon {
+            font-size: 2.4rem;
+            color: #FE5261;
+            margin: 0 .3rem;
+        }
+        .switch-coupon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .8rem;
+        }
+    }
+    .coupon-list {
+        height: 5rem;
+        margin: .5rem .5rem 0 .5rem;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        border-radius: .5rem;
+        overflow: hidden;
+        .list-l {
+            float: left;
+            padding: .5rem;
+            .list-l-t {
+                .list-price {
+                    float: left;
+                    font-size: 2.6rem;
+                    color: #73D3D6;
+                    vertical-align: text-top;
+                    margin-right: .3rem;
+                    span {
+                        float: left;
+                    }
+                }
+                .list-ask {
+                    float: left;
+                    p {
+                        font-size: .8rem;
+                        margin: 0;
+                    }
+                }
+            }
+            .list-l-b {
+                p {
+                    font-size: .8rem;
+                    margin: 0;
+                    color: #7C7E7C;
+                    padding-left: .3rem;
+                }
+            }
+        }
+        .list-r {
+            float: right;
+            width: 5rem;
+            padding: 1rem;
+            line-height: 1.5rem;
+            font-size: 1.4rem;
+            background-color: #73D3D6;
+            text-align: center;
+            color: #fff;
+        }
+    }
+
+    // 数量
+    .detail-num {
+        position: relative;
+        margin-top: .5rem;
+        padding: 0 .5rem;
+        background-color: #fff;
+        line-height: 2.6rem;
+        .switch-num {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: .8rem;
+        }   
+    }
+    .ctrl-num {
+        background-color: #fff;
+        line-height: 1.4rem;
+        padding: .5rem;
+        .ation {
+            display: inline-block;
+            // line-height: 2rem;
+            border: 1px solid #EFEFEF;
+            border-radius: .5rem;
+            float: right;
+            span {
+                width: 2.4rem;
+                height: 2.4rem;
+                line-height: 2.4rem;
+                text-align: center;
+                float: left;
+                vertical-align: middle;
+                background: #fff;
+                font-size: 2rem;
+                cursor: pointer;
+                .reduce {
+                    color: #000;
+                }
+                .add {
+                    margin-right: .5rem;
+                }
+            }
+            input {
+                width: 2.4rem;
+                height: 2.4rem;
+                line-height: 2.4rem;
+                display: inline-block;
+                border: none;
+                border-left: 1px solid #EFEFEF;
+                border-right: 1px solid #EFEFEF;
+                outline: none;
+                float: left;
+                text-align: center;
+            }
+            .grey {
+                background-color: #F7F7F7;
+                color: #DEDFDE;
+            }
+        }
+    }
+
+    // 猜你喜欢
+    .guess-like{
+        margin-top: .5rem;
+        background-color: #fff;
+        .like-title {
+            padding: .5rem;
+            margin: 0;
+            font-size: 1.6rem;
+            line-height: 2.5rem;
+            border-bottom: 1px solid #ccc;
+        }
+        .like-box {
+            display: flex;
+            padding: .5rem;
+        }
+        .like-list {
+            width: 25%;
+            padding: 0 1%;
+            text-align: center;
+            img {
+                width: 100%;
+                border: 1px solid #ccc;
+            }
+            p {
+                width: 100%;
+                margin: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                text-align: left;
+            }
+            .list-title {
+                color: #333;
+            }
+            .list-price {
+                color: #FE5261;
+                font-size: 1.6rem;
+            }
+        }
+    }
+    // 商品 规格 参数 
+    .parameter {}
+
+}

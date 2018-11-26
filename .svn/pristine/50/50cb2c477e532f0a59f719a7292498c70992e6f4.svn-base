@@ -1,0 +1,5 @@
+page-pintuan {
+  .ads{
+    font-size: 0;
+  }
+}

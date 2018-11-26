@@ -1,0 +1,46 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the RedbagPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'redbag'
+})
+@Component({
+  selector: 'page-redbag',
+  templateUrl: 'redbag.html',
+})
+export class RedbagPage {
+  pet: string = "0";
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    window['c'] = this.cp;
+
+    this.cp.getData('user/conpont', {type: 0}).then(res => {
+      console.log(res);
+    });
+
+    this.cp.getData('team/teamRanking', {
+      page: 1,
+      size: 30,
+      type: "1"
+    }).then(
+      (t: any) => {
+        console.log(1);
+      },
+      err => {
+        console.log(2);
+      })
+  }
+}

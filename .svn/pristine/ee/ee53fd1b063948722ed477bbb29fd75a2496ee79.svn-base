@@ -1,0 +1,321 @@
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the CollageDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'collage-detail'
+})
+@Component({
+  selector: 'page-collage-detail',
+  templateUrl: 'collage-detail.html',
+})
+export class CollageDetailPage {
+  @ViewChild(Slides) slides: Slides;
+  pet = '0';
+  current = 1; //当前所在轮播图
+  slideLen = 1;  //轮播图数量
+  tipsState: boolean = false; //服务说明状态 false隐藏  true显示
+  ruleState: boolean = false; //拼团规则状态 false隐藏  true显示
+  isCollect: boolean = false; //收藏 true已收藏   false未收藏
+  buyInfoState: boolean = false; //购买明细框 false隐藏  true显示
+  buyState = 1; //购买方式  1：单独购买   2：拼团购买
+  goodsId = null; //商品id
+  teamId = 0; //拼团队伍id
+  tId = 0;//goodinfoid
+  goodDeatil = {};
+  goodInfo = {};
+  goodImg = [];
+  goodPro = {};
+  teamLog = '';//已有拼团列表
+  difftimeArr = [];//剩余时间戳数组
+  difftime = [];//剩余时间数组
+  shopImg = '';//商店图片
+  newGoods = [];
+  newLen = 7; // 拼团新品数量
+  pro = {}; //个人团信息
+  teamPro = {}; //多人团信息
+  // 购买商品 参数选项
+  goodsParam = [];
+  attrId = [];//选择的商品参数
+  chooseAttr = []; //选择的商品参数名
+  chooseAttrIndex = []; //选择的商品参数index
+  chooseNum = 1;//已选数量
+  goodNum = 1;//库存数量
+  astrictNum = 1; //限购数量
+  bigNum = 1;//最大购买数量
+  grey: boolean = true; // 减数量的按钮是否置灰
+  grey2: boolean = false; // 加数量的按钮是否置灰
+  flowType = null; //
+  temp = {}; //跳转页面所带参数
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.goodsId = this.navParams.get('goods_id');
+    this.teamId = this.navParams.get('team_id') ? this.navParams.get('team_id') : 0;
+    this.getList();
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    if (currentIndex < this.slideLen) {
+      this.current = currentIndex + 1;
+    }
+  }
+  // 显隐服务说明
+  showTips() {
+    this.tipsState = !this.tipsState;
+  }
+  // 显隐拼团规则详情
+  switchRule() {
+    this.ruleState = !this.ruleState;
+  }
+  switchCollect() {
+    this.isCollect = !this.isCollect;
+  }
+  // 显隐购买明细框
+  showBuy(num) {
+    this.buyInfoState = !this.buyInfoState;
+    if (num) {
+      this.buyState = num;
+      if (this.buyState == 1) {
+        this.bigNum = this.goodNum;
+      } else {
+        this.bigNum = this.astrictNum;
+      }
+    } else {
+      this.chooseNum = 1;
+      this.grey = this.chooseNum <= 1 ? true : false;
+      this.grey2 = this.chooseNum >= this.bigNum ? true : false;
+    }
+  }
+  // 去参团
+  groupBuy(temp) {
+    this.teamId = temp && temp.team_id ? temp.team_id : 0;
+    this.showBuy(2);
+  }
+  // 选择商品属性
+  choseStyle(name, val, arrIndex) {
+    this.attrId[name] = val;
+    this.chooseAttr[name] = name;
+    this.chooseAttrIndex[name] = arrIndex;
+    this.buyState == 2 ? this.teamProperty() : this.property();
+  }
+  // 减少数量
+  reduce() {
+    if (this.chooseNum > 1) {
+      this.chooseNum--;
+      this.grey2 = false;
+    }
+    if (this.chooseNum <= 1) {
+      this.grey = true;
+    }
+    this.buyState == 2 ? this.teamProperty() : this.property();
+  }
+  // 添加数量
+  add() {
+    if (this.chooseNum < this.bigNum) {
+      this.chooseNum++;
+      this.grey = false;
+    }
+    if (this.chooseNum >= this.bigNum) {
+      this.grey2 = true;
+    }
+    this.buyState == 2 ? this.teamProperty() : this.property();
+  }
+
+  inputKeyUp($event) {
+    $event.target.value = $event.target.value.replace(/[^\d]/g, '');
+    $event.target.value = Math.floor($event.target.value);
+    this.chooseNum = $event.target.value <= this.bigNum ? $event.target.value : this.bigNum;
+    this.grey = this.chooseNum <= 1 ? true : false;
+    this.grey2 = this.chooseNum >= this.bigNum ? true : false;
+    this.buyState == 2 ? this.teamProperty() : this.property();
+  }
+  getList() {
+    this.cp.getData('team/goodsDetail', {
+      goods_id: this.goodsId,
+      team_id: this.teamId
+    }).then(
+      (t: any) => {
+        // t.error 商品已下架：1    正常状态：0
+        this.goodDeatil = t.data;
+        this.goodImg = t.data.goods_img;
+        this.slideLen = this.goodImg.length;
+        this.goodInfo = t.data.goods_info;
+        this.teamLog = t.data.team_log;
+        if (t.data.team_log != '') {
+          let team_log = t.data.team_log;
+          for (const item in team_log) {
+            this.difftimeArr[this.difftimeArr.length] = team_log[item].end_time;
+          }
+          this.timeEnd();
+        }
+        this.tId = t.data.goods_info.id;
+        this.goodPro = t.data.goods_properties ? t.data.goods_properties.pro : [];
+        this.shopImg = t.data.detail.sellershopinfo.logo_thumb;
+        this.newGoods = t.data.new_goods;
+        this.newLen = this.newGoods.length;
+        this.astrictNum = t.data.goods_info.astrict_num;
+        this.goodNum = t.data.goods_info.goods_number;
+        var pro = this.goodPro, proArr = [];
+        for (var i in pro) {
+          proArr.push(pro[i]);
+          this.chooseAttr[this.chooseAttr.length] = this.chooseAttr.length;
+          this.chooseAttrIndex[this.chooseAttrIndex.length] = 0;
+          this.attrId[this.attrId.length] = pro[i].values[0].id;
+        }
+        this.goodsParam = proArr;
+        this.property();
+        this.teamProperty();
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //个人团
+  property() {
+    this.cp.getData('goods/property', {
+      id: this.goodsId,
+      attr_id: this.attrId,
+      num: this.chooseNum,
+      groupNum: 1,
+      warehouse_id: "1",
+      area_id: "1",
+      silent: true
+    }).then(
+      (t: any) => {
+        this.pro = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  //多人团
+  teamProperty() {
+    this.cp.getData('team/teamProperty', {
+      goods_id: this.goodsId,
+      attr_id: this.attrId,
+      num: this.chooseNum,
+      warehouse_id: "1",
+      area_id: "1",
+      silent: true
+    }).then(
+      (t: any) => {
+        this.teamPro = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 个人购买添加到购物车-提交订单
+  addCart() {
+    this.cp.getData('cart/add', {
+      id: this.goodsId,
+      num: this.chooseNum,
+      attr_id: JSON.stringify(this.attrId),
+      silent: true
+    }).then(
+      (t: any) => {
+        // console.log(t, 'addCart');
+        this.flowType = 0;
+        this.addressList();
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 多人团购买-提交订单
+  teamBuy() {
+    this.cp.getData('team/teamBuy', {
+      goods_id: this.goodsId,
+      t_id: this.tId,
+      team_id: this.teamId,
+      num: this.chooseNum,
+      attr_id: JSON.stringify(this.attrId),
+      silent: true
+    }).then(
+      (t: any) => {
+        this.flowType = t.data.flow_type;
+        this.teamId = t.data.team_id;
+        this.tId = t.data.t_id;
+        this.addressList();
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  // 个人地址信息-提交订单
+  addressList() {
+    this.cp.getData('user/address/list', {
+      silent: true
+    }).then(
+      (t: any) => {
+        if (t.data !== '') {
+          //去确认订单页面
+          // ?objectId=0&flow_type=" + a + "&team_id=" + r + "&t_id=" + o
+          this.temp = {
+            view: 'firm-order',
+            objectId: 0,
+            flow_type: this.flowType,
+            team_id: this.teamId,
+            t_id: this.tId
+          };
+          this.goTo(this.temp);//跳转至订单详情页面
+        } else {
+          // 去添加地址页面
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+  // 多人团到订单页面
+  firmOrder() {
+    this.buyState == 2 ? this.teamBuy() : this.addCart();
+  }
+  // 倒计时
+  timeEnd() {
+    let that = this;
+    let timer = null;
+    timer = setInterval(() => {
+      let a = that.difftimeArr.length;
+      for (var t = 0; t < a; t++) {
+        var r = that.difftimeArr[t] - new Date().getTime() / 1e3, i = 0, s: any = 0, d: any = 0, n: any = 0;
+        if (r > 0) {
+          i = Math.floor(r / 86400);
+          s = Math.floor(r / 3600) - 24 * i;
+          d = Math.floor(r / 60) - 24 * i * 60 - 60 * s;
+          n = Math.floor(r) - 24 * i * 60 * 60 - 60 * s * 60 - 60 * d, s <= 9 && (s = "0" + s);
+          d <= 9 && (d = "0" + d), n <= 9 && (n = "0" + n);
+          u = s + ":" + d + ":" + n;
+        } else {
+          var u = "已结束！";
+          clearInterval(timer);
+        }
+        that.difftime[t] = u;
+      }
+    }, 1e3);
+  }
+}

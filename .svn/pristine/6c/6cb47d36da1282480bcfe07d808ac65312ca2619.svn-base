@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>排行</ion-title>
+  </ion-navbar>
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0" (click)="getList(0)">
+          热门
+        </ion-segment-button>
+        <ion-segment-button value="1" (click)="getList(1)">
+          新品
+        </ion-segment-button>
+        <ion-segment-button value="2" (click)="getList(2)">
+          优选
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="pet">
+    <!-- 热门 -->
+    <!-- <div *ngSwitchCase="0"> -->
+    <div *ngIf="listArr&&listArr.length>0;else elseBlank" class="rank-list-box">
+      <div class="rank-list clearfix" *ngFor="let item of listArr" (click)="goTo({goods_id:item.goods_id,view:'collage-detail'})">
+        <img src="{{item.goods_thumb}}" alt="">
+        <div class="list-info">
+          <h4 class="list-title">{{item.goods_name}}</h4>
+          <p class="group-num">{{item.limit_num}}人参团</p>
+          <div class="list-buy">
+            <div class="list-price">{{item.team_price}}</div>
+            <div class="list-btn">
+              <div class="group-2">{{item.team_num}}人团</div>
+              <div class="group-btn">去开团</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlank>
+      <div class="blank">
+        <ion-icon class="iconfont icon-blank"></ion-icon>
+        <p>亲，还没有相关数据哦～！</p>
+      </div>
+    </ng-template>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

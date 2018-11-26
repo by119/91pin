@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{item.title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="share()" *ngIf="item.extra.can_share">
+      <ion-icon name="md-share"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="video" *ngIf="video"> <img src="./assets/img/video_bg.jpg">
+    <video controls>
+      <source type="video/mp4" [src]="video">
+      <object [data]="video">
+        <embed [src]="video">
+      </object>
+    </video>
+  </div>
+  <div class="con" [innerHtml]="item.content" padding *ngIf="!item.extra.no_padding"></div>
+  <div class="con" [innerHtml]="item.content" *ngIf="item.extra.no_padding"></div>
+  <ion-item class="agreement" *ngIf="item.extra.agreement">
+    <ion-label>我已阅读并同意<a href="/#14">省钱宝VIP会员增值服务协议</a></ion-label>
+    <ion-checkbox checked></ion-checkbox>
+  </ion-item>
+</ion-content>
+<ion-footer no-border *ngIf="item.extra.footer_html" (click)="btnClick()">
+ <ion-toolbar [innerHtml]="item.extra.footer_html"></ion-toolbar>
+</ion-footer>
+
+<!-- 原先的写法 现在改成直接读取数据库的了
+<ion-footer no-border *ngIf="btnText" (click)="btnClick()">
+ <ion-toolbar>
+   <button ion-button full no-margin> {{btnText}} </button></ion-toolbar>
+</ion-footer>
+<ion-footer *ngIf="id==3 || id==12"><ion-toolbar>
+  <ion-list>
+    <ion-item><ion-avatar item-left><img src="./assets/img/wechat_logo.png"></ion-avatar><ion-label>
+      <p>如需其他帮助，请关注微信服务号"省钱宝VIP版"，咨询人工在线客服</p>
+    </ion-label></ion-item>
+  </ion-list></ion-toolbar>
+</ion-footer> -->

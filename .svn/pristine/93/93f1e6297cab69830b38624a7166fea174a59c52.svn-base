@@ -1,0 +1,7 @@
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="首页" tabIcon="ios-home-outline"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="9.9包邮" tabIcon="ios-star-outline"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="特卖" tabIcon="md-alarm"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="购物车" tabIcon="ios-cart-outline"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="个人中心" tabUrlPath="center" tabIcon="myperson"></ion-tab>
+</ion-tabs>

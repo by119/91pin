@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-navbar [hideBackButton]="focus" color="primary">
+    <div [class]="focus?'':'hide'">
+      <form action=".">
+        <ion-searchbar (search)="search()" placeholder="逛累了，直接搜~" animated="true" [(ngModel)]="params.keyword" [ngModelOptions]="{standalone: true}"></ion-searchbar>
+      </form>
+    </div>
+    <ion-title *ngIf="!focus">{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="cancel()" *ngIf="focus"> 取消 </button>
+      <button ion-button icon-only (click)="setFocus()" *ngIf="!focus">
+      <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-grid *ngIf="!focus && items.length">
+    <ion-row>
+      <ion-col col-3 (click)="toggleCategories()" *ngIf="!params.keyword">{{categoriesValue}} <i></i></ion-col>
+      <ion-col col-3 (click)="toggleOrders()">{{ordersValue}} <i></i></ion-col>
+      <ion-col col-3 offset-1 text-right (click)="toggleFilters()" [class]="params.shop_type||params.coupon_type||params.channel?'active col':'col'" *ngIf="!params.keyword">筛选 <img src="./assets/imgs/funnel{{params.shop_type||params.coupon_type||params.channel?'_active':''}}.png" /></ion-col>
+      <ion-col col-3 offset-4 text-right (click)="toggleFilters()" [class]="params.shop_type||params.coupon_type||params.channel?'active col':'col'" *ngIf="params.keyword">筛选 <img src="./assets/imgs/funnel{{params.shop_type||params.coupon_type||params.channel?'_active':''}}.png" /></ion-col>
+      <ion-col col-2 class="view" (click)="changeListType()">
+          <ion-icon [name]="'view'+params.list_type"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+<ion-content>
+  <div ion-fixed [class]="'model'+(modelOpen?' show':'')" (click)="closeActiveModel($event)">
+    <div [class]="'model-body categories '+categoriesClass" *ngIf="!params.keyword">
+      <ion-grid>
+        <ion-row>
+          <ion-col (click)="setCategories(-1)" [class]="!params.category_id?'col on':'col'">全部</ion-col>
+          <ion-col col-3 *ngFor="let item of categories;let i=index;" (click)="setCategories(i)" [class]="params.category_id==item.id?'col on':'col'"> {{item.whole_name}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div [class]="'model-body orders '+ordersClass">
+      <ion-list radio-group (ionChange)="setOrders($event)">
+        <ion-item *ngFor="let item of orders;let i=index;">
+          <ion-label>{{item}}</ion-label>
+          <ion-radio value="{{i}}" [checked]="!i"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div [class]="'model-body filters '+filtersClass">
+      <div padding>
+        <p>商品来源</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col (click)="setFilters({shop_type:0})" [class]="!params.shop_type?'col on':'col'">全部</ion-col>
+            <ion-col (click)="setFilters({shop_type:2})" [class]="params.shop_type===2?'col on':'col'">天猫</ion-col>
+            <ion-col (click)="setFilters({shop_type:1})" [class]="params.shop_type===1?'col on':'col'">淘宝</ion-col>
+          </ion-row>
+        </ion-grid>
+        <p>优惠券</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col (click)="setFilters({coupon_type:0,check_coupon_type:1})" [class]="!params.coupon_type?'col on':'col'">全部</ion-col>
+            <ion-col (click)="setFilters({coupon_type:9})" [class]="params.coupon_type?'col on':'col'">有券</ion-col>
+          </ion-row>
+        </ion-grid>
+        <p *ngIf="!params.keyword">栏目
+          <ion-note>将直接切换到该栏目喔~</ion-note>
+        </p>
+        <ion-grid *ngIf="!params.keyword">
+          <ion-row>
+            <!-- <ion-col (click)="cp.goto({view:'products',type:1,title:'内部券',keyword:'',coupon_type:1,zk_price:0,tk_rate:0})" [class]="params.channel===1?'col on':'col'">内部券</ion-col> -->
+            <ion-col (click)="cp.goto({view:'products',type:2,title:'9.9包邮',keyword:'',coupon_type:0,zk_price:1,tk_rate:0,channel:2})" [class]="params.channel===2?'col on':'col'">9.9包邮</ion-col>
+            <ion-col (click)="cp.goto({view:'products',type:3,title:'热卖',keyword:'',coupon_type:0,zk_price:2,tk_rate:0,channel:3})" [class]="params.channel===3?'col on':'col'">热卖</ion-col>
+          </ion-row>
+          <!-- <ion-row>
+            <ion-col (click)="cp.goto({view:'products',type:4,title:'高返',keyword:'',coupon_type:0,zk_price:0,tk_rate:40})" [class]="params.channel===4?'col on':'col'">高返</ion-col>
+          </ion-row> -->
+        </ion-grid>
+      </div>
+      <div class="btm"> <a (click)="closeActiveModel(null)">取消</a> <a class="btn" (click)="filter()">确认</a> </div>
+    </div>
+  </div>
+  <div *ngIf="!focus" class="products">
+    <pro #pro [content]="content" [items]="items" [type]="params.list_type"></pro>
+    <div class="no_records" *ngIf="!items.length">
+      <p></p>
+      <p> 未找到相关记录{{params.keyword?'，换个关键词试试':''}} </p>
+      <p *ngIf="params.keyword"><span (click)="setFocus()">去搜索</span></p>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite()">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

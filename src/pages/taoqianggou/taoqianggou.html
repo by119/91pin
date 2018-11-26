@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>淘抢购</ion-title>
+  </ion-navbar>
+  <div [class]="'changci'+ (current==-1?' beforeGoods':'')" no-padding text-center relative>
+    <div class="title_box box" relative (click)="toggleCurrent(-1)">
+      <p class="content"><span>热卖榜单</span><span>已开抢</span></p>
+    </div>
+    <ion-scroll #scroll no-padding scrollX="true" relative>
+      <div class="box_container" absolute top left #box_container>
+        <ng-container *ngFor="let time of times;let i = index;">
+
+          <div *ngIf="i>=now" [class]="i==current?'box current_box':'box'"
+               (click)="clickHand(i)">
+            <p class="content"><span>{{time}}</span>
+              <span>{{now==i?'抢购进行中':'即将开场'}}</span></p>
+          </div>
+
+        </ng-container>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </ion-scroll>
+  </div>
+</ion-header>
+
+
+<ion-content>
+  <!--抢购计时-->
+  <div class="timer flex" *ngIf="time !== undefined">
+
+    <div class="left">
+      <ion-icon color="primary" name="ios-cart"></ion-icon>
+      <span>限时限量 疯狂抢购</span>
+    </div>
+    <div class="right">
+      <span>距离本场结束:</span>
+      <span class="block block1">{{time.hour | fixed:-2}}</span>:<span
+      class="block block2">{{time.minute | fixed:-2}}</span>:<span
+      class="block block3">{{time.second | fixed:-2}}</span>
+    </div>
+  </div>
+  <div class="no_records" *ngIf="!(current==-1?items.data.length>0:data.length&&data[current].length>0)">
+    <p></p>
+    <p> 未找到相关记录 </p>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

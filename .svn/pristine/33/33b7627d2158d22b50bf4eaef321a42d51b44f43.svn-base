@@ -1,0 +1,79 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the FirmOrderPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'firm-order'
+})
+@Component({
+  selector: 'page-firm-order',
+  templateUrl: 'firm-order.html',
+})
+export class FirmOrderPage {
+  flow_type = 0;
+  bs_id = 0;
+  team_id = 0;
+  t_id = "0";
+  flowData = {};
+  userInfo = {};
+  goodsList=[];
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    this.flow_type = this.navParams.get('flow_type') ? this.navParams.get('flow_type') : 0;
+    this.bs_id = this.navParams.get('objectId') ? this.navParams.get('objectId') : 0;
+    this.team_id = this.navParams.get('team_id') ? this.navParams.get('team_id') : 0;
+    this.t_id = this.navParams.get('t_id') ? this.navParams.get('t_id') : "0";
+    
+    this.flow();
+    this.shipping();
+  }
+
+  flow() {
+    this.cp.getData('flow', {
+      flow_type: this.flow_type,
+      bs_id: this.bs_id,
+      team_id: this.team_id,
+      t_id: this.t_id,
+      silent: true
+    }).then(
+      (t: any) => {
+        console.log(t, 'shipping');
+        this.flowData = t.data;
+        this.userInfo = t.data.default_address
+        this.goodsList = t.data.cart_goods_list;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  shipping() {
+    this.cp.getData('flow/shipping', {
+      address: 55585,
+      id: 21,
+      ru_id: 78010,
+      flow_type: "6",
+      uc_id: 0,
+      silent: true
+    }).then(
+      (t: any) => {
+        console.log(t, 'shipping');
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+}

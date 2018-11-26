@@ -1,0 +1,122 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>购物车</ion-title>
+    <ion-note style="float: right;color: #fff;">编辑</ion-note>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item class="cart-box" *ngIf="1">
+    <ion-item class="cart-list">
+      <ion-item class="list-title" style="border-bottom: 1px solid #F7F7F7;">
+        <!-- <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon> -->
+        <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+        国际大牌官方旗舰店
+      </ion-item>
+      <ion-item class="list-note">
+        <ion-icon style="color: #FE5261" class="iconfont icon-agio"></ion-icon>
+        已购满1件，已优惠200.24元
+      </ion-item>
+      <ion-item class="list-content" style="border-bottom: 1px solid #F7F7F7;">
+        <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon>
+        <!-- <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon> -->
+        <img class="list-img" src="assets/imgs/avatar.png" alt="">
+        <ion-item class="list-detail">
+          <p style="color: #333;font-size: 1.2rem;text-overflow: unset">圣牧 全程有机奶 200ml*24盒全脂纯牛奶</p>
+          <ion-note>规格：200ML*24</ion-note>
+          <p class="list-price">
+            <span style="font-size:1rem;">￥</span>
+            <span style="font-size:1.6rem;">2009.99</span>
+            <span style="float: right;color: #333;">*1</span>
+          </p>
+        </ion-item>
+      </ion-item>
+    </ion-item>
+    <ion-item class="cart-list">
+      <ion-item class="list-title" style="border-bottom: 1px solid #F7F7F7;">
+        <!-- <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon> -->
+        <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+        国际大牌官方旗舰店
+      </ion-item>
+      <ion-item class="list-note">
+        <ion-icon style="color: #FE5261" class="iconfont icon-agio"></ion-icon>
+        已购满1件，已优惠200.24元
+      </ion-item>
+      <ion-item class="list-content" style="border-bottom: 1px solid #F7F7F7;">
+        <!-- <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon> -->
+        <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+        <img class="list-img" src="assets/imgs/avatar.png" alt="">
+        <ion-item class="list-detail">
+          <p style="color: #333;font-size: 1.2rem;text-overflow: unset">圣牧 全程有机奶 200ml*24盒全脂纯牛奶</p>
+          <ion-note>规格：200ML*24</ion-note>
+          <p class="list-price">
+            <span style="font-size:1rem;">￥</span>
+            <span style="font-size:1.6rem;">2009.99</span>
+            <span style="float: right;color: #333;">*1</span>
+          </p>
+        </ion-item>
+      </ion-item>
+      <ion-item class="list-note">
+        <ion-icon style="color: #FE5261" class="iconfont icon-agio"></ion-icon>
+        已购满1件，已优惠200.24元
+      </ion-item>
+      <ion-item class="list-content" style="border-bottom: 1px solid #F7F7F7;">
+        <ion-icon style="color: #FE5261" name="ios-checkmark-circle"></ion-icon>
+        <!-- <ion-icon style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon> -->
+        <img class="list-img" src="assets/imgs/avatar.png" alt="">
+        <ion-item class="list-detail">
+          <p style="color: #333;font-size: 1.2rem;text-overflow: unset">圣牧 全程有机奶 200ml*24盒全脂纯牛奶</p>
+          <ion-note>规格：200ML*24</ion-note>
+          <p class="list-price">
+            <span style="font-size:1rem;">￥</span>
+            <span style="font-size:1.6rem;">2009.99</span>
+            <span style="float: right;color: #333;">*1</span>
+          </p>
+        </ion-item>
+      </ion-item>
+    </ion-item>
+  </ion-item>
+  <ion-item class="cart-null" *ngIf="0">
+    购物车空空如也~
+  </ion-item>
+  <ion-item class="like-box">
+    <ion-title>
+      你可能还喜欢
+    </ion-title>
+    <ion-item>
+      <ion-item class="like-list">
+        <img src="assets/imgs/card-saopaolo.png" alt="">
+        <p class="like-depict">圣牧 全程有机奶 200ml * 24盒全脂纯牛奶</p>
+        <p class="like-price">
+          <span style="font-size:0.8rem;">￥</span>
+          <span style="font-size:1.2rem;">209.99</span>
+          <span style="float: right;color: #c6c6c6;font-size:1rem;">250.99</span>
+          <span style="font-size:0.8rem;float: right;color: #c6c6c6;">原价￥</span>
+        </p>
+      </ion-item>
+      <ion-item class="like-list">
+        <img src="assets/imgs/card-saopaolo.png" alt="">
+        <p class="like-depict">圣牧 全程有机奶 200ml * 24盒全脂纯牛奶</p>
+        <p class="like-price">
+          <span style="font-size:0.8rem;">￥</span>
+          <span style="font-size:1.2rem;">209.99</span>
+          <span style="float: right;color: #c6c6c6;font-size:1rem;">250.99</span>
+          <span style="font-size:0.8rem;float: right;color: #c6c6c6;">原价￥</span>
+        </p>
+      </ion-item>
+      <ion-item class="like-list">
+        <img src="assets/imgs/card-saopaolo.png" alt="">
+        <p class="like-depict">圣牧 全程有机奶 200ml * 24盒全脂纯牛奶</p>
+        <p class="like-price">
+          <span style="font-size:0.8rem;">￥</span>
+          <span style="font-size:1.2rem;">209.99</span>
+          <span style="float: right;color: #c6c6c6;font-size:1rem;">250.99</span>
+          <span style="font-size:0.8rem;float: right;color: #c6c6c6;">原价￥</span>
+        </p>
+      </ion-item>
+    </ion-item>
+  </ion-item>
+</ion-content>

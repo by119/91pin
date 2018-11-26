@@ -1,0 +1,86 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+        "spec": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:hzjianshi/ionic2-cordova-plugin-pay.git",
+          "sshUrl": "git+ssh://git@github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+          "httpsUrl": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+          "gitUrl": "git://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+          "shortcut": "github:hzjianshi/ionic2-cordova-plugin-pay",
+          "directUrl": "https://raw.githubusercontent.com/hzjianshi/ionic2-cordova-plugin-pay/master/package.json"
+        }
+      },
+      "E:\\cordova\\maoxuan\\maoxuan"
+    ]
+  ],
+  "_from": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+  "_id": "ionic2-cordova-plugin-pay@0.0.1",
+  "_inCache": true,
+  "_location": "/ionic2-cordova-plugin-pay",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+    "spec": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:hzjianshi/ionic2-cordova-plugin-pay.git",
+      "sshUrl": "git+ssh://git@github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+      "httpsUrl": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+      "gitUrl": "git://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+      "shortcut": "github:hzjianshi/ionic2-cordova-plugin-pay",
+      "directUrl": "https://raw.githubusercontent.com/hzjianshi/ionic2-cordova-plugin-pay/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git#6dffca137ff8fb6adba50ade25c301d9d0b7a763",
+  "_shasum": "362d2349fac03706205c2d7db43ff477fb960441",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay.git",
+  "_where": "E:\\cordova\\maoxuan\\maoxuan",
+  "cordova_name": "cordova Alipay & WechatPay Plugin",
+  "dependencies": {},
+  "description": "支付宝、微信支付Cordova插件",
+  "devDependencies": {},
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.5.0"
+    }
+  ],
+  "gitHead": "6dffca137ff8fb6adba50ade25c301d9d0b7a763",
+  "issue": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay/issues",
+  "keywords": [
+    "alipay",
+    "微信支付",
+    "支付宝",
+    "wechatpay"
+  ],
+  "license": "MIT license",
+  "name": "ionic2-cordova-plugin-pay",
+  "optionalDependencies": {},
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "readme": "### cordova-plugin-pay\r\n\r\n```\r\n* 修改`CDVAppDelegate.m` 新增下面的方法 \r\n```\r\n// ios9 or greater\r\n- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {\r\n    if (!url) {\r\n        return NO;\r\n    }\r\n\r\n    NSMutableDictionary * openURLData = [[NSMutableDictionary alloc] init];\r\n    \r\n    [openURLData setValue:url forKey:@\"url\"];\r\n    \r\n    //options = {UIApplicationOpenURLOptionsOpenInPlaceKey = 0;UIApplicationOpenURLOptionsSourceApplicationKey = \"\";}\r\n    //if (sourceApplication) {\r\n    //    [openURLData setValue:sourceApplication forKey:@\"sourceApplication\"];\r\n   // }\r\n    \r\n    //if (annotation) {\r\n    //    [openURLData setValue:annotation forKey:@\"annotation\"];\r\n    //}\r\n    \r\n    // all plugins will get the notification, and their handlers will be called\r\n    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];\r\n    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLWithAppSourceAndAnnotationNotification object:openURLData]];\r\n    \r\n    return YES;\r\n}\r\n\r\n// NOTE: 9.0以后使用新API接口\r\n- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options\r\n{\r\n    if ([url.host isEqualToString:@\"safepay\"]) {\r\n        //跳转支付宝钱包进行支付，处理支付结果\r\n        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {\r\n            NSLog(@\"result = %@\",resultDic);\r\n        }];\r\n    }\r\n    return YES;\r\n}\r\n```\r\n- 调用` Lyxpay.pay(1,data,{success:{},failure:{}});`\r\n    - 参数一是支付类型：1是支付宝，2是微信\r\n    - 参数二是支付字符串\r\n    - 参数三是回调方法\r\n\r\n\r\n",
+  "readmeFilename": "README.md",
+  "repo": "https://github.com/hzjianshi/ionic2-cordova-plugin-pay",
+  "version": "0.0.1"
+}

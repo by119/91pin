@@ -1,0 +1,129 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+/**
+ * Generated class for the AssessDetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage({
+  name: 'assess-detail'
+})
+@Component({
+  selector: 'page-assess-detail',
+  templateUrl: 'assess-detail.html',
+})
+export class AssessDetailPage {
+  assess = '';
+  gid = null;
+  oid = null;
+  content = '';
+  starVal = 0;
+  star1 = true;
+  star2 = true;
+  star3 = true;
+  star4 = true;
+  star5 = true;
+
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams,
+    private toastCtrl: ToastController) {
+  }
+
+  ionViewDidLoad() {
+    this.gid = this.navParams.get('objectId');
+    this.oid = this.navParams.get('oid');
+    this.detail();
+  }
+
+  goTo(url) {
+    this.cp.goto(url);
+  }
+  // 商品详情
+  detail() {
+    this.cp.getData('user/order/appraise/detail', {
+      gid: this.gid,
+      oid: this.oid,
+      silent: true
+    }).then(
+      (t: any) => {
+        this.assess = t.data;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  // 提交评论
+  add() {
+    if (this.starVal == 0) {
+      this.showToast('评分不能为空！', 1000);
+      return false;
+    }
+    if (this.content == '') {
+      this.showToast('评论不能为空！', 1000);
+      return false;
+    }
+    this.cp.getData('user/order/appraise/add', {
+      gid: this.gid,
+      oid: this.oid,
+      content: this.content,
+      rank: this.starVal,
+      silent: true
+    }).then(
+      (t: any) => {
+        this.showToast('评论成功！', 500);
+        this.goTo({ view: 'order', pet: 3 });
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  };
+  // 星级评分
+  star(e) {
+    this.starVal = e;
+    switch (e) {
+      case 1:
+        this.star1 = false;
+        this.star2 = this.star3 = this.star4 = this.star5 = true;
+        break;
+      case 2:
+        this.star1 = this.star2 = false;
+        this.star3 = this.star4 = this.star5 = true;
+        break;
+      case 3:
+        this.star1 = this.star2 = this.star3 = false;
+        this.star4 = this.star5 = true;
+        break;
+      case 4:
+        this.star1 = this.star2 = this.star3 = this.star4 = false;
+        this.star5 = true;
+        break;
+      case 5:
+        this.star1 = this.star2 = this.star3 = this.star4 = this.star5 = false;
+        break;
+      default:
+        this.star1 = this.star2 = this.star3 = this.star4 = this.star5 = true;
+        break;
+    }
+  }
+  // 显示toast
+  showToast(tip, time) {
+    let toast = this.toastCtrl.create({
+      message: tip,
+      duration: time,
+      position: 'middle'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+}

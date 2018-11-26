@@ -1,0 +1,79 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+@IonicPage({
+  name: 'cart',
+  priority: 'off'
+})
+@Component({
+  selector: 'page-cart',
+  templateUrl: 'cart.html',
+})
+export class CartPage {
+  bestGoods = [];
+  cartList = [];
+  total = [];
+  teamId = 0; //拼团队伍id
+  tId = 0;//goodinfoid
+  flowType = null; //
+  temp = {}; //跳转页面所带参数
+  constructor(public navCtrl: NavController,
+    public cp: CommonProvider, public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CartPage');
+    this.cart();
+  }
+
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+  // 购物车
+  cart() {
+    this.cp.getData('cart', {
+      silent: true
+    }).then(
+      (t: any) => {
+        console.log(t.data.cart_list,t.data.cart_list['77938'], 'cart');
+        this.bestGoods = t.data.best_goods;
+        this.cartList = t.data.cart_list;
+        this.total = t.data.total;
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+  
+  // 个人地址信息-提交订单
+  addressList() {
+    this.cp.getData('user/address/list', {
+      silent: true
+    }).then(
+      (t: any) => {
+        if (t.data !== '') {
+          //去确认订单页面
+          // ?objectId=0&flow_type=" + a + "&team_id=" + r + "&t_id=" + o
+          this.temp = {
+            view: 'firm-order',
+            objectId: 0,
+            flow_type: this.flowType,
+            team_id: this.teamId,
+            t_id: this.tId
+          };
+          console.log(this.temp,'this.temp');
+          this.goTo(this.temp);//跳转至订单详情页面
+        } else {
+          // 去添加地址页面
+        }
+      },
+      err => {
+        console.log(2);
+      }
+    )
+  }
+
+}

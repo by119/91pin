@@ -1,0 +1,82 @@
+import {Component} from '@angular/core';
+import {Validators, FormBuilder} from '@angular/forms';
+import {IonicPage} from 'ionic-angular';
+import {CommonProvider} from '../../providers/common/common';
+
+declare var sharesdk: any;
+declare var ShareSDK: any;
+declare var GetAjaxRequest: any;
+
+@IonicPage({
+  priority: 'off',
+  name: 'login',
+  defaultHistory: ['welcome']
+})
+@Component({
+  selector: 'page-login',
+  templateUrl: 'login.html',
+})
+export class LoginPage {
+  wechatInstalled = 0;
+  pageForm = this.formBuilder.group({
+    username: [this.cp.global.tel, [Validators.required]],
+    password: ["", [Validators.required, Validators.minLength(6)]]
+    // username: ['13588883580', [Validators.required]],
+    // password: ["85753693", [Validators.required, Validators.minLength(6)]]
+  });
+
+  constructor(public formBuilder: FormBuilder, public cp: CommonProvider) {
+  }
+
+  ionViewDidEnter() {
+    if (this.cp.plt.is("cordova"))
+      this.cp.styleLightContent();
+  }
+
+  ionViewWillEnter() {
+    this.cp.init().then(() => {
+      if (this.cp.u.id)
+        this.cp.pop();
+      else
+        this.cp.plt.is("cordova") && sharesdk.isInstallClient.promise(ShareSDK.ClientType.Wechat).then(e => {
+          e && (this.wechatInstalled = 1)
+        })
+    })
+  }
+
+  reg() {
+    this.cp.plt.is("cordova") && this.wechatInstalled ? this.cp.toast("请直接使用微信登录") : this.cp.goto({view: "reg"})
+  }
+
+  findpwd() {
+    this.cp.goto({view: "findpwd"})
+  }
+
+  wechatLogin() {
+    if (!this.wechatInstalled) return this.cp.toast("未检测到微信客户端，请使用账号密码登录");
+
+    this.cp.plt.is("cordova") ? (this.cp.plt.is("android") && this.cp.toast("即将登录"), GetAjaxRequest.login((e: any) => {
+      // e.state = this.cp.global.auth,
+        let data = {data:{openId:e.openid, unionId:e.unionid}, userinfo:e, code: 'mock one'};
+        this.cp.toast("正在登录"),
+        this.cp.getData("user/login", data).then(n => {
+          this.cp.handleLogin(n).then(()=>{
+            this.cp.pop()
+          });
+        })
+    }, (err: any) => {
+      this.cp.toast(err.errmsg)
+    })) : this.cp.toast("请在APP内使用微信一键登录")
+  }
+
+  sub(t) {
+    if (this.cp.plt.is('cordova'))
+      t.app = 1;
+    t.H5API = true;
+    this.cp.getData("?m=user&c=login", t).then(n => {
+      this.cp.handleLogin(n).then(()=>{
+        this.cp.pop()
+      });
+    })
+  }
+}

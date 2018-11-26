@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>系统消息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="items.length">
+    <div *ngFor="let item of items" class="msg">
+      <p> {{item.create_time}} </p>
+      <div class="message">
+        <div> <img src="./assets/imgs/logo160.png" width="40"> </div>
+        <div> <img src="./assets/imgs/dot.png" width="13"> </div>
+        <div [innerHtml]="item.message"> </div>   
+        <!-- [innerHtml]="item.message" 属性绑定（单向数据绑定）  
+        作用是把组建类的数据传递到组件模板中 item.message的值就会显示DIV的文本中-->
+        
+        <div> </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="no_records" *ngIf="!items.length">
+    <p></p>
+    <p> 未找到相关记录 </p>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite()" >
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

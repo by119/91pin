@@ -1,0 +1,93 @@
+webpackJsonp([8],{
+
+/***/ 275:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CenterPageModule", function() { return CenterPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__center__ = __webpack_require__(285);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var CenterPageModule = /** @class */ (function () {
+    function CenterPageModule() {
+    }
+    CenterPageModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_2__center__["a" /* CenterPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__center__["a" /* CenterPage */]),
+            ],
+        })
+    ], CenterPageModule);
+    return CenterPageModule;
+}());
+
+//# sourceMappingURL=center.module.js.map
+
+/***/ }),
+
+/***/ 285:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CenterPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_common__ = __webpack_require__(196);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CenterPage = /** @class */ (function () {
+    function CenterPage(navCtrl, cp, navParams) {
+        this.navCtrl = navCtrl;
+        this.cp = cp;
+        this.navParams = navParams;
+    }
+    CenterPage.prototype.itemSelected = function (item) {
+        console.log("Selected Item", item);
+    };
+    CenterPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad CenterPage');
+    };
+    CenterPage.prototype.goTo = function (url) {
+        console.log(url, 'url');
+        this.cp.goto(url);
+    };
+    CenterPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-center',template:/*ion-inline-start:"D:\byyy\dev\cordova\91pin\src\pages\center\center.html"*/'\n<ion-content>\n  <div class="transheader">\n      <ion-header>\n          <ion-navbar>\n            <ion-buttons start>\n              <button ion-button icon-only color="royal">\n                <ion-icon name="md-text"></ion-icon>\n                <!-- <ion-icon class="iconfont icon-news-h"></ion-icon> -->\n              </button>\n            </ion-buttons>\n            <ion-buttons end>\n              <button ion-button icon-only color="royal">\n                <ion-icon name="md-settings"></ion-icon>\n                <!-- <ion-icon name="" class="iconfont icon-set-h"></ion-icon> -->\n              </button>\n            </ion-buttons>\n          </ion-navbar>\n        </ion-header>\n  </div>\n  <ion-card class="myhead">\n    <img src="assets/imgs/card-saopaolo.png" />\n    <ion-card-content>\n      <ion-avatar item-start>\n        <img class="avatar" src="assets/imgs/avatar.png">\n      </ion-avatar>\n      <ion-label>\n        <h2>某某用户</h2>\n        <h2>1820***122</h2>\n      </ion-label>\n      <ion-label class="my-sign">\n        <!-- <ion-icon name="ios-create-outline"></ion-icon> -->\n        <ion-icon name="" class="iconfont icon-sign"></ion-icon>\n        <span>每日签到</span>\n        <ion-icon name="arrow-forward"></ion-icon>\n      </ion-label>\n    </ion-card-content>\n\n  </ion-card>\n  <ion-item class="mylist">\n    <ion-list class="my-order-box" no-lines>\n      <ion-item class="my-order-item">\n        <p>0</p>\n        <p> 商品收藏</p>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <p>0</p>\n        <p> 店铺收藏</p>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <p>0</p>\n        <p> 红包卡券</p>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <p>5</p>\n        <p> 我的足迹</p>\n      </ion-item>\n    </ion-list>\n  </ion-item>\n  <ion-item class="mylist">\n    <ion-list no-lines>\n      <button ion-item (click)="goTo(\'order\')">\n        <ion-icon name="" class="iconfont icon-order" item-start style="color: #FE965D"></ion-icon>\n        我的订单\n        <ion-note item-end>查看全部订单</ion-note>\n      </button>\n    </ion-list>\n    <ion-list class="my-order-box" no-lines>\n      <ion-item class="my-order-item">\n        <!-- <ion-icon name="ios-tennisball-outline"></ion-icon> -->\n        <ion-icon name="" class="iconfont icon-pay"></ion-icon>\n        <p> 待付款</p>\n        <ion-badge color="danger" item-end>12</ion-badge>\n      </ion-item>\n      <ion-item class="my-order-item" (click)="goTo(\'collage\')">\n        <ion-icon name="" class="iconfont icon-group"></ion-icon>\n        <!-- <ion-icon name="ios-tennisball-outline"></ion-icon> -->\n        <p> 待成团</p>\n        <ion-badge color="danger" item-end>2</ion-badge>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <ion-icon name="" class="iconfont icon-deliver"></ion-icon>\n        <p> 待发货</p>\n        <ion-badge color="danger" item-end>2</ion-badge>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <!-- <ion-icon  name="" class="iconfont icon-group"></ion-icon> -->\n        <ion-icon name="ios-albums-outline"></ion-icon>\n        <p> 待收货</p>\n        <ion-badge color="danger" item-end>2</ion-badge>\n      </ion-item>\n      <ion-item class="my-order-item">\n        <ion-icon name="" class="iconfont icon-assess"></ion-icon>\n        <p> 待评价</p>\n        <ion-badge color="danger" item-end>0</ion-badge>\n      </ion-item>\n\n\n    </ion-list>\n  </ion-item>\n  <ion-item class="mylist">\n    <button ion-item>\n      <ion-icon name="ios-people-outline" item-start style="color: #FFD171"></ion-icon>\n      <!-- <ion-icon name="" class="iconfont icon-our" item-start style="color: #FFD171"></ion-icon> -->\n      我的拼团\n    </button>\n    <button ion-item>\n      <ion-icon name="" class="iconfont icon-news" item-start style="color: #9CD807"></ion-icon>\n      我的消息\n    </button>\n    <button ion-item>\n      <ion-icon name="" class="iconfont icon-sale" item-start style="color: #75D6EE"></ion-icon>\n      退款/售后\n    </button>\n    <button ion-item>\n      <ion-icon name="ios-photos-outline" item-start style="color: #56A9FF"></ion-icon>\n      <!-- <ion-icon name="" class="iconfont icon-card" item-start style="color: #56A9FF"></ion-icon> -->\n      我的卡券\n    </button>\n    <button ion-item>\n      <ion-icon name="ios-pin-outline" item-start style="color: #FC6F16"></ion-icon>\n      <!-- <ion-icon name="" class="iconfont icon-address" item-start style="color: #FC6F16"></ion-icon> -->\n      我的地址\n    </button>\n    <button ion-item>\n      <ion-icon name="" class="iconfont icon-apply" item-start style="color: #F45E63"></ion-icon>\n      申请入驻\n    </button>\n  </ion-item>\n\n\n  <!-- <ion-list>\n    <ion-item (click)="goTo(\'wallet\')">\n      &lt;!&ndash;\n      <ion-icon flex name="logo-yen" item-start></ion-icon>&ndash;&gt;\n      <ion-icon flex color="primary" name="logo-usd" item-start></ion-icon>\n      <ion-label>钱包</ion-label>\n      <ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>\n    </ion-item>\n    <ion-item (click)="goTo(\'taoqianggou\')">\n      <ion-label>taoqianggou</ion-label>\n    </ion-item>\n\n    <ion-note>商品收藏</ion-note>\n    <ion-note>店铺收藏</ion-note>\n    <ion-note>红包卡券</ion-note>\n    <ion-note>我的足迹</ion-note>\n    <ion-note (click)="cp.goto({view:\'order\'})">我的订单</ion-note>\n    <ion-note>我的拼团</ion-note>\n    <ion-note>我的砍价</ion-note>\n    <ion-note>我的消息</ion-note>\n    <ion-note>我的地址</ion-note>\n    <ion-note>申请入驻</ion-note>\n  </ion-list> -->\n</ion-content>'/*ion-inline-end:"D:\byyy\dev\cordova\91pin\src\pages\center\center.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_common_common__["a" /* CommonProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]])
+    ], CenterPage);
+    return CenterPage;
+}());
+
+//# sourceMappingURL=center.js.map
+
+/***/ })
+
+});
+//# sourceMappingURL=8.js.map

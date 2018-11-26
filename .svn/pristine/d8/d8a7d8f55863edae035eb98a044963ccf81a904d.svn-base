@@ -1,0 +1,25 @@
+page-sysmsg {
+  .msg{
+    width: 100%; 
+    & > p{ text-align: center; color: color($colors,gray); margin-bottom: 5px; margin-top: 20px; font-size: 1.2rem;}
+  }
+  .content-ios{ background: url("../assets/img/sysmsg_bg.png") no-repeat fixed; background-size: cover; 
+    .scroll-content{padding: 8px;}
+    .message{
+      width: 96%;
+      display: flex;
+      div{
+        padding: 8px 0;
+        flex: 0 0 auto;
+        &:first-child{
+          margin-right: 3px;
+          &>img{border-radius: 100%;}
+        }
+        &:nth-child(3){ flex: 1 1 auto; margin: 5px; padding: 8px; background: white; border-radius: 5px;}
+        &:last-child{ flex: 1 1 auto;}
+        p:first-child{ margin-top: 0;}
+        p:last-child{ margin-bottom: 0;}
+      }
+    }
+  }
+}

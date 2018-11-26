@@ -1,0 +1,60 @@
+page-pintuan {
+  ion-slides{
+    height:auto;
+  }
+  ion-slide{
+    background: #fff;
+    min-height: 14rem;
+  }
+  .categories_children{
+    background: #fff;
+  }
+  .segment-buttons-container{
+    padding-top: 2.5rem;
+  }
+  .segment-buttons{
+    width: 100%;
+    height: 3rem;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    background: #fff;
+    .segment{
+      //width:2rem;
+      min-width: 20%;
+      width: 20%;
+      max-width: unset;
+      border: none;
+      background-color: transparent;
+      color: #333;
+      height: 2.6rem;
+      font-size: 1.2rem;
+      line-height: 2.5rem;
+      flex: 1;
+      &.segment-activated{
+        border-bottom: 1px solid #FE5261;
+      }
+    }
+  }
+  .categories_children{
+    .categories_child{
+      width: 25%;
+      img{
+        max-width: 60%;
+      }
+    }
+  }
+  .ads{
+    font-size: 0;
+    background: #fff;
+    .col{
+      &:first-child{
+        img{
+          border-right:.5px solid #eee;
+        }
+      }
+      img:not(:last-child){
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+}

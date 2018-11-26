@@ -1,0 +1,498 @@
+// http://ionicframework.com/docs/theming/
+
+@font-face {
+  font-family: 'iconfont';  /* project id 820698 */
+  src: url('//at.alicdn.com/t/font_820698_chad9d11qpn.eot');
+  src: url('//at.alicdn.com/t/font_820698_chad9d11qpn.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_820698_chad9d11qpn.woff') format('woff'),
+  url('//at.alicdn.com/t/font_820698_chad9d11qpn.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_820698_chad9d11qpn.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:60rpx;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*本项目使用的图标  */
+// 9.9特卖
+.icon-tao:before{content: '\e61b';} //淘宝
+.icon-mao:before{content: '\e602';} //天猫
+.icon-self:before{content: '\e60c';} //自营
+.icon-jd:before{content: '\e6a6';} //京东
+
+// 购物车
+.icon-agio:before{content: '\e624';} //折扣
+
+// 详情页 
+.icon-share:before{content: '\e63b';} //分享
+.icon-coupon:before{content: '\e603';} //优惠券
+  
+/*  个人中心  */
+.icon-news-h:before{content: '\e637';} //头部-我的消息
+.icon-set-h:before{content: '\e608';} //头部-设置
+.icon-sign:before{content: '\e60d';} //签到
+
+.icon-order:before{content: '\e623';} //我的订单
+.icon-axe:before{content: '\e636';} //砍价
+.icon-order-null:before{content: '\e60a';} //订单为空
+/* 发表评价 */
+.icon-star:before{content: '\e632';} //实心星星
+
+.icon-pay:before{content: '\e619';} //待付款
+.icon-group:before{content: '\e6b2';} //待成团
+.icon-deliver:before{content: '\e601';} //待发货
+.icon-receive:before{content: '\e642';} //待收货
+.icon-assess:before{content: '\e62c';} //待评价
+.icon-our:before{content: '\e650';}  //我的拼团
+.icon-news:before{content: '\e635';} //我的消息
+.icon-sale:before{content: '\e678';} //售后
+.icon-card:before{content: '\e6fd';} //我的卡券
+.icon-address:before{content: '\e600';} //地址
+.icon-apply:before{content: '\e606';} //申请入驻
+
+// 我的拼团
+.icon-handing:before{content: '\e631';} //进行中
+.icon-team-success:before{content: '\e956';}// 拼团成功
+.icon-team-failed:before{content: '\e955';}// 拼团失败
+
+// 拼团商品详情
+.icon-quality:before{content: '\e61d';} //品质保证
+.icon-heart:before{content: '\e69d';} //贴心服务
+.icon-contact:before{content: '\e607';} //联系客服
+.icon-shop:before{content: '\e893';} //进入店铺
+.icon-car:before{content: '\e609';}// 购物车
+.icon-blank:before{content: '\e70b';}// 没有记录
+
+
+
+
+// 没有记录
+.blank {
+  text-align: center;
+  padding: 4rem 0;
+  color: #999;
+  ion-icon {
+    font-size: 7rem;
+    color: #a6a6a6;
+  }
+  p {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+  }
+}
+
+// tab切换
+.nav-title {
+  width: 100%;
+  overflow-x: scroll;
+  min-height: 0;
+  .label-ios {
+      margin: 0;
+  }
+  .item-inner{
+      border: none!important;
+  }
+  .toolbar-ios {
+      padding: 0!important;
+      min-height: 2.6rem;
+      .segment-ios {
+          overflow-x: scroll;
+          .segment-button:first-of-type,
+          .segment-button:last-of-type {
+              border-radius: 0;
+          }
+          .segment-button.segment-activated {
+              border-bottom: 1px solid #FE5261;
+              background-color: transparent;
+              color: #333;
+          }
+      }
+      .segment-button {
+          min-width: 20%;
+          max-width:unset;
+          border: none; 
+          background-color: transparent;
+          color: #333;
+      }
+      ion-segment {
+          justify-content: flex-start;
+      }
+  }
+}
+
+
+/* 清除浮动  */
+.clearfix::after,.clearfix::before{
+  content:"";
+  height:0;
+  line-height:0;
+  display:block;
+  clear:both;
+  visibilty: hidden;
+}
+
+.clearfix{
+  zoom:1;
+}
+
+.transheader {
+  position: relative;
+  > img {
+    width: 100%;
+    display: block;
+  }
+  .toolbar-title-ios {
+    color: rgba(0, 0, 0, 0);
+  }
+  .toolbar-background-ios {
+    background-color: transparent;
+  }
+  .header-ios .toolbar-background-ios {
+    border-color: rgba(0, 0, 0, 0);
+  }
+  .bar-button-default-ios, .bar-button-default-ios:hover:not(.disable-hover) {
+    color: white;
+  }
+}
+
+// 让transheader下的statusbar-padding生效
+.ios .header .statusbar-padding:first-child {
+  padding-top: calc(20px + 4px);
+  padding-top: calc(constant(safe-area-inset-top) + 4px);
+  padding-top: calc(env(safe-area-inset-top) + 4px);
+  min-height: calc(44px + 20px);
+  min-height: calc(44px + constant(safe-area-inset-top));
+  min-height: calc(44px + env(safe-area-inset-top));
+}
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 9px;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 375px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 376px) and (max-width: 414px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 415px) and (max-width: 639px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 719px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 720px) and (max-width: 749px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 799px) {
+  html {
+    font-size: 22.5px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  html {
+    font-size: 23.5px
+  }
+}
+
+// 做ipad兼容  ionic的以下样式 默认只在<768时生效 但ipad也要用到以下样式
+@media only screen and (min-width: 768px) {
+  .ios .modal-wrapper > .ion-page > ion-header > .toolbar.statusbar-padding:first-child ion-segment,
+  .ios .modal-wrapper > .ion-page > ion-header > .toolbar.statusbar-padding:first-child ion-title {
+    padding-top: 20px;
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+    height: calc(44px + 20px);
+    height: calc(44px + constant(safe-area-inset-top));
+    height: calc(44px + env(safe-area-inset-top));
+    min-height: calc(44px + 20px);
+    min-height: calc(44px + constant(safe-area-inset-top));
+    min-height: calc(44px + env(safe-area-inset-top));
+  }
+}
+
+// ipad 适配
+.back-button-ios {
+  min-height: 32px;
+}
+
+.back-button-icon-ios {
+  font-size: 34px;
+}
+
+.bar-buttons-ios {
+  font-size: 14px;
+}
+
+.header .searchbar-ios .searchbar-input {
+  font-size: 16px;
+  height: 30px;
+  padding-right: 10px;
+}
+
+.header .searchbar-ios .searchbar-search-icon {
+  height: 12px;
+  width: 12px;
+  left: 9px;
+  top: 9px;
+}
+
+ion-modal {
+  .modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.transheader {
+  position: relative;
+  > img {
+    width: 100%;
+    display: block;
+  }
+  .toolbar-title-ios {
+    color: rgba(0, 0, 0, 0);
+  }
+  .toolbar-background-ios {
+    background-color: transparent;
+  }
+  .header-ios .toolbar-background-ios {
+    border-color: rgba(0, 0, 0, 0);
+  }
+  .bar-button-default-ios, .bar-button-default-ios:hover:not(.disable-hover) {
+    color: white;
+  }
+}
+
+// 让transheader下的statusbar-padding生效
+.ios .header .statusbar-padding:first-child {
+  padding-top: calc(20px + 4px);
+  padding-top: calc(constant(safe-area-inset-top) + 4px);
+  padding-top: calc(env(safe-area-inset-top) + 4px);
+  min-height: calc(44px + 20px);
+  min-height: calc(44px + constant(safe-area-inset-top));
+  min-height: calc(44px + env(safe-area-inset-top));
+}
+
+/*
+// android手机设置了全屏（statusbar overlay）兼容
+//.platform-cordova.platform-android .header .toolbar:first-child {
+.platform-android .header .toolbar:first-child {
+  padding-top: 24px;
+}
+
+//.platform-cordova.platform-android .ion-page .header ion-title {
+.platform-android .ion-page .header ion-title {
+  padding-top: 20px;
+}
+*/
+
+/*页面背景色*/
+ion-content.content {
+  background-color: color($colors, 'background');
+}
+
+/*默认颜色的header*/
+//ion-header.primary-bg-header {
+ion-header {
+  color: #fff;
+  .back-button {
+    color: #fff;
+  }
+  .toolbar-background {
+    background-color: color($colors, primary);
+  }
+  .toolbar-title {
+    color: #fff;
+  }
+  .bar-button-default {
+    color: #fff;
+  }
+}
+
+/*没有更多了*/
+.nomore {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 1.6rem;
+  color: color($colors, gray);
+  &:after {
+    content: '- 没有更多了 -';
+  }
+}
+
+/*通用样式*/
+ion-app [padding] + [padding] {
+  padding-top: 0;
+}
+
+[no-padding] {
+  padding: 0;
+}
+
+[padding-left] {
+  padding-left: 10px;
+}
+
+[padding-right] {
+  padding-right: 10px;
+}
+
+[padding-top] {
+  padding-top: 0.2rem;
+}
+
+[paddding-bottom] {
+  padding-bottom: 0.2rem;
+}
+
+[no-margin] {
+  margin: 0;
+}
+
+[bold] {
+  font-weight: bold;
+}
+
+[absolute] {
+  position: absolute;
+}
+
+[relative] {
+  position: relative;
+}
+
+[top] {
+  top: 0;
+}
+
+[bottom] {
+  bottom: 0;
+}
+
+[left] {
+  left: 0;
+}
+
+[right] {
+  right: 0;
+}
+
+[center] {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+[nowrap] {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[flex] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+[flex-column] {
+  flex-direction: column
+}
+
+[flex-start] {
+  justify-content: flex-start
+}
+
+[space-between] {
+  justify-content: space-between
+}
+
+[flex-end] {
+  justify-content: flex-end
+}
+
+[align-start] {
+  align-items: flex-start;
+  align-content: flex-start
+}
+
+[flex-wrap]{
+  flex-wrap:wrap;
+}
+
+[font-size-12] {
+  font-size: 1.2rem;
+}
+
+.item.clear,.item[clear] {
+  border: none !important;
+  .item-inner {
+    padding-right: 0;
+    border: none;
+    .label {
+      margin: 0;
+    }
+  }
+}
+
+.list {
+  &[long-lines] {
+    .item {
+      &:not(:last-child):after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        border-bottom: 1px solid #c8c7cc;
+        transform: translateY(-0.55px);
+      }
+      .item-inner {
+        border-bottom: 0;
+      }
+    }
+  }
+}

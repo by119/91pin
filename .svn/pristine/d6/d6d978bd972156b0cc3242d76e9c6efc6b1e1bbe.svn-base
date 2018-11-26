@@ -1,0 +1,7 @@
+page-group {
+  .group-header{
+    .toolbar-background{
+      background: transparent;
+    }
+  }
+}

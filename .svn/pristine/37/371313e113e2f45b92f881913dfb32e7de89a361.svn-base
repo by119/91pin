@@ -1,0 +1,132 @@
+page-center {
+
+    
+}
+@font-face {
+    font-family: 'iconfont';  /* project id 820698 */
+    src: url('//at.alicdn.com/t/font_820698_ldr77uouitr.eot');
+    src: url('//at.alicdn.com/t/font_820698_ldr77uouitr.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_820698_ldr77uouitr.woff') format('woff'),
+    url('//at.alicdn.com/t/font_820698_ldr77uouitr.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_820698_ldr77uouitr.svg#iconfont') format('svg');
+  }
+.iconfont {
+    font-family:"iconfont" !important;
+    font-size:60rpx;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+/*本项目使用的图标  */
+.icon-news-h:before{content: '\e637';} //头部-我的消息
+.icon-set-h:before{content: '\e608';} //头部-设置
+.icon-sign:before{content: '\e60d';} //签到
+.icon-order:before{content: '\e623';} //我的订单
+.icon-pay:before{content: '\e619';} //待付款
+.icon-group:before{content: '\e6b2';} //待成团
+.icon-deliver:before{content: '\e601';} //待发货
+.icon-receive:before{content: '\e642';} //待收货
+.icon-assess:before{content: '\e62c';} //待评价
+.icon-our:before{content: '\e650';}  //我的拼团
+.icon-news:before{content: '\e635';} //我的消息
+.icon-sale:before{content: '\e678';} //售后
+.icon-card:before{content: '\e6fd';} //我的卡券
+.icon-address:before{content: '\e600';} //地址
+.icon-apply:before{content: '\e606';} //申请入驻
+
+
+.card-ios  {
+    width: 100%;
+    margin: 0;
+}
+
+ion-card {
+    position: relative;
+    text-align: center;
+}
+
+ion-card-content {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+}
+ion-avatar {
+    width: 5rem;
+    height:5rem;
+    float: left;
+}
+.avatar {
+    width: 5rem;
+    height:5rem;
+    border-radius:100%;
+    overflow: hidden;
+}
+
+.myhead ion-label {
+    float: left;
+}
+.myhead ion-label h2 {
+    line-height: 2rem;
+    text-align: left;
+    margin-left: .8rem;
+}
+.my-sign {
+    position: absolute;
+    right: -.5rem;
+    border: 1px solid #fff;
+    padding: .5rem 1rem;
+    line-height: 1rem;
+    border-radius: 1.5rem 0 0 1.5rem;
+    background: linear-gradient(left,#FF3742,#FF8156)
+}
+
+.my-sign span {
+    margin: 0 .5rem;
+}
+
+.my-order-box {
+    width: 100%;
+    display: flex;
+    border: none!important;
+}
+.my-order-box .item-ios {
+    padding: 0.3rem 0;
+    text-align: center;
+}
+.my-order-item {
+    flex: 1;
+    text-align: center;
+}
+ion-badge {
+    padding: 0.1rem 0.2rem;
+    position: absolute;
+    top: -0.1rem;
+    right: 0.2rem;
+    z-index: 9999;
+}
+.badge-ios {
+    border-radius: 100%;
+}
+  .mylist {
+      margin: 2%;
+      width: 96%;
+    //   margin: 0 0.5rem;
+    border-radius: .5rem;
+    padding-left:.1rem;
+  }
+  .item-ios.item-block .item-inner {
+    padding-right: .1rem;
+    border-bottom: none;
+  }
+  
+  .list-ios {
+    margin: 0;
+    border-bottom: 1px solid #F7F7F7;
+  }
+  .label-ios {
+    margin: 0;
+  }

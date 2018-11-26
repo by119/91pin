@@ -1,0 +1,134 @@
+
+/*选择规格*/
+spec{
+  width: 100%;
+  height: 100%;
+  .spec {
+  width: 100%;
+  height: 100%;
+  display: block;
+  line-height: 2.5rem;
+  font-size: 1rem;
+
+  &.hide {
+    display: none;
+  }
+
+  &.hidden {
+
+    .spec_mask {
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .spec_content {
+      transform: translate3d(0, 100%, 0);
+    }
+
+  }
+
+  .spec_mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: background-color .3s ease-in-out;
+  }
+
+  .spec_content {
+    transition: transform .3s ease-in-out;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    transform: translate3d(0, 0, 0);
+    bottom: 0;
+
+    .col:not(.spec-items) {
+      display: flex;
+      align-items: center;
+    }
+
+    .good_info {
+      border-bottom: 1px solid #eee;
+      font-size: 1.2rem;
+
+      .note {
+        &.goods_name{
+          font-size: 1.4rem;
+        }
+
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .row {
+        padding: 0;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        line-height: 2rem;
+        padding: 1rem;
+
+        &:first-child {
+
+          img {
+            border: 2px solid #eee;
+            border-radius: 8px;
+          }
+
+        }
+
+      }
+
+    }
+
+    .spec_items {
+      padding: 0;
+      flex-wrap: wrap;
+
+      .button {
+        height:2.6rem;
+        font-size: inherit;
+        line-height: 1;
+        padding:0 0.8rem;
+        margin:5px;
+        transition: all .1s linear;
+        &:not(.button-outline){
+          border: 1px solid transparent;
+        }
+      }
+
+    }
+
+    .buy_num {
+      justify-content: flex-end;
+
+      .num {
+        display: inline-block;
+        width: 4rem;
+        flex: 0 1 auto;
+        border: 1px solid color($colors, gray);
+        border-radius: 4px;
+        text-align: center;
+        height: 2em;
+        line-height: 2em;
+        margin: 0.4rem;
+        font-size: 1.4rem;
+
+        input{
+          margin:0;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+}

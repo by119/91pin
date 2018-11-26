@@ -1,0 +1,8 @@
+import { NgModule } from '@angular/core';
+import { GoodItemComponent } from './good-item/good-item';
+@NgModule({
+	declarations: [GoodItemComponent],
+	imports: [],
+	exports: [GoodItemComponent]
+})
+export class ComponentsModule {}

@@ -1,0 +1,59 @@
+<!--
+  Generated template for the  page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>我的足迹</ion-title>
+  </ion-navbar>
+  <!-- <ion-segment [(ngModel)]="tabs" mode="md" (ionChange)="changeSeg()">
+    <ion-segment-button value="0"> 全部 </ion-segment-button>
+    <ion-segment-button value="1"> 待处理 </ion-segment-button>
+    <ion-segment-button value="2"> 已打款 </ion-segment-button>
+  </ion-segment> -->
+
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="tabs" (ionChange)="changeSeg()">
+        <ion-segment-button value="0">导购商品</ion-segment-button>
+        <ion-segment-button value="1">拼团商品</ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="items[tabs]&&items[tabs]?.length>0;else elseBlank">
+    <div *ngIf="tabs==1">
+      <div class="foot-list clearfix" *ngFor="let item of items[tabs]" (click)="goTo({goods_id:item?.goods_id,view:'pro-detail'})">
+        <img src="{{item?.goods_thumb}}" alt="">
+        <div class="foot-info">
+          <p>{{item?.goods_name}}</p>
+          <p class="foot-price">
+            {{item?.shop_price}}
+            <span>{{item?.market_price}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="tabs==0">
+      <div class="products">
+        <pro #pro [content]="content" [items]="items[tabs]"></pro>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseBlank>
+    <div class="no_records">
+      <p></p>
+      <p> 未找到相关记录 </p>
+    </div>
+  </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

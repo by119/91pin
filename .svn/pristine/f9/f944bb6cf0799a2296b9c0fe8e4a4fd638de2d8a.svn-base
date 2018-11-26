@@ -1,0 +1,33 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CommonProvider } from "../../providers/common/common";
+
+
+@IonicPage({
+  name: 'order'
+})
+@Component({
+  selector: 'page-order',
+  templateUrl: 'order.html',
+})
+export class OrderPage {
+  pet: string = '0';
+  orderState: boolean = false; //我的拼购弹框
+  constructor(
+    public navCtrl: NavController,
+    public cp: CommonProvider,
+    public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad OrderPage');
+  }
+  showOrder() {
+    console.log(this.orderState);
+    this.orderState = !this.orderState;
+  }
+  goTo(url) {
+    console.log(url, 'url');
+    this.cp.goto(url)
+  }
+}

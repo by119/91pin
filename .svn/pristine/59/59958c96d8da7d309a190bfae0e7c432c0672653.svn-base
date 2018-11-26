@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="md-text"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-searchbar placeholder="请输入您需要搜索的商品" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal">
+        <ion-icon name="md-search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-item class="nav-title">
+      <ion-toolbar no-border-top>
+        <ion-segment [(ngModel)]="pet">
+          <ion-segment-button value="{{item.id}}" *ngFor="let item of navList;">
+            {{item.title}}
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-item>
+  
+    <div [ngSwitch]="pet">
+      <div *ngSwitchCase="0">
+        <ion-slides pager>
+          <ion-slide>
+            <img src="assets/imgs/card-saopaolo.png" alt="">
+          </ion-slide>
+          <ion-slide>
+            <img src="assets/imgs/avatar.png" alt="">
+          </ion-slide>
+          <ion-slide>
+            <img src="assets/imgs/card-saopaolo.png" alt="">
+          </ion-slide>
+          <ion-slide>
+            <img src="assets/imgs/avatar.png" alt="">
+          </ion-slide>
+          <ion-slide>
+            <img src="assets/imgs/card-saopaolo.png" alt="">
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+  </ion-content>

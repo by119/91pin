@@ -1,0 +1,18 @@
+page-tabs {
+  .tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true]{ color: color($colors,primary)}
+  .tabs-ios .tab-button-icon{ height: 2.4rem; max-height: 30px;}
+  .ion-ios-tab0-outline{ background: url(../assets/imgs/tabs/tab0.png) no-repeat center center; background-size: contain;}
+  .tabs-ios .tab-button[aria-selected=true] .ion-ios-tab0{ background: url(../assets/imgs/tabs/tab0_.png) no-repeat center center; background-size: contain;}
+  
+  .ion-ios-tab1-outline{ background: url(../assets/imgs/tabs/tab1.png) no-repeat center center; background-size: contain;}
+  .tabs-ios .tab-button[aria-selected=true] .ion-ios-tab1{ background: url(../assets/imgs/tabs/tab1_.png) no-repeat center center; background-size: contain;}
+  
+  .ion-ios-tab2-outline{ background: url(../assets/imgs/tabs/tab2.png) no-repeat center center; background-size: contain;}
+  .tabs-ios .tab-button[aria-selected=true] .ion-ios-tab2{ background: url(../assets/imgs/tabs/tab2_.png) no-repeat center center; background-size: contain;}
+  
+  .ion-ios-tab3-outline{ background: url(../assets/imgs/tabs/tab3.png) no-repeat center center; background-size: contain;}
+  .tabs-ios .tab-button[aria-selected=true] .ion-ios-tab3{ background: url(../assets/imgs/tabs/tab3_.png) no-repeat center center; background-size: contain;}
+  
+  .ion-ios-tab4-outline{ background: url(../assets/imgs/tabs/tab4.png) no-repeat center center; background-size: contain;}
+  .tabs-ios .tab-button[aria-selected=true] .ion-ios-tab4{ background: url(../assets/imgs/tabs/tab4_.png) no-repeat center center; background-size: contain;}
+}

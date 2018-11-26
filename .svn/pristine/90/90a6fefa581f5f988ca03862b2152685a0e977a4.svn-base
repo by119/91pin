@@ -1,0 +1,8 @@
+<ion-content>
+  <div class="transheader"><img src="./assets/imgs/dl_bg.png" />
+    <ion-header>
+      <ion-navbar> </ion-navbar>
+    </ion-header>
+    <div class="btns"> <a target="_blank" [href]="dl_ios" class=""><img src="./assets/imgs/dl_ios.png"></a> <a target="_blank" [href]="dl_android"><img src="./assets/imgs/dl_android.png"></a> </div>
+  </div>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-content class="bgwhite">
+  <div class="transheader"><img src="./assets/imgs/background/login-banner.png" />
+    <ion-header>
+      <ion-navbar>
+        <ion-buttons end (click)="reg()">
+          <button ion-button class="underline"> 注册 </button>
+        </ion-buttons>
+      </ion-navbar>
+    </ion-header>
+
+  </div>
+  <form [formGroup]="pageForm">
+    <div class="input-container">
+      <ion-list>
+        <ion-item>
+          <ion-input type="tel" formControlName="username" placeholder="输入用户名/手机号"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.username.touched && !pageForm.controls.username.valid">
+            <ion-note color="primary">请正确输入用户名/手机号</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password"  formControlName="password" placeholder="输入密码"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.password.touched && !pageForm.controls.password.valid">
+            <ion-note color="primary">请输入至少6位密码</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note class="link" item-right (click)="findpwd()">忘记密码？</ion-note>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="btn-container" padding>
+      <p>
+        <button ion-button outline block round [disabled]="!pageForm.valid" (click)="sub(pageForm.value)">登 录</button>
+      </p>
+      <p *ngIf="wechatInstalled || cp.plt.is('android')">
+        <button ion-button block round (click)="wechatLogin()">微信一键登录</button>
+      </p>
+    </div>
+      <p text-center>
+        <ion-note color="gray">推荐使用微信登录，更便捷咯~</ion-note>
+      </p>
+  </form>
+</ion-content>

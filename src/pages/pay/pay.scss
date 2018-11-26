@@ -1,0 +1,33 @@
+page-pay {
+  ion-label{ font-size: 1.4rem}
+  input{ font-size: 1.4rem;}
+  .item-ios ion-avatar{ min-height: 26px; min-width: 26px;}
+  .item-ios ion-avatar img{ height: 26px; width: 26px;}
+  .item-radio-checked.item-ios ion-label{ color: black;}
+  
+  .workerInfoContainer{
+    padding:.5rem 0;
+    background:white;
+    p{ margin: 0.6rem 0;}
+    span{ white-space: nowrap}
+  }
+  .workerImg{
+    margin:0rem auto;
+  }
+  .workerImg img{
+    width:5rem;
+    height:5rem;
+    border-radius:5rem;
+
+  }
+  .money{
+    font-size:1.8rem;
+    color:color($colors,primary);
+    text-align:center;
+    line-height:5rem;
+  }
+  .intro{ background: url(../assets/imgs/border.png) repeat-x -18px top white; background-size: 94px; padding: 18px 12px 12px 12px;}
+  .footer .flex1{ padding: 0 2rem;}
+  .btn{ background-color: color($colors,primary); color: white; width: 40%; height: 44px; line-height: 44px; font-size: 14px; text-align: center;}
+}
+

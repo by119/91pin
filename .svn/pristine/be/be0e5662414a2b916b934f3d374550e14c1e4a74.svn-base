@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>个人信息</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<!--<ion-content padding>-->
+<ion-content>
+
+  <form action="" #form class="hide">
+    <input type="file" name="img" accept="image/*" (change)="uploadImg($event)">
+  </form>
+
+
+  <form [formGroup]="pageForm">
+    <ion-list long-lines>
+      <ion-item (click)="imgClick()">
+        <ion-thumbnail item-start>
+          <img [src]="userInfo.user_picture" class="avatar">
+        </ion-thumbnail>
+        <h2>{{userInfo.nick_name}}</h2>
+        <h3>{{userInfo.user_name}}</h3>
+        <ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>昵称</ion-label>
+        <ion-input type="text" formControlName="nick_name" placeholder="快起个名字吧" text-right></ion-input>
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+      <ion-item>
+        <ion-label>性别</ion-label>
+        <ion-select interface="popover" formControlName="sex">
+          <ion-option value="1">男</ion-option>
+          <ion-option value="2">女</ion-option>
+        </ion-select>
+        <!--<ion-input type="text" formControlName="sex" text-right></ion-input>-->
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+      <ion-item>
+        <ion-label>出生日期</ion-label>
+        <ion-datetime type="datetime" displayFormat="YYYY-MM-DD" doneText="确定" cancelText="取消" formControlName="birthday" text-right></ion-datetime>
+        <!--<ion-input type="text" formControlName="birthday" text-right></ion-input>-->
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+      <ion-item (click)="cp.goto('address')">
+        <ion-label>收货地址</ion-label>
+        <ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <div padding>
+      <button ion-button block round [disabled]="!pageForm.valid" (click)="submit()">提交</button>
+    </div>
+  </form>
+
+</ion-content>

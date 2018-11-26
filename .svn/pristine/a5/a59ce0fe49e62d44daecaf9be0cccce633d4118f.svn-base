@@ -1,0 +1,50 @@
+<ion-content class="bgwhite">
+  <div class="transheader"> <img src="./assets/imgs/background/login-banner.png" />
+    <ion-header>
+      <ion-navbar>
+      </ion-navbar>
+    </ion-header>
+  </div>
+  <form [formGroup]="pageForm">
+    <div class="input-container">
+      <ion-list>
+
+    <!--    <ion-item *ngIf="!cp.global.auth">
+          <ion-input type="text" formControlName="auth" placeholder="邀请码"></ion-input>
+          <button ion-button clear item-end class="link" (click)="cp.goto({view:'help',id:10})">如何获取？</button>
+        </ion-item>
+          -->
+        <ion-item>
+          <ion-input type="tel" formControlName="mobile" placeholder="输入手机号"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.mobile.touched && !pageForm.controls.mobile.valid">
+            <ion-note color="primary">请正确输入手机号</ion-note>
+        </ion-item>
+        <!--<ion-item>
+          <ion-input type="number" formControlName="captcha" placeholder="短信验证码"></ion-input>
+          <button ion-button clear item-end class="link" (click)="captcha($event)">获取验证码</button>
+        </ion-item>-->
+        <ion-item>
+          <ion-input type="password"  formControlName="password" placeholder="输入密码"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.password.touched && !pageForm.controls.password.valid">
+            <ion-note color="primary">请输入至少6位密码</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password"  formControlName="confirm_pwd" placeholder="确认密码"></ion-input>
+        </ion-item>
+        <ion-item class="tip" *ngIf="pageForm.controls.confirm_pwd.touched && pageForm.hasError('mismatchedPasswords') && pageForm.controls.pwd.valid">
+            <ion-note color="primary">两次输入密码不一致</ion-note>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="btn-container" padding>
+      <p>
+        <button ion-button block round [disabled]="!pageForm.valid" (click)="sub(pageForm.value)">提 交</button>
+      </p>
+    </div>
+      <p text-center>
+        <ion-note color="gray">注册即表示同意{{cp.APP_NAME}}<a color="primary" (click)="cp.goto({view:'article',id:5})">用户服务协议</a></ion-note>
+      </p>
+  </form>
+</ion-content>

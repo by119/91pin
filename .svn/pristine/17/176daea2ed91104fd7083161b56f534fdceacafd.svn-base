@@ -1,0 +1,129 @@
+import {Component, ViewChild} from '@angular/core';
+import {ActionSheetController, IonicPage} from 'ionic-angular';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CommonProvider} from "../../providers/common/common";
+
+@IonicPage({
+  name: 'user-info',
+  defaultHistory: ['center']
+})
+@Component({
+  selector: 'page-user-info',
+  templateUrl: 'user-info.html',
+})
+export class UserInfoPage {
+  @ViewChild('form') form;
+  fileElem: any;
+  formElem: any;
+
+  gender: any = 1;
+  pageForm: FormGroup = this.formBuilder.group({
+    user_id: ['', [Validators.required]],
+    avatar: ['', []],
+    nickname: ['', [Validators.required]],
+    gender: ['', [Validators.required]],
+    tel: ['', [Validators.required, Validators.pattern('^[1][3,4,5,7,8][0-9]{9}$')]],
+    birthday: ['', []],
+    autograph: ['', []],
+
+    // nick_name: ['', [Validators.required]],
+    // signature: ['', []],
+    // age: ['', []],
+    // province: ['', [Validators.required]],
+    // city: ['', [Validators.required]],
+    // mobile: ['', [Validators.required, Validators.pattern('^[1][3,4,5,7,8][0-9]{9}$')]],
+  });
+
+
+  constructor(public formBuilder: FormBuilder,
+              public actionSheetCtrl: ActionSheetController,
+              public cp: CommonProvider,) {
+  }
+
+  ionViewDidLoad() {
+    this.formElem = this.form.nativeElement;
+    this.fileElem = this.formElem.firstElementChild;
+  }
+
+  ionViewWillEnter() {
+    this.cp.checkLogin().then(res => {
+      if (!res) return;
+      this.cp.getData('user/Personalinformation').then((res: any) => {
+        if (!res.status) {
+          this.cp.alert(res.msg)
+          return;
+        }
+        let data = res.data;
+        data.gender = data.gender || 1;
+        data.user_id = data.id;
+        this.pageForm.patchValue(data);
+      });
+    });
+  }
+
+  imgClick() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: '更换头像',
+      buttons: [
+        {
+          text: '上传头像',
+          role: 'destructive',
+          handler: () => {
+            this.fileElem.click();
+          }
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+        }
+      ]
+    });
+    actionSheet.present()
+  }
+
+  uploadImg() {
+    this.cp.getData('upload/index', new FormData(this.formElem)).then((result: any) => {
+      if (result.code != 0)
+        this.cp.toast(result.msg.indexOf('大小不符') > 0 ? '图片需小于5M' : result.msg);
+      else
+        this.pageForm.patchValue({avatar: this.cp.WWW_URL + result.data.name});
+    });
+    //清空file
+    this.fileElem.value = '';
+  }
+
+  regionChange(p) {
+    if (!p) {
+      return;
+    }
+    let {province, city} = p;
+    this.pageForm.patchValue({
+      province,
+      city
+    });
+  }
+
+  bind(){
+    this.cp.goto('bind');
+  }
+
+  submit() {
+    let data = this.pageForm.value,
+    form_data = {
+      user_id: data.user_id,
+      param: data
+    };
+    this.cp.getData('user/PerfectaMessage', form_data).then((res:any) => {
+      this.cp.toast(res.msg);
+      if(res.status){
+        delete data.user_id;
+        Object.assign(data,this.cp.u.userProfile);
+        this.cp.setU(data);
+        // this.cp.setU(data);
+        this.cp.pop();
+      }
+
+    })
+  }
+
+}

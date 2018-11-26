@@ -1,0 +1,60 @@
+<!--
+  Generated template for the AfterSalePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>售后申请</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="nav-title">
+    <ion-toolbar no-border-top>
+      <ion-segment [(ngModel)]="pet">
+        <ion-segment-button value="0">
+          售后申请
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          进度查询
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </div>
+
+  <div class="collage-list-box" [ngSwitch]="pet">
+    <div *ngSwitchCase="0">
+      <div class="list-data">
+        <p class="order-num">
+          订单号：
+          <span>item.order_sn</span>
+        </p>
+        <p>item.add_time</p>
+      </div>
+      <div class="goods clearfix">
+        <!-- list.goods_thumb -->
+        <img src="http://www.maoxuankj.com/images/201808/thumb_img/0_thumb_G_1534452217838.jpg" alt="">
+        <div class="goods-info">
+          <p class="goods-title">list.goods_name</p>
+          <!-- <p class="goods-price">
+                      <span style="float:right;font-size:1.4rem;color:#999;">xlist.goods_number</span>
+                    </p> -->
+          <p class="goods-pro">
+            xlist.goods_number list.goods_attr
+          </p>
+        </div>
+      </div>
+      <div class="clearfix" style="padding: 1rem;background-color: #fff;">
+        <div class="after-btn" (click)="goTo({view:'after-detail'})">申请售后</div>
+      </div>
+    </div>
+    <div *ngSwitchCase="1"></div>
+  </div>
+
+</ion-content>

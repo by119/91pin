@@ -1,0 +1,70 @@
+{
+  "_from": "git+https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+  "_id": "cordova-plugin-themeablebrowser@0.2.17",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-themeablebrowser",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+    "rawSpec": "https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+    "saveSpec": "git+https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+    "fetchSpec": "https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git#8088953fe399e48b96fde93bf2b1098b21b5be18",
+  "_spec": "https://github.com/hzjianshi/cordova-plugin-themeablebrowser.git",
+  "_where": "D:\\cordova\\91pin",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/initialxy/cordova-plugin-themeablebrowser/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-themeablebrowser",
+    "platforms": [
+      "android",
+      "amazon-fireos",
+      "ubuntu",
+      "ios",
+      "wp7",
+      "wp8",
+      "windows8",
+      "windows",
+      "firefoxos"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova ThemeableBrowser Plugin",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.1.0"
+    }
+  ],
+  "homepage": "https://github.com/initialxy/cordova-plugin-themeablebrowser#readme",
+  "keywords": [
+    "cordova",
+    "in",
+    "app",
+    "browser",
+    "themeablebrowser",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-themeablebrowser",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/initialxy/cordova-plugin-themeablebrowser.git"
+  },
+  "version": "0.2.17"
+}

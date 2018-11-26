@@ -1,0 +1,38 @@
+{
+  "_from": "git+https://github.com/yanglongji/GetAjaxRequest.git",
+  "_id": "GetAjaxRequest@0.0.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/GetAjaxRequest",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/yanglongji/GetAjaxRequest",
+    "rawSpec": "https://github.com/yanglongji/GetAjaxRequest",
+    "saveSpec": "git+https://github.com/yanglongji/GetAjaxRequest.git",
+    "fetchSpec": "https://github.com/yanglongji/GetAjaxRequest.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/yanglongji/GetAjaxRequest.git#0cfb006ff02795e5ddb950ac715722deb8c0b60e",
+  "_spec": "https://github.com/yanglongji/GetAjaxRequest",
+  "_where": "D:\\cordova\\91pin",
+  "bundleDependencies": false,
+  "cordova_name": "WebView中截获ajax请求",
+  "deprecated": false,
+  "description": "WebView中截获ajax请求",
+  "issue": "https://github.com/yanglongji/GetAjaxRequest/issues",
+  "keywords": [
+    "ajax"
+  ],
+  "license": "MIT license",
+  "name": "GetAjaxRequest",
+  "platforms": [
+    "ios"
+  ],
+  "repo": "https://github.com/yanglongji/GetAjaxRequest",
+  "version": "0.0.1"
+}

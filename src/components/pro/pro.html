@@ -1,0 +1,109 @@
+<ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="1">
+      <ion-list class="goods{{type}}">
+        <ion-item *ngFor="let item of items;let i=index;" no-padding (click)="cp.gotoDetail(item)">
+          <div class="imgContainer">
+            <img defaultImage="./assets/imgs/loading.jpg" [lazyLoad]="item.pic" [scrollObservable]="content.ionScroll" class="copy">
+            <div class="video" *ngIf="item.video" (click)="cp.play(item.video,$event)"></div>
+          </div>
+          <div class="textContainer">
+            <div class="good_title">{{item.title}}</div>
+            <div class="price_row">
+              <div class="left">
+                <div class="price">
+                  <div>
+                    <span class="old_price">淘宝 ￥{{item.price}}</span>
+                  </div>
+                </div>
+                <div class="new_price">
+                    <span>￥</span><span class="big">{{item.now_price | splitPrice:'left'}}</span><span>{{item.now_price | splitPrice:'right'}}</span>
+                  </div>
+              </div>
+              <div class="right">
+                <span class="num inline-flex">{{item.volume>30 ? '月销'+item.volume : '新品超实惠'}}</span>
+                <div class="quan flex" *ngIf="item.coupon_amount>0 && item.shop_type !=3">
+                    <span class="left">券</span>
+                    <span class="right">{{item.coupon_amount}}元</span>
+                  </div>
+                  <div class="quan flex" *ngIf="item.shop_type ==3">
+                      <span class="left">团</span>
+                      <span class="right">{{item.extra_arr.team_num}}人团</span>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+      <!--商品列表-->
+      <ion-list class="goods2">
+        <ion-item *ngFor="let item of items;let i=index;" class="detail" (click)="cp.gotoDetail(item)">
+          <!--左侧图片-->
+          <ion-thumbnail item-start>
+            <img defaultImage="./assets/imgs/loading.jpg" [lazyLoad]="item.pic" [scrollObservable]="content.ionScroll" class="img" (click)="multiple($event,i)">
+            <div class="video" *ngIf="item.video" (click)="cp.play(item.video,$event)"></div>
+          </ion-thumbnail>
+          <!--右侧详情-->
+          <ion-grid no-padding>
+            <ion-row padding-left>
+              <ion-col class="title flex" col-70>
+                <p f15 class="good_title">{{item.title}}</p>
+              </ion-col>
+              <ion-col col-28 class="lisheng">
+                <p red text-center f15>预估佣金
+                  <br>
+                  <span>￥{{item.now_price*item.max_rate/100 | number : '1.0-1'}}</span>
+                </p>
+              </ion-col>
+            </ion-row>
+            <ion-row padding-left>
+              <ion-col col-70 padding-right>
+                <p lr_layout class="f12">
+                  <span lr_left gray>原价{{item.price | number : '1.0-1'}}元</span>
+                  <span lr_right red>已抢{{item.volume}}件</span>
+                </p>
+                <p f15>
+                  <span red>{{item.coupon_price>0?'券后':'折后'}}价:{{item.now_price | number : '1.0-1'}}元</span>
+                  <span *ngIf="true" class="baoYou">{{item.coupon_price == 0 && item.coupon_info? item.coupon_info :'包邮'}}</span>
+                </p>
+              </ion-col>
+              <ion-col col-28 class="buy" relative>
+                <button ion-button round block no-padding no-margin absolute bottom>马上抢</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <ion-list class="goods">
+        <ion-item *ngFor="let item of items;let i=index;" (click)="cp.gotoDetail(item)">
+          <img defaultImage="./assets/imgs/loading.jpg" [lazyLoad]="item.pic" [scrollObservable]="content.ionScroll" item-left>
+          <div class="video" *ngIf="item.video" (click)="cp.play(item.video,$event)"></div>
+          <div class="title">
+            <h6>
+             <!--  <img src="./assets/imgs/st{{item.shop_type}}.png" /> --> {{item.title}}</h6>
+          </div>
+          <div class="prices">
+            <div class="flex1">
+              <div class="zk_price">￥{{item.now_price | number : '1.0-1'}}
+                <del>
+                  <small>￥{{item.price | number : '1.0-1'}}</small>
+                </del>
+              </div>
+              <div class="quan flex" *ngIf="item.coupon_amount>0 && item.shop_type !=3">
+                <span class="left">券</span>
+                <span class="right">{{item.coupon_amount}}元</span>
+              </div>
+              <div class="quan flex" *ngIf="item.shop_type ==3 ">
+                  <span class="left">团</span>
+                  <span class="right">{{item.extra_arr.team_num}}人团</span>
+                </div>
+              <small color="gray">{{item.volume>30 ? item.volume+'人已购买' : '新品超实惠'}}</small>
+            </div>
+            </div>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </ng-container>

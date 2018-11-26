@@ -1,0 +1,14 @@
+<div class="rank-list clearfix" (click)="goTo({goods_id:good.id,view:'collage-detail'})">
+  <img src="{{good.goods_thumb}}" alt="">
+  <div class="list-info">
+    <h4 class="list-title">{{good.goods_name}}</h4>
+    <p class="group-num">{{good.limit_num}}人参团</p>
+    <div class="list-buy">
+      <div class="list-price">{{good.team_price}}</div>
+      <div class="list-btn">
+        <div class="group-2">{{good.team_num}}人团</div>
+        <div class="group-btn">去开团</div>
+      </div>
+    </div>
+  </div>
+</div>

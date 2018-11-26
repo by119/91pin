@@ -1,0 +1,33 @@
+page-team-user {
+
+    .avatar {
+        padding: 0.5rem 1rem;
+        background-color: #fff;
+        margin-top: 1px;
+        img {
+            width: 4rem;
+            height: 4rem;
+            border: 2px solid #fff;
+            border-radius: 100%;
+            float: left;
+            margin-right: 1rem;
+        }
+        h4 {
+            padding-top: 1rem;
+            font-size: 1.6rem;
+            color: #333; 
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #999;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+        }
+    }
+}

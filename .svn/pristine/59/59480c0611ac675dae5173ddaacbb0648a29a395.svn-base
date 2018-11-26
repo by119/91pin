@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>个人信息</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<!--<ion-content padding>-->
+<ion-content>
+
+  <form action="" #form class="hide">
+    <input type="file" name="file" accept="image/*" (change)="uploadImg($event)">
+  </form>
+
+  <form [formGroup]="pageForm">
+    <ion-list long-lines>
+      <ion-item (click)="imgClick()">
+        <ion-label>头像</ion-label>
+        <ion-thumbnail item-end flex>
+          <img [src]="pageForm.controls.avatar.value||'./assets/imgs/center/avatar'+(pageForm.controls.gender.value?pageForm.controls.gender.value:0)+'.png'" style="margin-right:1rem;">
+          <ion-icon name="ios-arrow-forward" color="gray"></ion-icon>
+        </ion-thumbnail>
+      </ion-item>
+      <ion-item>
+        <ion-label>昵称</ion-label>
+        <ion-input type="text" formControlName="nickname" placeholder="快起个名字吧" text-right></ion-input>
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+      <ion-item>
+        <ion-label>个性签名</ion-label>
+        <ion-input type="text" formControlName="autograph" placeholder="这家伙很懒，还没有签名" text-right></ion-input>
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+      <ion-item (click)="cp.goto('qrcode')">
+        <ion-label>我的二维码</ion-label>
+        <ion-thumbnail item-end flex style="min-height:auto;">
+          <ion-icon name="qr-code" style="margin-right:1rem;"></ion-icon>
+          <ion-icon name="ios-arrow-forward" color="gray"></ion-icon>
+        </ion-thumbnail>
+        <ion-label></ion-label>
+      </ion-item>
+    <!--</ion-list>-->
+
+    <!--<ion-list long-lines>-->
+      <ion-item>
+        <ion-label>性别</ion-label>
+        <ion-select interface="popover" formControlName="gender">
+          <ion-option value="1">男</ion-option>
+          <ion-option value="2">女</ion-option>
+        </ion-select>
+      </ion-item>
+
+<!--      <ion-item>
+        <ion-label>常驻地区</ion-label>
+        <regions [province]="pageForm.controls.province.value" [city]="pageForm.controls.city.value" (change)="regionChange($event)" item-end flex></regions>
+        &lt;!&ndash;<div item-end>
+          <region [region]="r" [region_data]="r_d" (change)="_change($event)"></region>
+        </div>&ndash;&gt;
+      </ion-item>
+      -->
+<!--      <ion-item>
+        <ion-label>生日</ion-label>
+        <ion-datetime type="datetime" displayFormat="YYYY-MM-DD" doneText="确定" cancelText="取消" formControlName="age"
+                      placeholder="未填写生日" text-right></ion-datetime>
+        <ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>
+      </ion-item>-->
+      <ion-item>
+        <ion-label>手机号</ion-label>
+        <ion-input type="text" (click)="bind()" readonly formControlName="tel" placeholder="请绑定手机号" text-right></ion-input>
+        <!--<ion-icon item-end name="ios-arrow-forward" color="gray"></ion-icon>-->
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block [disabled]="!pageForm.valid" (click)="submit()">提交</button>
+    </div>
+  </form>
+</ion-content>

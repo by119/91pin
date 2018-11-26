@@ -1,0 +1,67 @@
+{
+  "_from": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+  "_id": "cordova-plugin-sharesdk@0.1.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-sharesdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+    "rawSpec": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+    "saveSpec": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+    "fetchSpec": "https://github.com/hzjianshi/cordova-plugin-sharesdk.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git#456896e2ac89ceb8d08cc1b482ee6759e77c9e42",
+  "_spec": "https://github.com/hzjianshi/cordova-plugin-sharesdk",
+  "_where": "D:\\cordova\\91pin",
+  "author": {
+    "name": "behring.zhao"
+  },
+  "bugs": {
+    "url": "https://github.com/hzjianshi/cordova-plugin-sharesdk/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-sharesdk",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "封装sharesdk,使hybird app能快速集成分享功能",
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=4.1.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=4.0.0"
+    }
+  ],
+  "homepage": "https://github.com/hzjianshi/cordova-plugin-sharesdk#readme",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "share",
+    "sharesdk",
+    "ionic",
+    "react"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-sharesdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hzjianshi/cordova-plugin-sharesdk.git"
+  },
+  "version": "0.1.0"
+}

@@ -1,0 +1,104 @@
+<!--
+  Generated template for the AfterProgressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>退换货详情</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h4>商品列表</h4>
+  <div class="goods clearfix" (click)="goTo({view:'collage-detail',goods_id:returnDetail.goods_id})">
+    <img src="{{returnDetail?.goods_thumb}}" alt="">
+    <div class="goods-info">
+      <p class="goods-title">{{returnDetail?.goods_name}}</p>
+      <p class="goods-price">
+        <span>{{returnDetail?.goods_price}}</span>
+        <span style="float:right;font-size:1.4rem;color:#999;">x{{returnDetail?.return_number}}</span>
+      </p>
+      <p class="goods-pro">
+        <span>{{returnDetail?.attr_val}}</span>
+      </p>
+    </div>
+  </div>
+  <h4>详细信息</h4>
+  <div class="list">
+    <p>
+      退换货流水号：
+      <ion-note color="primary">{{returnDetail?.return_sn}}</ion-note>
+    </p>
+    <p>
+      申请时间：
+      <ion-note color="dark">{{returnDetail?.apply_time}}</ion-note>
+    </p>
+    <p>
+      服务类型：
+      <ion-note color="primary" *ngIf="returnDetail?.return_type==0">维修</ion-note>
+      <ion-note color="primary" *ngIf="returnDetail?.return_type==1">退货</ion-note>
+      <ion-note color="primary" *ngIf="returnDetail?.return_type==2">换货</ion-note>
+      <ion-note color="primary" *ngIf="returnDetail?.return_type==3">仅退款</ion-note>
+    </p>
+  </div>
+  <h4 style="margin-top: .5rem!important;">订单状态</h4>
+  <div class="list">
+    <p>
+      订单状态：
+      <ion-note color="dark">{{returnDetail?.return_status1}} - {{returnDetail?.refound_status1}}</ion-note>
+    </p>
+    <p>
+      问题描述：
+      <ion-note color="dark">{{returnDetail?.return_brief}}</ion-note>
+    </p>
+    <p *ngIf="returnDetail?.return_status == '6';else elseCause;">
+      拒绝原因：
+      <ion-note color="dark">{{returnDetail?.action_note}}</ion-note>
+    </p>
+    <ng-template #elseCause>
+      <p>
+        退货原因：
+        <ion-note color="dark">{{returnDetail?.return_cause}}</ion-note>
+      </p>
+    </ng-template>
+    <p *ngIf="returnDetail?.return_type=='1'||returnDetail?.return_type=='3'">
+      退款金额：
+      <ion-note color="primary">{{returnDetail?.formated_should_return}}</ion-note>
+    </p>
+    <p>
+      凭证图片:      
+    </p>
+    <div class="my-gallery clearfix">
+        <img *ngFor="let item of returnDetail.img_list;let i=index" (click)="showSlide(returnDetail.img_list,i)" class="img" src="{{item}}">
+    </div>
+  </div>
+
+  <div class="list">
+    <p>
+      联系人姓名：
+      <ion-note color="dark">{{returnDetail?.addressee}}</ion-note>
+    </p>
+    <p>
+      手机号码：
+      <ion-note color="dark">{{returnDetail?.phone}}</ion-note>
+    </p>
+    <p class="clearfix">
+      联系地址：
+      <ion-note color="dark" style="width: 70%;white-space:normal;line-height: 1.5rem;padding: .4rem 0;">{{returnDetail?.address_detail}}</ion-note>
+    </p>
+  </div>
+  <div class="state-btn" *ngIf="returnDetail?.status==3">确认收货</div>
+  <div class="state-btn" *ngIf="returnDetail?.status==4||returnDetail?.refound==1">已完成</div>
+  <div class="state-btn" *ngIf="returnDetail?.status==6">已拒绝</div>
+  <div class="state-btn" *ngIf="returnDetail?.status==0">待同意</div>
+  <div [class]="showSlides?'slide_bg':'slide_bg hide'" ion-fixed>
+    <ion-slides>
+      <ion-slide *ngFor="let item of slideImgs" (click)="toggleSlide()"> <img defaultImage="./assets/imgs/loading.gif" [lazyLoad]="item" [scrollObservable]="slides.ionSlideDidChange" /> </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

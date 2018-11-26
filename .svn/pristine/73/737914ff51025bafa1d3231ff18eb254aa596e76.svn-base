@@ -1,0 +1,100 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>购物车</ion-title>
+    <ion-note style="float: right;color: #fff;" (click)="showEdit()">编辑</ion-note>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="cart-box" *ngIf="cartList&&cartList.length>0;else elseCart">
+    <div class="cart-list" *ngFor="let list of cartList;let i=index;">
+      <div class="list-title" style="border-bottom: 1px solid #F7F7F7;">
+        <ion-icon (click)="chooseShop(i)" style="color: #FE5261" name="ios-checkmark-circle" *ngIf="this.shopList[i];else elseShopCircle"></ion-icon>
+        <ng-template #elseShopCircle>
+          <ion-icon (click)="chooseShop(i)" style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+        </ng-template>
+        {{list.shop_name}}
+      </div>
+      <!-- <div class="list-note">
+        <ion-icon style="color: #FE5261" class="iconfont icon-agio"></ion-icon>
+        已购满1件，已优惠200.24元
+      </div> -->
+      <div *ngFor="let item of list.new_list;let j=index;">
+        <div class="list-content clearfix" style="border-bottom: 1px solid #F7F7F7;">
+          <ion-icon (click)="chooseGoods(i,j,item.rec_id,item.goods_id)" style="color: #FE5261" name="ios-checkmark-circle" *ngIf="cartIdList[i][j]!=null;else elseCircle;"></ion-icon>
+          <ng-template #elseCircle>
+            <ion-icon (click)="chooseGoods(i,j,item.rec_id,item.goods_id)" style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+          </ng-template>
+          <img (click)="goTo({view:'pro-detail',goods_id:item.goods_id})" class="list-img" src="{{item.goods_thumb}}" alt="">
+          <div class="list-detail">
+            <p (click)="goTo({view:'pro-detail',goods_id:item.goods_id})" style="color: #333;font-size: 1.2rem;text-overflow: unset;margin: 0 0 .5rem 0;">{{item.goods_name}}</p>
+            <ion-note>{{item.goods_attr}}</ion-note>
+            <div class="list-price">
+              <span style="font-size:1.6rem;" *ngIf="!editState&&cartList&&cartList.length>0">{{item.goods_price_formated}}</span>
+              <!-- <span style="float:right;margin-right:1rem;color: #333;">*{{item.goods_number}}</span> -->
+              <div class="ctrl-del">
+                <ion-icon *ngIf="editState&&cartList&&cartList.length>0" class="iconfont icon-delete" style="float: right;color: #999;" (click)="confirmDelete(i, j,item.rec_id,item.goods_id)"></ion-icon>
+                <div class="ctrl-num clearfix">
+                  <span class="reduce" (click)="reduce(i,j,item.rec_id)">-</span>
+                  <input type="number" [(ngModel)]="chooseNum[i][j]" id="count" min="1" (blur)="inputBlur(chooseNum[i][j],i,j,item.rec_id)"
+                    (keyup)="inputKeyUp(chooseNum[i][j],i,j)">
+                  <span class="add" (click)="add(i,j,item.rec_id)">+</span>
+                  <input type="hidden" value="1000" id="num">
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseCart>
+    <div class="cart-null">
+      购物车空空如也~
+    </div>
+  </ng-template>
+  <div class="like-box">
+    <ion-title>
+      你可能还喜欢
+    </ion-title>
+    <div *ngIf="bestGoods&&bestGoods.length>0;else elseBest;">
+      <div class="clearfix" *ngFor="let item of bestGoods;">
+        <div class="like-list" (click)="goTo({goods_id:item.goods_id,view:'pro-detail'})">
+          <img src="{{item.goods_thumb}}" alt="">
+          <p class="like-depict">{{item.goods_name}}</p>
+          <p class="like-price">
+            <span style="font-size:1.4rem;">{{item.shop_price_formated}}</span>
+            <span style="color: #c6c6c6;font-size:1rem;text-decoration: line-through">{{item.market_price_formated}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBest>
+      <div class="cart-null">
+        还没有你可能喜欢的商品哦~
+      </div>
+    </ng-template>
+  </div>
+  <!-- 购物车底部 -->
+  <div class="submit clearfix" *ngIf="cartList&&cartList.length>0">
+    <div class="show-btn">
+      <p>合计:{{total.goods_price_formated}}</p>
+      <p>(不含运费, 已节省 {{total.discount_formated}})</p>
+    </div>
+    <div class="pay-btn" (click)="addressList()">结算</div>
+  </div>
+  <!-- <div *ngIf="editState&&cartList&&cartList.length>0" class="submit clearfix">
+    <div class="show-btn" style="padding-left: 5%;">
+      <ion-icon (click)="chooseAll()" style="color: #FE5261" name="ios-checkmark-circle" *ngIf="allState;else elseCircle;"></ion-icon>
+      <ng-template #elseCircle>
+        <ion-icon (click)="chooseAll()" style="color: #FE5261" name="ios-radio-button-off-outline"></ion-icon>
+      </ng-template>
+    </div>
+    <div class="pay-btn" (click)="confirmDelete()">删除</div>
+  </div> -->
+</ion-content>
